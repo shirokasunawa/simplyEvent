@@ -33,6 +33,7 @@ for($i=0;$i<count($result);$i++)
 {
   if(($result[$i]['adresseMail']==$email)||($result[$i]['password']==$password))
   {
+    setcookie('dataUser', $result[$i], time() + (86400 * 7)); 
     $_SESSION['nom']=$result[$i]['nom'];
     header('Location: ./index.php');
     
@@ -72,7 +73,7 @@ for($i=0;$i<count($result);$i++)
     }
   </style>
  
-  <?php include("./content/header.html"); ?>
+  <?php include("./content/header.php"); include("./content/footer.html"); ?>
 
 </head>
 
