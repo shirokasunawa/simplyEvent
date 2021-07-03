@@ -1,4 +1,29 @@
+<head>
+  <meta charset="utf-8">
+  <title>Titre de la page</title>
+  
+  <!-- CSS only -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+ <!-- JavaScript Bundle with Popper -->
+ <script src="util.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+<style>
+    .bd-placeholder-img {
+      font-size: 1.125rem;
+      text-anchor: middle;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      user-select: none;
+    }
 
+    @media (min-width: 768px) {
+      .bd-placeholder-img-lg {
+        font-size: 3.5rem;
+      }
+    }
+  </style>
+</head>
 
 <header class="p-3 bg-dark text-white"><div class="container">
       <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
@@ -21,8 +46,8 @@
         <div class="col-sm">
             
           <div class="text-end">
-            <a  href="connexion.php"><button type="button" id="buttunLogin" class="btn btn-warning">Login</button></a>
-            <a  href="inscription.php">  <button type="button"  id="buttunSignUp" class="btn btn-warning">Sign-up</button></a>
+            <button type="button" id="buttunLogin" class="btn btn-warning" onclick="hrefConnexion()">Login</button>
+           <button type="button"  id="buttunSignUp" class="btn btn-warning" onclick="hrefInscription()">Sign-up</button>
            
         
         <input type="button" id="buttunDeco" style="display:none" name="buttunDeco"
