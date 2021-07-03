@@ -85,7 +85,7 @@ function client(res) {
         }
     }
     if(userFind==true){
-        document.location.href = "index.php"
+        document.location.href = "espacePrive.php"
     }
     else{
         authSociety()
@@ -99,10 +99,10 @@ function testConnexion(){
     var auth ;
 //console.log(localStorage.getItem("_id"))
     if((cookie!='')){
-        if(localStorage.getItem("role")=='client')
+        /*if(localStorage.getItem("role")=='client')
         {
             document.getElementById("titre").innerHTML = '<h1> Bonjour '+localStorage.getItem("nom")+'  </h1>';
-        }
+        }*/
         
         document.getElementById("buttunLogin").style.display = 'none';
         document.getElementById("buttunSignUp").style.display = 'none';
@@ -249,10 +249,10 @@ function callback(xhr){
 function deco(){
     console.log(document.cookie)
     delete_cookie("nomuser");
-    if(localStorage.getItem("role")=='client')
+  /*  if(localStorage.getItem("role")=='client')
     {
         document.getElementById("titre").innerHTML = '';
-    }
+    }*/
     localStorage.clear();
    
     document.getElementById("buttunLogin").style.display = 'block';
@@ -304,7 +304,7 @@ function afficheForm() {
         chaineResult += ' <label for="passwordClient">Password</label>';
         chaineResult += ' <input type="password" class="form-control" id="passwordClient" placeholder="Password" >';
         chaineResult += '</div>';
-        chaineResult += ' <button type="button" class="btn btn-primary" onclick="envoie(\'client\')" >Submit</button>';
+        chaineResult += ' <button style="background-color:#e685b5 ;  border-color:#e685b5" type="button" class="btn btn-primary" onclick="envoie(\'client\')" >Submit</button>';
         //  chaineResult+='</form>';
         document.getElementById("formInscription").innerHTML = chaineResult;
     }
@@ -330,7 +330,7 @@ function afficheForm() {
         chaineResult += ' <label for="passwordSociety">Password</label>';
         chaineResult += ' <input type="password" class="form-control" id="passwordSociety" placeholder="Password" >';
         chaineResult += '</div>';
-        chaineResult += ' <button type="button" class="btn btn-primary" onclick="envoie(\'entreprise\')">Submit</button>';
+        chaineResult += ' <button style="background-color:#e685b5 ;  border-color:#e685b5" type="button" class="btn btn-primary" onclick="envoie(\'entreprise\')">Submit</button>';
 
         document.getElementById("formInscription").innerHTML = chaineResult;
     }

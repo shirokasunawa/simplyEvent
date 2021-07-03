@@ -1,7 +1,7 @@
 <head>
   <meta charset="utf-8">
-  <title>Titre de la page</title>
-  
+  <title>My Event</title>
+  <link rel="icon" type="image/png" sizes="16x16" href="myevent.png">
   <!-- CSS only -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
  <!-- JavaScript Bundle with Popper -->
@@ -26,37 +26,38 @@
 </head>
 
 <header class="p-3 bg-dark text-white"><div class="container">
-      <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
-        
-      <div class="col-sm">
-        <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-          <li><a href="index.php" class="nav-link px-2 text-white">Acceuil</a></li>
-          <li><a href="#" class="nav-link px-2 text-white">Features</a></li>
-          <li><a href="#" class="nav-link px-2 text-white">Pricing</a></li>
-           <li><a href="#" class="nav-link px-2 text-white">FAQs</a></li>
-           <li><a href="#" class="nav-link px-2 text-white">About</a></li>
-          </ul>
-          
-      </div>
-     
-      <div class="col-sm ">   <i class="bi bi-messenger" id="tchat" style="display : none" ></i> </div>
-         
-         <div class="col-sm"> <i class="bi bi-person-fill" id="profil" style="display : none" ></i> </div>
-      
-        <div class="col-sm">
-            
-          <div class="text-end">
-            <button type="button" id="buttunLogin" class="btn btn-warning" onclick="hrefConnexion()">Login</button>
-           <button type="button"  id="buttunSignUp" class="btn btn-warning" onclick="hrefInscription()">Sign-up</button>
+ 
+  <nav class="navbar navbar-expand navbar-dark bg-dark" aria-label="Second navbar example">
+    <div class="container-fluid">
+    <a href="index.php" class="nav-link px-2 text-white">  <img src="myevent.png" style="width:130px;height:auto" class="card-img-top" alt="..."></a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample02" aria-controls="navbarsExample02" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarsExample02">
+        <ul class="navbar-nav me-auto">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="index.php">Acceuil</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Pricing</a>
+          </li>
+        </ul>
+        <form>
+        <div style ="col-12" class="row align-items-center"> 
+        <div class="col-4"> <i class="bi bi-chat" id="tchat" style="display : none;font-size: 2rem; color: cornflowerblue;"></i></div>
+        <div class="col-4">  <i class="bi bi-person"  id="profil" style="display:none;font-size: 2rem; color: cornflowerblue;"></i></div>
+        <div class="col-4"> <input style="background-color:#e685b5 ;  border-color:#e685b5; display:none" class="btn btn-primary" type="button" id="buttunDeco" name="buttunDeco"
+                value="Deconnexion" onclick="deco()" /></div>
+                </div>
+        <button type="button" id="buttunLogin" style="background-color:#e685b5 ;  border-color:#e685b5" class="btn btn-primary" onclick="hrefConnexion()">Login</button>
+           <button type="button"  id="buttunSignUp" style="background-color:#e685b5 ; border-color:#e685b5" class="btn btn-primary" onclick="hrefInscription()">Sign-up</button>
            
-        
-        <input type="button" id="buttunDeco" style="display:none" name="buttunDeco"
-                class="btn btn-warning" value="Deconnexion" onclick="deco()" />
-       
-    
+        </form>
       </div>
-           </div>
-          </div>
-          </div>
+    </div>
+  </nav>
+
+
+         
          </header>
-     
