@@ -1,11 +1,5 @@
 
-  <?php
-        if(array_key_exists('buttunDeco', $_POST)) {
-            session_destroy();
-            header('Location: ./index.php');
-        }
-        
-    ?>
+
 <header class="p-3 bg-dark text-white"><div class="container">
       <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
         
@@ -30,11 +24,11 @@
             <a  href="connexion.php"><button type="button" id="buttunLogin" class="btn btn-warning">Login</button></a>
             <a  href="inscription.php">  <button type="button"  id="buttunSignUp" class="btn btn-warning">Sign-up</button></a>
            
-         <form method="post">
-        <input type="submit" id="buttunDeco" style="display:none" name="buttunDeco"
-                class="btn btn-warning" value="Deconnexion" />
+        
+        <input type="button" id="buttunDeco" style="display:none" name="buttunDeco"
+                class="btn btn-warning" value="Deconnexion" onclick="deco()" />
        
-    </form>
+    
       </div>
            </div>
           </div>

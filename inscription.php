@@ -1,3 +1,4 @@
+
 <!doctype html>
 <html lang="fr">
 <head>
@@ -27,34 +28,17 @@
     }
   </style>
  
-  <?php include("./content/header.php"); include("./content/footer.html"); ?>
+  <?php
+  
+  include("./content/header.php"); include("./content/footer.html");
+  //test envoie de formulaire
+ 
+  
+  ?>
 
 </head>
 <script>
-        function afficheForm()
-        {
-            var choix = findSelection("exampleRclientCheckadios");
-            
-            if(choix == 'client')
-            {
-                document.getElementById("formInscription").innerHTML= '<h2>client</h2>';
-            }
-            else{
-                document.getElementById("formInscription").innerHTML= '<h2>society</h2>';
-            }
-            
-        }
-        function findSelection(field) {
-    var test = document.getElementsByName(field);
-    var sizes = test.length;
-   
-    for (i=0; i < sizes; i++) {
-            if (test[i].checked==true) {
-                
-            return test[i].value;
-        }
-    }
-}
+
 
     </script>  
     <body class="text-center">

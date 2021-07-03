@@ -1,8 +1,3 @@
-<?php
-  session_start();
-
-
-?>
 <!doctype html>
 <html lang="fr">
 <head>
@@ -12,35 +7,25 @@
   <!-- CSS only -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
  <!-- JavaScript Bundle with Popper -->
+ <script src="util.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
 <?php  include("./content/header.php"); include("./content/footer.html"); ?>
 </head>
-<body>
+<body onload="testConnexion()">
   <span id="titre"></span>
   
-<?php
-if(isset($_SESSION["nom"]))
-{
-  if (key_exists('dataUser', $_COOKIE))
-  {
-    var_dump($_COOKIE['dataUser']);
-  }
-  
+ <script>
+alert(document.cookie);
 
-  ?> <script>
-   
-    document.getElementById("titre").innerHTML = '<h1> Bonjour <?php echo $_SESSION["nom"] ?>  </h1>';
+  /*  document.getElementById("titre").innerHTML = '<h1> Bonjour   </h1>';
     document.getElementById("buttunLogin").style.display = 'none';
     document.getElementById("buttunSignUp").style.display = 'none';
-    document.getElementById("buttunDeco").style.display = 'block';
+   document.getElementById("buttunDeco").style.display = 'block';
     document.getElementById("tchat").style.display = 'block';
-    document.getElementById("profil").style.display = 'block';
+    document.getElementById("profil").style.display = 'block';*/
   </script>
-  <?php
-}
-
-?>
+  
   <!-- Le reste du contenu -->
   ...
 </body>
