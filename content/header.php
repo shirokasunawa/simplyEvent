@@ -42,6 +42,12 @@
           <li class="nav-item">
             <a class="nav-link" href="#">Pricing</a>
           </li>
+          <li class="nav-item" id="navEspacePrive" style="display:none">
+            <a class="nav-link" href="espacePrive.php">Espace Privé</a>
+          </li>
+          <li class="nav-item" id="navEspace" style="display:none">
+            <a class="nav-link" href="espace.php">Espace Privé</a>
+          </li>
         </ul>
         <form>
         <div style ="col-12" class="row align-items-center"> 

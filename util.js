@@ -4,6 +4,99 @@ function hrefConnexion(){
 function hrefInscription(){
     document.location.href = "inscription.php"
 }
+function infoEntreprise(){
+    document.location.href = "infoEntreprise.php"
+
+}
+function tolocationproduct(){
+    document.location.href = "addProduct.php"
+}
+function product(){
+    document.location.href = "product.php"
+}
+function tolocationUpdateProduct(idproduct){
+    console.log(idproduct)
+    localStorage.setItem("temporaryVarClicke",idproduct)
+   document.location.href = "myproduct.php"
+   
+}
+function addProduct(){
+    var nomProduct =  document.getElementById("nomProduit").value;
+    var typeProduit =  document.getElementById("typeProduit").value;
+    var prixProduit =  document.getElementById("prixProduit").value;
+    var seller =  localStorage.getItem("_id")
+    var body = {
+        'typeProduct': typeProduit,
+        'nomProduct': nomProduct,
+        'priceProduct': prixProduit
+        
+    };
+    var url = 'http://localhost:3030/events/product/'+seller
+    const data = JSON.stringify(body)
+    const xhr = new XMLHttpRequest()
+    xhr.open('POST', url, true)
+    xhr.setRequestHeader('content-type', 'application/json')
+    xhr.setRequestHeader('authorization', 'Bearer 123abc456def')
+    xhr.responseType = "json"
+    xhr.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+            res = xhr.response;
+            //console.log(res)
+           // console.log(res)
+          
+           setLocalStorageProduct(seller)
+        }
+    };
+    xhr.send(data)
+    
+}
+function setLocalStorageProduct(seller){
+    const xhr = new XMLHttpRequest()
+    var urlget = 'http://localhost:3030/events/society/'+seller
+    xhr.open('GET', urlget, true)
+    xhr.setRequestHeader('content-type', 'application/json')
+    xhr.setRequestHeader('authorization', 'Bearer 123abc456def')
+    xhr.responseType = "json"
+    xhr.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+            res = xhr.response;
+            console.log(res)
+           // console.log(res)
+           localStorage.setItem("_products",  JSON.stringify(res['_products']));
+            document.location.href = "espace.php"
+        }
+    };
+    xhr.send()
+}
+function updateSociety(){
+    var url = 'http://localhost:3030/events/society/'+localStorage.getItem("_id");
+    var nameSociety =  document.getElementById("nomSocietyInput").value;
+    var adresseSociety =  document.getElementById("adresseSocietyInput").value;
+   var body = {
+        'nameUser': nameSociety,
+        'addressSociety': adresseSociety
+        
+    };
+    const data = JSON.stringify(body)
+    const xhr = new XMLHttpRequest()
+    xhr.open('PUT', url, true)
+    xhr.setRequestHeader('content-type', 'application/json')
+    xhr.setRequestHeader('authorization', 'Bearer 123abc456def')
+    xhr.responseType = "json"
+    xhr.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+            res = xhr.response;
+            //console.log(res)
+            console.log(res)
+            localStorage.setItem("nameSociety", nameSociety);
+            localStorage.setItem("adresse", adresseSociety);
+            document.location.href = "espace.php"
+        }
+    };
+    xhr.send(data)
+    
+
+}
 function auth() {
     var url = 'http://localhost:3030/events/client';
     const xhr = new XMLHttpRequest()
@@ -55,6 +148,7 @@ function society(res){
             localStorage.setItem("adresseMail", res[i]['adresseMail']);
             localStorage.setItem("adresse", res[i]['addressSociety']);
             localStorage.setItem("nameSociety", res[i]['nameSociety']);
+            localStorage.setItem("_products",  JSON.stringify(res[i]['_products']));
             setCookie('nomuser', res[i]['nameUser'],Date.now() + (86400 * 7))
             userFind=true;
         }
@@ -80,6 +174,7 @@ function client(res) {
             localStorage.setItem("_id", res[i]['_id']);
             localStorage.setItem("role", res[i]['role']);
             localStorage.setItem("adresseMail", res[i]['adresseMail']);
+            localStorage.setItem("_events", res[i]['_events']);
             setCookie('nomuser', res[i]['nom'],Date.now() + (86400 * 7))
             userFind=true;
         }
@@ -99,10 +194,13 @@ function testConnexion(){
     var auth ;
 //console.log(localStorage.getItem("_id"))
     if((cookie!='')){
-        /*if(localStorage.getItem("role")=='client')
+        if(localStorage.getItem("role")=='client')
         {
-            document.getElementById("titre").innerHTML = '<h1> Bonjour '+localStorage.getItem("nom")+'  </h1>';
-        }*/
+            document.getElementById("navEspacePrive").style.display = 'block' ;
+        }
+        else if(localStorage.getItem("role")=='entreprise'){
+            document.getElementById("navEspace").style.display = 'block' ;
+        }
         
         document.getElementById("buttunLogin").style.display = 'none';
         document.getElementById("buttunSignUp").style.display = 'none';

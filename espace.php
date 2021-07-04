@@ -11,8 +11,10 @@
     document.location.href = "index.php"
   }
   </script>
-  <button type="button" class="btn btn-primary">Information sur l\'entreprise</button>
-  <button type="button" class="btn btn-primary">Gerer mes produits</button>
-  <button type="button" class="btn btn-primary">Conversation Client</button>
+  <div class="d-flex justify-content-center">
+ <button type="button" class="btn btn-primary" style=" width: 18rem;margin: 1.5rem 1.5rem;height:10rem;background-color:#e685b5 ;  border-color:#e685b5; " onclick="infoEntreprise()">Information sur l'entreprise</button>
+ <button type="button" class="btn btn-primary" style="width: 18rem; margin: 1.5rem 1.5rem;height:10rem;background-color:#e685b5 ;  border-color:#e685b5;" onclick="product()">Gerer mes produits</button>
+ <button type="button" class="btn btn-primary" style="width: 18rem;margin: 1.5rem 1.5rem;height:10rem;background-color:#e685b5 ;  border-color:#e685b5;">Conversation Client</button>
+  </div>
 </body>
 </html>
