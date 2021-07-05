@@ -17,9 +17,46 @@ function tolocationproduct(){
 function product(){
     document.location.href = "product.php"
 }
+function addEvent(idtypeevent){
+  
+    var id =  localStorage.getItem("_id")
+    
+    const xhr = new XMLHttpRequest()
+ 
+    var body = {
+        "titreEvent": "A remplir",
+        "dateEvent":"A remplir",
+        "budgetEvent":0,
+        "_checklists": [],
+        "_typeEvent": idtypeevent,
+        "owner":id
+        
+    };
+   
+    var url = 'http://localhost:3030/events/event/'
+            const data = JSON.stringify(body)
+            console.log(data)
+            xhr.open('POST', url, true)
+            xhr.setRequestHeader('content-type', 'application/json')
+            xhr.setRequestHeader('authorization', 'Bearer 123abc456def')
+            xhr.responseType = "json"
+            xhr.onreadystatechange = function () {
+                if (this.readyState == 4 ) {
+                    res = xhr.response;
+                    console.log(res)
+                // console.log(res)
+                //localStorage.setItem("temporaryVarClicke",res['_id'])
+               // document.location.href = "myEvent.php"
+               localStorage.setItem("temporaryVarClicke",res['_id'])
+               document.location.href = "myEvent.php"
+                }
+            };
+            xhr.send(data)
+}
+
 function tolocationMyEvent(idmyevent)
 {
-   // localStorage.setItem("temporaryVarClicke",idmyevent)
+    localStorage.setItem("temporaryVarClicke",idmyevent)
     document.location.href = "myEvent.php"
 }
 function tolocationUpdateProduct(idproduct){

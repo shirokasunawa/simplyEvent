@@ -111,7 +111,30 @@
       </div>
     </div>
    <script>
-  
+       var id=  localStorage.getItem("temporaryVarClicke")
+    var url = 'http://localhost:3030/events/event/'+id;
+    const xhr = new XMLHttpRequest()
+    xhr.open('GET', url, true)
+    xhr.setRequestHeader('content-type', 'application/json')
+    xhr.setRequestHeader('authorization', 'Bearer 123abc456def')
+    xhr.responseType = "json"
+    var res
+    xhr.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+            res = xhr.response;
+            //console.log(res)
+            
+           var s =''
+           
+            s += '<h1>'+res['titreEvent']+'</h1>'
+           
+         
+             document.getElementById("typeEvents").innerHTML = s
+       
+            
+        }
+    };
+    xhr.send()
     </script>
 </body>
 </html>

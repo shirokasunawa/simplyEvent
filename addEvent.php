@@ -31,9 +31,9 @@
             if( Object.keys(res).length!=0){
            var s =''
            for(var i =0;i<res.length;i++){
-            s += '<button type="button" class="btn btn-outline-info" style="width: 18rem;margin: 1.5rem 1.5rem;height:10rem;" onclick="tolocationMyEvent(\''+res[i]["_id"]+'\')">'+res[i]["libelle"]+'</button>'
+            s += '<button type="button" class="btn btn-outline-info" style="width: 18rem;margin: 1.5rem 1.5rem;height:10rem;" onclick="addEvent(\''+res[i]["_id"]+'\')">'+res[i]["libelle"]+'</button>'
            }
-         
+         console.log(s)
              document.getElementById("typeEvents").innerHTML = s
        }
             
