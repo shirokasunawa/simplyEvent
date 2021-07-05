@@ -11,13 +11,13 @@
     document.location.href = "index.php"
   }
   </script>
-  <p>Mon espace personnel</p>
-   <button type="button" class="btn btn-primary" style="background-color:#e685b5 ;  border-color:#e685b5;" onclick="tolocationAddEvent()">Ajouter un event <i class="bi bi-plus"></i></button>
+  <p>Choississez qu'elle genre d'évènement vous voulez crééer</p>
+   
 </br>
-   <span id="events"></span>
+   <span id="typeEvents"></span>
    <script>
-     var id=localStorage.getItem("_id")
-      var url = 'http://localhost:3030/events/client/'+id;
+     
+      var url = 'http://localhost:3030/events/typeEvents/';
     const xhr = new XMLHttpRequest()
     xhr.open('GET', url, true)
     xhr.setRequestHeader('content-type', 'application/json')
@@ -28,13 +28,13 @@
         if (this.readyState == 4 && this.status == 200) {
             res = xhr.response;
             //console.log(res)
-            if( Object.keys(res["_events"]).length!=0){
+            if( Object.keys(res).length!=0){
            var s =''
-           for(var i =0;i<res["_events"].length;i++){
-            s += '<button type="button" class="btn btn-outline-dark" style="width: 18rem;margin: 1.5rem 1.5rem;height:10rem;" onclick="tolocationMyEvent(\''+res["_events"][i]["_id"]+'\')">'+res["_events"][i]["titreEvent"]+'</button>'
+           for(var i =0;i<res.length;i++){
+            s += '<button type="button" class="btn btn-outline-info" style="width: 18rem;margin: 1.5rem 1.5rem;height:10rem;" onclick="tolocationMyEvent(\''+res[i]["_id"]+'\')">'+res[i]["libelle"]+'</button>'
            }
          
-             document.getElementById("events").innerHTML = s
+             document.getElementById("typeEvents").innerHTML = s
        }
             
         }

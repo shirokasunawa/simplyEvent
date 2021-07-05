@@ -40,7 +40,7 @@
             <a class="nav-link active" aria-current="page" href="index.php">Acceuil</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">Pricing</a>
+            <a class="nav-link" href="pricing.php">Pricing</a>
           </li>
           <li class="nav-item" id="navEspacePrive" style="display:none">
             <a class="nav-link" href="espacePrive.php">Espace Privé</a>

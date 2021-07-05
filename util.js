@@ -17,11 +17,19 @@ function tolocationproduct(){
 function product(){
     document.location.href = "product.php"
 }
+function tolocationMyEvent(idmyevent)
+{
+   // localStorage.setItem("temporaryVarClicke",idmyevent)
+    document.location.href = "myEvent.php"
+}
 function tolocationUpdateProduct(idproduct){
     console.log(idproduct)
     localStorage.setItem("temporaryVarClicke",idproduct)
    document.location.href = "myproduct.php"
    
+}
+function tolocationAddEvent(){
+    document.location.href = "addEvent.php"
 }
 function typeProduit(){
     var typeProduit = ['vetements', 'salle','fleur','mobilier'];
