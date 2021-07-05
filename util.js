@@ -20,6 +20,64 @@ function tolocationUpdateProduct(idproduct){
    document.location.href = "myproduct.php"
    
 }
+function majProduct(action){
+    const xhr = new XMLHttpRequest()
+    switch(action)
+    {
+        case 'modifier':
+            var nomProduit = document.getElementById("nomProduit").value;
+            var typeProduit = document.getElementById("typeProduit").value;
+            var prixProduit = document.getElementById("prixProduit").value;
+            var id =  localStorage.getItem("temporaryVarClicke")
+            var seller =  localStorage.getItem("_id")
+            var body = {
+                'typeProduct': typeProduit,
+                'nomProduct': nomProduit,
+                'priceProduct': prixProduit
+                
+            };
+            var url = 'http://localhost:3030/events/product/'+id
+            const data = JSON.stringify(body)
+           
+            xhr.open('PUT', url, true)
+            xhr.setRequestHeader('content-type', 'application/json')
+            xhr.setRequestHeader('authorization', 'Bearer 123abc456def')
+            xhr.responseType = "json"
+            xhr.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+                    res = xhr.response;
+                    //console.log(res)
+                // console.log(res)
+                
+                setLocalStorageProduct(seller)
+                }
+            };
+            xhr.send(data)
+        break;
+
+        case 'supprimer':
+            var id =  localStorage.getItem("temporaryVarClicke")
+            var url = 'http://localhost:3030/events/product/'+id
+            var seller =  localStorage.getItem("_id")
+            xhr.open('DELETE', url, true)
+            xhr.setRequestHeader('content-type', 'application/json')
+            xhr.setRequestHeader('authorization', 'Bearer 123abc456def')
+            xhr.responseType = "json"
+            xhr.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+                    res = xhr.response;
+                    //console.log(res)
+                // console.log(res)
+                
+                setLocalStorageProduct(seller)
+                }
+            };
+            xhr.send()
+
+        break;
+    }
+
+}
 function addProduct(){
     var nomProduct =  document.getElementById("nomProduit").value;
     var typeProduit =  document.getElementById("typeProduit").value;

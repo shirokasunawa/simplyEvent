@@ -43,9 +43,9 @@
     </div>
   </div>
 </br>
-            <button style="background-color:#e685b5 ;  border-color:#e685b5" class="w-100 btn btn-lg btn-primary"  type="button" onclick="">Modifier</button>
+            <button style="background-color:#e685b5 ;  border-color:#e685b5" class="w-100 btn btn-lg btn-primary"  type="button" onclick="majProduct('modifier')">Modifier</button>
 </br>
-            <button  class="w-100 btn btn-outline-danger" style="margin-top: 1.5rem" type="button" >Supprimer <i class="bi bi-trash"></i></button>
+            <button  class="w-100 btn btn-outline-danger" style="margin-top: 1.5rem" type="button" onclick="majProduct('supprimer')">Supprimer <i class="bi bi-trash"></i></button>
             <p class="mt-5 mb-3 text-muted">My Event</p>
          
         </main>
