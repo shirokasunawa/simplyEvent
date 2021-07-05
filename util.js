@@ -1,6 +1,9 @@
 function hrefConnexion(){
     document.location.href = "connexion.php"
 }
+function tolocationprofil(){
+    document.location.href = "profil.php"
+}
 function hrefInscription(){
     document.location.href = "inscription.php"
 }
@@ -19,6 +22,107 @@ function tolocationUpdateProduct(idproduct){
     localStorage.setItem("temporaryVarClicke",idproduct)
    document.location.href = "myproduct.php"
    
+}
+function majProfil(action){
+    const xhr = new XMLHttpRequest()
+    var nom =  document.getElementById("nameUserInput").value
+    var email =  document.getElementById("adresseMailInput").value
+    var password =  document.getElementById("passwordInput").value
+    var id =  localStorage.getItem("_id")
+    switch(action)
+    {
+        case 'modifier':
+          
+          if(localStorage.getItem("role")=='client')
+          {
+            var body = {
+                'nom': nom,
+                'adresseMail': email,
+                'password': password
+                
+            };
+            var url = 'http://localhost:3030/events/client/'+id
+            const data = JSON.stringify(body)
+            xhr.open('PUT', url, true)
+            xhr.setRequestHeader('content-type', 'application/json')
+            xhr.setRequestHeader('authorization', 'Bearer 123abc456def')
+            xhr.responseType = "json"
+            xhr.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+                    res = xhr.response;
+                    //console.log(res)
+                // console.log(res)
+                localStorage.setItem("nom", nom);
+                localStorage.setItem("adresseMail", email);
+                localStorage.setItem("password", password);
+                setCookie('nomuser', res['nom'],Date.now() + (86400 * 7))
+                document.location.href = "espacePrive.php"
+                
+                }
+            };
+            xhr.send(data)
+          }
+          else{
+            var body = {
+                'nameUser': nom,
+                'addressMail': email,
+                'password': password
+                
+            };
+            var url = 'http://localhost:3030/events/society/'+id
+            const data = JSON.stringify(body)
+            xhr.open('PUT', url, true)
+            xhr.setRequestHeader('content-type', 'application/json')
+            xhr.setRequestHeader('authorization', 'Bearer 123abc456def')
+            xhr.responseType = "json"
+            xhr.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+                    res = xhr.response;
+                    //console.log(res)
+                // console.log(res)
+                localStorage.setItem("nom", nom);
+                localStorage.setItem("adresseMail", email);
+                localStorage.setItem("password", password);
+                setCookie('nomuser', nom,Date.now() + (86400 * 7))
+                document.location.href = "espace.php"
+                
+                }
+            };
+            xhr.send(data)
+          }
+           
+           
+           
+        break;
+
+        case 'supprimer':
+            var url
+            if(localStorage.getItem("role")=='client')
+            {
+                url = 'http://localhost:3030/events/client/'+id
+            }
+            else{
+                url = 'http://localhost:3030/events/society/'+id
+            }
+           
+           
+            xhr.open('DELETE', url, true)
+            xhr.setRequestHeader('content-type', 'application/json')
+            xhr.setRequestHeader('authorization', 'Bearer 123abc456def')
+            xhr.responseType = "json"
+            xhr.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+                    res = xhr.response;
+                    //console.log(res)
+                // console.log(res)
+                
+                deco()
+                }
+            };
+            xhr.send()
+
+        break;
+    }
 }
 function majProduct(action){
     const xhr = new XMLHttpRequest()
@@ -200,12 +304,13 @@ function society(res){
     for (var i = 0; i < res.length; i++) {
         if ((res[i]['adresseMail'] == email) || (res[i]['password'] == mdp)) {
 
-            localStorage.setItem("nom", res[i]['nnameUserom']);
+            localStorage.setItem("nom", res[i]['nameUser']);
             localStorage.setItem("_id", res[i]['_id']);
             localStorage.setItem("role", 'entreprise');
-            localStorage.setItem("adresseMail", res[i]['adresseMail']);
+            localStorage.setItem("adresseMail", res[i]['addressMail']);
             localStorage.setItem("adresse", res[i]['addressSociety']);
             localStorage.setItem("nameSociety", res[i]['nameSociety']);
+            localStorage.setItem("password", res[i]['password']);
             localStorage.setItem("_products",  JSON.stringify(res[i]['_products']));
             setCookie('nomuser', res[i]['nameUser'],Date.now() + (86400 * 7))
             userFind=true;
@@ -232,6 +337,7 @@ function client(res) {
             localStorage.setItem("_id", res[i]['_id']);
             localStorage.setItem("role", res[i]['role']);
             localStorage.setItem("adresseMail", res[i]['adresseMail']);
+            localStorage.setItem("password", res[i]['password']);
             localStorage.setItem("_events", res[i]['_events']);
             setCookie('nomuser', res[i]['nom'],Date.now() + (86400 * 7))
             userFind=true;
@@ -320,15 +426,16 @@ function envoie(role) {
     xhr.onreadystatechange = function() {
         if (xhr.readyState === 4) {
             var datares = xhr.response
-          //console.log(res); // Par défault une DOMString
+       
          // console.log(res.hasOwnProperty('role')); 
-          if(datares.hasOwnProperty('role')){
+          if(role=='client'){
             console.log('client caase')
             setCookie('nomuser', datares['nom'], Date.now() + (86400 * 7));
             localStorage.setItem("_id", datares['_id']);
             localStorage.setItem("nom", datares['nom']);
             localStorage.setItem("role",datares['role']);
             localStorage.setItem("adresseMail",datares['adresseMail']);
+            localStorage.setItem("password",datares['password']);
             document.location.href = "index.php"
           }
           else{
@@ -336,9 +443,10 @@ function envoie(role) {
             localStorage.setItem("_id", datares['_id']);
             localStorage.setItem("nom", datares['nameUser']);
             localStorage.setItem("role",datares['roleUser']);
-            localStorage.setItem("addressMail",datares['adresseMail']);
+            localStorage.setItem("adresseMail",datares['addressMail']);
             localStorage.setItem("addressSociety",datares['addressSociety']);
             localStorage.setItem("nameSociety",datares['nameSociety']);
+            localStorage.setItem("password",datares['password']);
             //console.log(localStorage.getItem())
             document.location.href = "espace.php"
           }
@@ -349,40 +457,7 @@ function envoie(role) {
     xhr.setRequestHeader('authorization', 'Bearer 123abc456def')
     xhr.responseType = "json"
     var datares
-   /* xhr.onreadystatechange = function () {
-        if (this.readyState == 4 && this.status == 200) {
-            console.log(xhr.response)
-            datares = xhr.response
-            console.log(datares)
 
-            switch(role)
-            {
-                case 'client' :
-                    console.log('client caase')
-                    setCookie('nomuser', datares['nom'], Date.now() + (86400 * 7));
-                    localStorage.setItem("_id", datares['_id']);
-                    localStorage.setItem("nom", datares['nom']);
-                    localStorage.setItem("role",datares['role']);
-                    localStorage.setItem("adresseMail",datares['adresseMail']);
-                    document.location.href = "index.php"
-                    break;
-                case 'entreprise' : 
-                console.log(datares)
-                console.log('entreprise caase')
-                    setCookie('nomuser', datares['nameUser'], Date.now() + (86400 * 7));
-                    localStorage.setItem("_id", datares['_id']);
-                    localStorage.setItem("nom", datares['nameUser']);
-                    localStorage.setItem("role",datares['roleUser']);
-                    localStorage.setItem("addressMail",datares['adresseMail']);
-                    localStorage.setItem("addressSociety",datares['addressSociety']);
-                    localStorage.setItem("nameSociety",datares['nameSociety']);
-                    console.log(localStorage.getItem())
-                    document.location.href = "espace.php"
-                    break;
-            }
-        }
-    }
-    */
    
     xhr.send(data)
  //xhr.onreadystatechange = callback(xhr);

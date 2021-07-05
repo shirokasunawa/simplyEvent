@@ -51,8 +51,8 @@
         </ul>
         <form>
         <div style ="col-12" class="row align-items-center"> 
-        <div class="col-4"> <i class="bi bi-chat" id="tchat" style="display : none;font-size: 2rem; color: cornflowerblue;"></i></div>
-        <div class="col-4">  <i class="bi bi-person"  id="profil" style="display:none;font-size: 2rem; color: cornflowerblue;"></i></div>
+        <div class="col-4"> <i class="bi bi-chat" id="tchat"  style="display : none;font-size: 2rem; color: cornflowerblue;"></i></div>
+        <div class="col-4">  <i class="bi bi-person"  id="profil" onclick="tolocationprofil()" style="display:none;font-size: 2rem; color: cornflowerblue;"></i></div>
         <div class="col-4"> <input style="background-color:#e685b5 ;  border-color:#e685b5; display:none" class="btn btn-primary" type="button" id="buttunDeco" name="buttunDeco"
                 value="Deconnexion" onclick="deco()" /></div>
                 </div>
