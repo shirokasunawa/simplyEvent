@@ -23,6 +23,10 @@ function tolocationUpdateProduct(idproduct){
    document.location.href = "myproduct.php"
    
 }
+function typeProduit(){
+    var typeProduit = ['vetements', 'salle','fleur','mobilier'];
+    return typeProduit;
+}
 function majProfil(action){
     const xhr = new XMLHttpRequest()
     var nom =  document.getElementById("nameUserInput").value

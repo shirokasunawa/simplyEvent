@@ -25,16 +25,17 @@
       <input type="text"  style="display : none" class="form-control" id="nomProduit" >
     </div>
   </div>
-  <div class="form-group row">
+  <span id="optionSelectTypeProduct"></span>
+ 
+  <!--<div class="form-group row">
     <label for="typeProduit" class=" col-form-label">Choississez le type du produit</label>
     <div class="">
     <select class="form-select" id="typeProduit">
-    <option value="fleur">Fleur</option>
-    <option value="vetement">Vetement</option>
-    <option value="salle">salle</option>
+    
   </select>
   </div>
   </div>
+-->
   <div class="form-group row">
     <label for="prixProduit" class=" col-form-label">Prix du produit ( en € )</label>
     <div class="">
@@ -55,6 +56,21 @@
   </div>
 <span id="monproduitInfo"></span>
 <script>
+var typeProduct = typeProduit();
+var options =''
+options +='<div class="form-group row">'
+options +=' <label for="typeProduit" class=" col-form-label">Choississez le type du produit</label>'
+options +='  <div class="">'
+options +='   <select class="form-select" id="typeProduit">'
+for(var k=0;k<typeProduct.length;k++)
+{
+options += '<option value=\''+typeProduct[k]+'\'>'+typeProduct[k]+'</option>'
+}
+options +='   </select>'
+options +='   </div>'
+options +='   </div>'
+document.getElementById("optionSelectTypeProduct").innerHTML =options
+
     var id =  localStorage.getItem("temporaryVarClicke")
     console.log(id)
     var jsonProduct = JSON.parse(localStorage.getItem("_products"))
