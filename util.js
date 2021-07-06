@@ -18,42 +18,56 @@ function product(){
     document.location.href = "product.php"
 }
 function addEvent(idtypeevent){
-  
+  //iduser
     var id =  localStorage.getItem("_id")
     
     const xhr = new XMLHttpRequest()
  
     var body = {
         "titreEvent": "A remplir",
-        "dateEvent":"A remplir",
-        "budgetEvent":0,
-        "_checklists": [],
         "_typeEvent": idtypeevent,
-        "owner":id
+        "dateEvent":"A remplir",
+        "budgetEvent":0
+       
         
     };
    
     var url = 'http://localhost:3030/events/event/'
             const data = JSON.stringify(body)
-            console.log(data)
+         
             xhr.open('POST', url, true)
             xhr.setRequestHeader('content-type', 'application/json')
             xhr.setRequestHeader('authorization', 'Bearer 123abc456def')
             xhr.responseType = "json"
             xhr.onreadystatechange = function () {
-                if (this.readyState == 4 ) {
+                if (this.readyState == 4 && this.status == 200 ) {
                     res = xhr.response;
                     console.log(res)
-                // console.log(res)
-                //localStorage.setItem("temporaryVarClicke",res['_id'])
-               // document.location.href = "myEvent.php"
-               localStorage.setItem("temporaryVarClicke",res['_id'])
-               document.location.href = "myEvent.php"
+                    localStorage.setItem("temporaryVarClicke",res["_id"])
+                    assignEvent()
+              
                 }
             };
             xhr.send(data)
 }
-
+function assignEvent(){
+    var iduser =  localStorage.getItem("_id")
+   var idevent= localStorage.getItem("temporaryVarClicke")
+   var url = 'http://localhost:3030/events/event/'+idevent+'/'+iduser
+   const xhr = new XMLHttpRequest()
+   xhr.open('POST', url, true)
+    xhr.setRequestHeader('content-type', 'application/json')
+    xhr.setRequestHeader('authorization', 'Bearer 123abc456def')
+    xhr.responseType = "json"
+    xhr.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200 ) {
+            res = xhr.response;
+            console.log(res)
+            document.location.href = "espacePrive.php"
+        }
+    };
+    xhr.send()
+}
 function tolocationMyEvent(idmyevent)
 {
     localStorage.setItem("temporaryVarClicke",idmyevent)

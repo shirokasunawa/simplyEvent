@@ -27,11 +27,11 @@
     xhr.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
             res = xhr.response;
-            //console.log(res)
-            if( Object.keys(res["_events"]).length!=0){
+            console.log(res)
+            if( res[0]["_events"].length!=0){
            var s =''
-           for(var i =0;i<res["_events"].length;i++){
-            s += '<button type="button" class="btn btn-outline-dark" style="width: 18rem;margin: 1.5rem 1.5rem;height:10rem;" onclick="tolocationMyEvent(\''+res["_events"][i]["_id"]+'\')">'+res["_events"][i]["titreEvent"]+'</button>'
+           for(var i =0;i<res[0]["_events"].length;i++){
+            s += '<button type="button" class="btn btn-outline-dark" style="width: 18rem;margin: 1.5rem 1.5rem;height:10rem;" onclick="tolocationMyEvent(\''+res[0]["_events"][i]["_id"]+'\')">'+res[0]["_events"][i]["titreEvent"]+'</button>'
            }
          
              document.getElementById("events").innerHTML = s
