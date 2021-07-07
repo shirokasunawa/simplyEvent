@@ -5,6 +5,8 @@
 <?php  include("./content/header.php");  include("./content/footer.html"); ?>
   <!-- Le reste du contenu -->
 <script>
+
+
    let cookie= getCookie('nomuser')
   if( cookie=='' )
   {
@@ -140,7 +142,7 @@
             {
               var checklist='</br>'
               for(var t=0; t<res['_checklists'].length;t++){
-                checklist+= '<div class="d-flex flex-row"><div class=" btn  p-2 justify-content-start"  style="width: 100%; ">'+res['_checklists'][t]['titreCheclist']+' </div><div class=" p-2 justify-content-end btn btn-outline-danger"  style="border-color: #dc3545;"><i class="bi bi-trash" onclick="removeChecklist(\''+res['_checklists'][t]['_id']+'\')"></i></div></div></br>'
+                checklist+= '<div class="d-flex flex-row"><div class=" btn  p-2 justify-content-start" onclick="afficheDetailChecklist(\''+res['_checklists'][t]['_id']+'\')" style="width: 100%; ">'+res['_checklists'][t]['titreCheclist']+' </div><div class=" p-2 justify-content-end btn btn-outline-danger"  style="border-color: #dc3545;"><i class="bi bi-trash" onclick="removeChecklist(\''+res['_checklists'][t]['_id']+'\')"></i></div></div></br>'
               }
              // console.log(res['_checklists'])
               document.getElementById("mesChecklists").innerHTML = checklist
@@ -150,6 +152,62 @@
     };
     xhr.send()
 
+function afficheDetailChecklist(idChecklist){
+  console.log(idChecklist)
+ 
+  var url = 'http://localhost:3030/events/checklist/'+idChecklist;
+
+const xhr = new XMLHttpRequest()
+ xhr.open('GET', url, true)
+ xhr.setRequestHeader('content-type', 'application/json')
+ xhr.setRequestHeader('authorization', 'Bearer 123abc456def')
+ xhr.responseType = "json"
+ var res
+ xhr.onreadystatechange = function () {
+     if (this.readyState == 4 && this.status == 200) {
+         res = xhr.response;
+                   console.log(res)
+                   var s=''
+  s+='<div class="row" style="height: 50%;">'
+
+  
+        //check non présence d'informations 
+         if(res["prixCheclist"])
+         {
+
+         }
+         else{
+          s+=' <div class="form-group">'
+          s+='<div class="form-group row">'
+          s+='  <label for="budgetEvent" class=" col-form-label">Indiquer le prix ou votre budget </label>'
+          s+='  <div class="">'
+          s+=' <input type="number" class="form-control" id="budgetEvent" name="budgetEvent"min="0" >'
+          s+=' </div>'
+          s+='</div></br>'
+          s+='<div class="form-group row">'
+          s+='  <label for="budgetEvent" class=" col-form-label">Indiquer la quantite</label>'
+          s+='  <div class="">'
+          s+=' <input type="number" class="form-control" id="budgetEvent" name="budgetEvent"min="0" >'
+          s+=' </div>'
+          s+='</div></br>'
+          s += ' <button style="background-color:#e685b5 ;  border-color:#e685b5" type="button" class="btn btn-primary"  >Ajouter</button>';
+          s+='</div>'
+         }
+s+='</div>'
+s+='<div class="row" style="height: 50%;">'
+s+='<div id="viewDiv"></div>'
+s+='</div>'
+document.getElementById("bodyTabBoard").innerHTML = s
+
+afficheProduit()
+     }
+ };
+ xhr.send()
+
+}
+function afficheProduit(){
+  
+}
     function modifTitre(){
       var setBodyForm=''
       setBodyForm+=' <div class="d-flex justify-content-center">'
@@ -168,9 +226,9 @@
 
     function removeChecklist(idChecklist){
       console.log(idChecklist)
- /* var url = 'http://localhost:3030/events/checklist/'+id;
+  var url = 'http://localhost:3030/events/checklist/'+idChecklist;
 
-    const xhr = new XMLHttpRequest()
+   const xhr = new XMLHttpRequest()
     xhr.open('DELETE', url, true)
     xhr.setRequestHeader('content-type', 'application/json')
     xhr.setRequestHeader('authorization', 'Bearer 123abc456def')
@@ -185,7 +243,7 @@
             
         }
     };
-    xhr.send()*/
+    xhr.send()
     }
 
     function deleteEvent(){
@@ -502,5 +560,6 @@ function assignChecklist(){
     
 }
     </style>
+  
 </body>
 </html>

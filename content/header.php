@@ -16,7 +16,6 @@
       -moz-user-select: none;
       user-select: none;
     }
-
     @media (min-width: 768px) {
       .bd-placeholder-img-lg {
         font-size: 3.5rem;
@@ -24,7 +23,6 @@
     }
   </style>
 </head>
-
 <header class="p-3 bg-dark text-white"><div class="container">
  
   <nav class="navbar navbar-expand navbar-dark bg-dark" aria-label="Second navbar example">
@@ -33,14 +31,13 @@
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample02" aria-controls="navbarsExample02" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
-
       <div class="collapse navbar-collapse" id="navbarsExample02">
         <ul class="navbar-nav me-auto">
           <li class="nav-item">
             <a class="nav-link active" aria-current="page" href="index.php">Acceuil</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">Pricing</a>
+            <a class="nav-link" href="pricing.php">Pricing</a>
           </li>
           <li class="nav-item" id="navEspacePrive" style="display:none">
             <a class="nav-link" href="espacePrive.php">Espace Privé</a>
@@ -51,8 +48,8 @@
         </ul>
         <form>
         <div style ="col-12" class="row align-items-center"> 
-        <div class="col-4"> <i class="bi bi-chat" id="tchat" style="display : none;font-size: 2rem; color: cornflowerblue;"></i></div>
-        <div class="col-4">  <i class="bi bi-person"  id="profil" style="display:none;font-size: 2rem; color: cornflowerblue;"></i></div>
+        <div class="col-4"> <i class="bi bi-chat" id="tchat"  style="display : none;font-size: 2rem; color: cornflowerblue;"></i></div>
+        <div class="col-4">  <i class="bi bi-person"  id="profil" onclick="tolocationprofil()" style="display:none;font-size: 2rem; color: cornflowerblue;"></i></div>
         <div class="col-4"> <input style="background-color:#e685b5 ;  border-color:#e685b5; display:none" class="btn btn-primary" type="button" id="buttunDeco" name="buttunDeco"
                 value="Deconnexion" onclick="deco()" /></div>
                 </div>
@@ -63,7 +60,5 @@
       </div>
     </div>
   </nav>
-
-
          
          </header>
