@@ -14,8 +14,10 @@
  
    
    <div class="container-fluid">
+  
       <div class="row">
         <nav class="col-md-2 d-none d-md-block bg-light sidebar">
+        
           <div class="sidebar-sticky" >
           
             <div class=" align-content-stretch">
@@ -105,6 +107,7 @@
             localStorage.setItem("eventTitre",res["titreEvent"])
             localStorage.setItem("eventDate",res["dateEvent"])
             localStorage.setItem("eventBudget",res["budgetEvent"])
+            localStorage.setItem("eventType",res["_typeEvent"]["libelle"])
             //localStorage.setItem("eventType",res["_typeEvent"])
             let objLinea = JSON.stringify(res["_checklists"]);
             localStorage.setItem("eventChecklist",res["objLinea"])
@@ -133,9 +136,14 @@
     
             document.getElementById("infoDate").innerHTML =setDate
 
-            if(res['_checklists']!= [])
+            if(res['_checklists'].length!=0)
             {
-              document.getElementById("bodyTabBoard").innerHTML = '<p>A des checklists</sp>'
+              var checklist=''
+              for(var t=0; t<res['_checklists'].length;t++){
+                checklist+= ' <div class="btn  justify-content-center" style="width: 100%; margin-top:1em;">'+res['_checklists'][t]['titreCheclist']+' </div>'
+              }
+             // console.log(res['_checklists'])
+              document.getElementById("mesChecklists").innerHTML = checklist
             }
 
         }
@@ -364,7 +372,7 @@ function modifEventDate(){
 }
 
 function afficheChecklist(){
-  var url = 'http://localhost:3030/events/checklist/';
+  var url = 'http://localhost:3030/events/typeActions/';
     const xhr = new XMLHttpRequest()
     xhr.open('GET', url, true)
     xhr.setRequestHeader('content-type', 'application/json')
@@ -374,11 +382,21 @@ function afficheChecklist(){
     xhr.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
             res = xhr.response;
-            console.log(res)
+           
             var setBodyForm=''
-            
+            var typeEvent = localStorage.getItem("eventType")
             for(var i=0;i<res.length;i++){
-              setBodyForm += '<div class="d-flex flex-row"><div class="d-flex " ><i style=" font-size:22px !important; padding-top: 15px; " onclick="addChecklist(\''+res[i]['_id']+'\')" class="bi bi-plus-circle svg"></i></div><div class="btn d-flex justify-content-center" style="margin-top:1em;margin-bottom:1em;width:100%;text-align: center; margin-left:1em" >  '+res[i]['titreCheclist']+'</div></div>'
+ 
+                for(var k=0;k<res[i]["_typeEvent"].length;k++){
+                  if(res[i]["_typeEvent"][k]["libelle"]==typeEvent)
+                  {
+                   
+                    setBodyForm += '<div class="d-flex flex-row"><div class="d-flex " style="padding-top: 15px;"><i  style=" font-size:22px !important;  " onclick="addChecklist(\''+res[i]["titreAction"]+'\')" class="bi bi-plus-circle svgg"></i></div><div class="btn d-flex justify-content-center" style="margin-top:1em;margin-bottom:1em;width:100%;text-align: center; margin-left:1em" >  '+res[i]["titreAction"]+'</div></div>'
+                  }
+                
+                }
+            
+             
             }
             
             document.getElementById("bodyTabBoard").innerHTML = setBodyForm
@@ -390,8 +408,52 @@ function afficheChecklist(){
     xhr.send()
 }
 
-function addChecklist(idCheklist){
+function addChecklist(titreAction){
+  //Create checklist 
+  //assign checklist reload
+  var id=  localStorage.getItem("temporaryVarClicke")
+  var body = {
+                "titreCheclist": titreAction
+     
+            };
+            const data = JSON.stringify(body)
+  var url = 'http://localhost:3030/events/checklist/';
+    const xhr = new XMLHttpRequest()
+    xhr.open('POST', url, true)
+    xhr.setRequestHeader('content-type', 'application/json')
+    xhr.setRequestHeader('authorization', 'Bearer 123abc456def')
+    xhr.responseType = "json"
+    var res
+    xhr.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 201) {
+            res = xhr.response;
+            localStorage.setItem("idChecklist",res["_id"])
+          assignChecklist()
+            
+        }
+    };
+    xhr.send(data)
+}
 
+function assignChecklist(){
+  console.log(idCheclistAAssign)
+  var idCheclistAAssign = localStorage.getItem("idChecklist")
+  var id=  localStorage.getItem("temporaryVarClicke")
+  var url = 'http://localhost:3030/events/checklist/'+idCheclistAAssign+'/'+id;
+  const xhr = new XMLHttpRequest()
+    xhr.open('POST', url, true)
+    xhr.setRequestHeader('content-type', 'application/json')
+    xhr.setRequestHeader('authorization', 'Bearer 123abc456def')
+    xhr.responseType = "json"
+    var res
+    xhr.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 201) {
+            res = xhr.response;
+            document.location.reload();
+            
+        }
+    };
+    xhr.send()
 }
     </script>
     <style>
@@ -409,6 +471,13 @@ function addChecklist(idCheklist){
       cursor: pointer;
       border-radius: 15px;
 
+}
+.svgg:hover {
+      background-color: #ffeecc;
+      cursor: pointer;
+      border-radius: 15px;
+      height: 27px   
+    
 }
     </style>
 </body>
