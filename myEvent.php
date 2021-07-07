@@ -206,7 +206,30 @@ afficheProduit()
 
 }
 function afficheProduit(){
-  
+  var url = 'http://localhost:3030/events/society/';
+
+           
+    const xhr = new XMLHttpRequest()
+    xhr.open('GET', url, true)
+    xhr.setRequestHeader('content-type', 'application/json')
+    xhr.setRequestHeader('authorization', 'Bearer 123abc456def')
+    xhr.responseType = "json"
+    var res
+    xhr.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+            res = xhr.response;
+            var string='';
+            for(var n=0;n<res.length;n++){
+
+              if(res[n]["_products"].length !=0){
+                string +=' <button style="background-color:#e685b5 ;  border-color:#e685b5" type="button" class="btn btn-primary"  >'+res[n]["nameSociety"]+'</button>'
+              }
+            }
+
+           document.getElementById("viewDiv").innerHTML = string
+        }
+    };
+    xhr.send()
 }
     function modifTitre(){
       var setBodyForm=''
