@@ -36,7 +36,7 @@
               </diV>
             </h6>
             <ul class="nav flex-column mb-2">
-              <li class="nav-item">
+             <!-- <li class="nav-item">
                 <a class="nav-link" href="#">
                   <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
                   Current month
@@ -59,7 +59,8 @@
                   <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
                   Year-end sale
                 </a>
-              </li>
+              </li>-->
+              <span id="mesChecklists"></span>
             </ul>
           </div>
         </nav>
@@ -71,7 +72,7 @@
               <div class="btn-group mr-2">
                <!-- <button class="btn btn-sm btn-outline-secondary">Share</button>
                 <button class="btn btn-sm btn-outline-secondary">Export</button>-->
-                <button class="btn btn-sm btn btn-outline-danger" style="    border-color: #dc3545;">Supprimer <i class="bi bi-trash"></i></button>
+                <button class="btn btn-sm btn btn-outline-danger" onclick="deleteEvent()" style="    border-color: #dc3545;">Supprimer <i class="bi bi-trash"></i></button>
               </div>
             <!--  <button class="btn btn-sm btn-outline-secondary dropdown-toggle">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
@@ -101,7 +102,12 @@
             res = xhr.response;
             //console.log(res)
             
-          
+            localStorage.setItem("eventTitre",res["titreEvent"])
+            localStorage.setItem("eventDate",res["dateEvent"])
+            localStorage.setItem("eventBudget",res["budgetEvent"])
+            //localStorage.setItem("eventType",res["_typeEvent"])
+            let objLinea = JSON.stringify(res["_checklists"]);
+            localStorage.setItem("eventChecklist",res["objLinea"])
            
            var s = '<h1 class="h2">'+res['titreEvent']+'</h1>'
             document.getElementById("typeEvents").innerHTML = s
@@ -127,6 +133,11 @@
     
             document.getElementById("infoDate").innerHTML =setDate
 
+            if(res['_checklists']!= [])
+            {
+              document.getElementById("bodyTabBoard").innerHTML = '<p>A des checklists</sp>'
+            }
+
         }
     };
     xhr.send()
@@ -136,28 +147,113 @@
       setBodyForm+=' <div class="d-flex justify-content-center">'
       setBodyForm+='<div class="form-signin">'
       setBodyForm+=' <div class="form-group row">'
-      setBodyForm+=' <label for="titreEvent"  class="col-form-label">Donnez un titre à votre évènement</label>'
+      setBodyForm+=' <label for="titreEvent"  class="col-form-label">Modifier le titre à votre évènement</label>'
       setBodyForm+=' <div class="">'
       setBodyForm+='  <input type="text"   class="form-control" id="titreEvent" >'
       setBodyForm+=' </div>'
       setBodyForm+=' </div></br>'
-      setBodyForm+=' <button class="btn ">Modifier</button></div></div>'
+      setBodyForm+=' <button class="btn " onclick="modifTitreBtn()">Modifier</button></div></div>'
       document.getElementById("bodyTabBoard").innerHTML = setBodyForm
+     var titre = localStorage.getItem("eventTitre")
+      document.getElementById("titreEvent").value = titre
     }
 
+    function deleteEvent(){
+    
+  var id=  localStorage.getItem("temporaryVarClicke")
+  var url = 'http://localhost:3030/events/event/'+id;
+
+    const xhr = new XMLHttpRequest()
+    xhr.open('DELETE', url, true)
+    xhr.setRequestHeader('content-type', 'application/json')
+    xhr.setRequestHeader('authorization', 'Bearer 123abc456def')
+    xhr.responseType = "json"
+    var res
+    xhr.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+            res = xhr.response;
+                      
+            //localStorage.setItem("eventTitre",newDate)
+            document.location ="espacePrive.php";
+            
+        }
+    };
+    xhr.send()
+    }
+
+function modifTitreBtn(){
+  var newDate = document.getElementById("titreEvent").value
+  var id=  localStorage.getItem("temporaryVarClicke")
+  var url = 'http://localhost:3030/events/event/'+id;
+
+  var body = {
+                'titreEvent': newDate
+              
+                
+            };
+            const data = JSON.stringify(body)
+    const xhr = new XMLHttpRequest()
+    xhr.open('PUT', url, true)
+    xhr.setRequestHeader('content-type', 'application/json')
+    xhr.setRequestHeader('authorization', 'Bearer 123abc456def')
+    xhr.responseType = "json"
+    var res
+    xhr.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+            res = xhr.response;
+                      
+            localStorage.setItem("eventTitre",newDate)
+            document.location.reload();
+            
+        }
+    };
+    xhr.send(data)
+}
     function modifBudget(){
       var setBodyForm=''
       setBodyForm+=' <div class="d-flex justify-content-center">'
       setBodyForm+='<div class="form-signin">'
       setBodyForm+='<div class="form-group row">'
-      setBodyForm+='  <label for="budgetEvent" class=" col-form-label">Quel est votre budget ?</label>'
+      setBodyForm+='  <label for="budgetEvent" class=" col-form-label">Modifier votre budget ?</label>'
       setBodyForm+='  <div class="">'
       setBodyForm+=' <input type="number" class="form-control" id="budgetEvent" name="budgetEvent"min="0" >'
       setBodyForm+=' </div>'
       setBodyForm+='</div></br>'
-      setBodyForm+=' <button class="btn ">Modifier</button></div></div>'
+      setBodyForm+=' <button class="btn " onclick="modifBudgetBtn()">Modifier</button></div></div>'
       document.getElementById("bodyTabBoard").innerHTML = setBodyForm
+      var budget = localStorage.getItem("eventBudget")
+      document.getElementById("budgetEvent").value = budget
     }
+
+    function modifBudgetBtn(){
+      var newDate = document.getElementById("budgetEvent").value
+  var id=  localStorage.getItem("temporaryVarClicke")
+  var url = 'http://localhost:3030/events/event/'+id;
+
+  var body = {
+                'budgetEvent': newDate
+              
+                
+            };
+            const data = JSON.stringify(body)
+    const xhr = new XMLHttpRequest()
+    xhr.open('PUT', url, true)
+    xhr.setRequestHeader('content-type', 'application/json')
+    xhr.setRequestHeader('authorization', 'Bearer 123abc456def')
+    xhr.responseType = "json"
+    var res
+    xhr.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+            res = xhr.response;
+                      
+            localStorage.setItem("eventBudget",newDate)
+            document.location.reload();
+            
+        }
+    };
+    xhr.send(data)
+    }
+
 function modifType(){
   var url = 'http://localhost:3030/events/typeEvents/';
     const xhr = new XMLHttpRequest()
@@ -174,21 +270,48 @@ function modifType(){
             setBodyForm+=' <div class="d-flex justify-content-center">'
             setBodyForm+='<div class="form-signin">'
             setBodyForm+='<div class="form-group row">'
-            setBodyForm +=' <label for="typeProduit" class=" col-form-label">Choississez le type du produit</label>'
+            setBodyForm +=' <label for="typeProduit" class=" col-form-label">Modifier le type du produit</label>'
             setBodyForm +='  <div class="">'
-            setBodyForm +='   <select class="form-select" id="typeProduit">'
+            setBodyForm +='   <select class="form-select"id="typeProduit" >'
             
             for(var i=0;i<res.length;i++){
-              setBodyForm += '<option value=\''+res[i]["_id"]+'\'>'+res[i]["libelle"]+'</option>'
+              setBodyForm += '<option  value=\''+res[i]["_id"]+'\'>'+res[i]["libelle"]+'</option>'
             }
             setBodyForm +='   </select>'
          
             setBodyForm+=' </div>'
             setBodyForm+='</div></br>'
-            setBodyForm+=' <button class="btn ">Modifier</button></div></div>'
+            setBodyForm+=' <button class="btn " onclick="modifTypeBtn()">Modifier</button></div></div>'
             document.getElementById("bodyTabBoard").innerHTML = setBodyForm
-            
+           
       
+            
+        }
+    };
+    xhr.send()
+}
+function modifTypeBtn(){
+ var newType = document.getElementById("typeProduit").value
+  console.log(newType)
+  var id=  localStorage.getItem("temporaryVarClicke")
+  //console.log(id)
+  var url = 'http://localhost:3030/events/typeEvents/'+newType+'/'+id;
+//console.log(url)
+ 
+          
+          
+    const xhr = new XMLHttpRequest()
+    xhr.open('POST', url, true)
+    xhr.setRequestHeader('content-type', 'application/json')
+    xhr.setRequestHeader('authorization', 'Bearer 123abc456def')
+    xhr.responseType = "json"
+    var res
+    xhr.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 201) {
+            res = xhr.response;
+                      
+           // localStorage.setItem("eventDate",newDate)
+           document.location.reload();
             
         }
     };
@@ -200,13 +323,44 @@ function modifDate(){
           setBodyForm+=' <div class="d-flex justify-content-center">'
           setBodyForm+='<div class="form-signin">'
           setBodyForm+='<div class="form-group row">'
-          setBodyForm+=' <label for="dateEvent" class=" col-form-label">Choississez la date de votre évènement</label>'
+          setBodyForm+=' <label for="dateEvent" class=" col-form-label">Modifier la date de votre évènement</label>'
           setBodyForm+=' <div class="">'
           setBodyForm+=' <input type="date" class="form-control" id="dateEvent" name="dateEvent" min="0" >'
           setBodyForm+='  </div>'
           setBodyForm+='</div></br>'
-          setBodyForm+=' <button class="btn ">Modifier</button></div></div>'
+          setBodyForm+=' <button class="btn " onclick="modifEventDate()">Modifier</button></div></div>'
           document.getElementById("bodyTabBoard").innerHTML = setBodyForm
+          var budget = localStorage.getItem("eventDate")
+      document.getElementById("dateEvent").value = budget
+         
+}
+function modifEventDate(){
+  var newDate = document.getElementById("dateEvent").value
+  var id=  localStorage.getItem("temporaryVarClicke")
+  var url = 'http://localhost:3030/events/event/'+id;
+
+  var body = {
+                'dateEvent': newDate
+              
+                
+            };
+            const data = JSON.stringify(body)
+    const xhr = new XMLHttpRequest()
+    xhr.open('PUT', url, true)
+    xhr.setRequestHeader('content-type', 'application/json')
+    xhr.setRequestHeader('authorization', 'Bearer 123abc456def')
+    xhr.responseType = "json"
+    var res
+    xhr.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+            res = xhr.response;
+                      
+            localStorage.setItem("eventDate",newDate)
+            document.location.reload();
+            
+        }
+    };
+    xhr.send(data)
 }
 
 function afficheChecklist(){
@@ -224,7 +378,7 @@ function afficheChecklist(){
             var setBodyForm=''
             
             for(var i=0;i<res.length;i++){
-              setBodyForm += '<div class="d-flex flex-row"><div class="d-flex " ><i style=" font-size:22px !important; padding-top: 15px; " class="bi bi-plus-circle "></i></div><div class="btn d-flex justify-content-center" style="margin-top:1em;margin-bottom:1em;width:100%;text-align: center; margin-left:1em" >  '+res[i]['titreCheclist']+'</div></div>'
+              setBodyForm += '<div class="d-flex flex-row"><div class="d-flex " ><i style=" font-size:22px !important; padding-top: 15px; " onclick="addChecklist(\''+res[i]['_id']+'\')" class="bi bi-plus-circle svg"></i></div><div class="btn d-flex justify-content-center" style="margin-top:1em;margin-bottom:1em;width:100%;text-align: center; margin-left:1em" >  '+res[i]['titreCheclist']+'</div></div>'
             }
             
             document.getElementById("bodyTabBoard").innerHTML = setBodyForm
@@ -234,6 +388,10 @@ function afficheChecklist(){
         }
     };
     xhr.send()
+}
+
+function addChecklist(idCheklist){
+
 }
     </script>
     <style>
