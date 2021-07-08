@@ -92,7 +92,7 @@
       </div>
     </div>
    <script>
- 
+ $('.dropdown-toggle').dropdown()
        var id=  localStorage.getItem("temporaryVarClicke")
     var url = 'http://localhost:3030/events/event/'+id;
     const xhr = new XMLHttpRequest()
@@ -261,7 +261,16 @@ function afficheProduit(){
             for(var n=0;n<res.length;n++){
 
               if(res[n]["_products"].length !=0){
-                string +=' <button    type="button" style="margin: 5px;" class="btn-outline-primary btn-lg btn-block"  >'+res[n]["nameSociety"]+'</button></br>'
+               string +='<div  >'
+                string +=' <button   onclick="affichePush(\''+n+'\')" type="button" style="margin: 5px; width: 100%" class="btn-outline-primary btn-lg btn-block">'+res[n]["nameSociety"]+'</button>'
+                string +=' <div  id="dropPush'+n+'" style=" display: none;" >'
+                string +=' <a class="" href="#">Action</a>'
+                string +='<a class="" href="#">Another action</a>'
+                string +=' <a class="" href="#">Something else here</a>'
+                string +='</div>'
+               
+                string +='</div></br>'
+          
               }
             }
             string+='</div>'
@@ -269,6 +278,21 @@ function afficheProduit(){
         }
     };
     xhr.send()
+}
+function affichePush(idElement){
+  console.log(idElement)
+  var name="dropPush"+idElement
+  var statut= document.getElementById(name).style.display
+  if(statut=='none')
+  {
+    document.getElementById(name).style.display='block'
+  document.getElementById(name).style.overflow='hidden!important'
+  document.getElementById(name).style.position='position: absolute!important'
+  }
+  else{
+    document.getElementById(name).style.display='none'
+  }
+ 
 }
     function modifTitre(){
       var setBodyForm=''
