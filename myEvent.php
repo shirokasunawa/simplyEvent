@@ -169,15 +169,7 @@ const xhr = new XMLHttpRequest()
                    console.log(res)
                    var s=''
   s+='<div class="row" style="height: 50%;">'
-
-  
-        //check non présence d'informations 
-         if(res["prixCheclist"])
-         {
-
-         }
-         else{
-          s+=' <div class="form-group">'
+  s+=' <div class="form-group">'
           s+='<div class="form-group row">'
           s+='  <label for="budgetEvent" class=" col-form-label">Indiquer le prix ou votre budget </label>'
           s+='  <div class="">'
@@ -190,13 +182,22 @@ const xhr = new XMLHttpRequest()
           s+=' <input type="number" class="form-control" id="budgetEvent" name="budgetEvent"min="0" >'
           s+=' </div>'
           s+='</div></br>'
-          s += ' <button style="background-color:#e685b5 ;  border-color:#e685b5" type="button" class="btn btn-primary"  >Ajouter</button>';
-          s+='</div>'
+  
+        //check non présence d'informations 
+         if(res["prixCheclist"])
+         {
+          s += ' <button style="background-color:#e685b5 ;  border-color:#e685b5" type="button" class="btn btn-primary"  >Modifier</button>';
          }
-s+='</div>'
-s+='<div class="row" style="height: 50%;">'
-s+='<div id="viewDiv"></div>'
-s+='</div>'
+         else{
+          
+          s += ' <button style="background-color:#e685b5 ;  border-color:#e685b5" type="button" class="btn btn-primary"  >Ajouter</button>';
+         
+         }
+         s+='</div>'
+s+='</div></br>'
+
+s+='<span id="viewDiv"></span>'
+
 document.getElementById("bodyTabBoard").innerHTML = s
 
 afficheProduit()
@@ -219,13 +220,14 @@ function afficheProduit(){
         if (this.readyState == 4 && this.status == 200) {
             res = xhr.response;
             var string='';
+            string+='<div class="row" style="height: 50%;">'
             for(var n=0;n<res.length;n++){
 
               if(res[n]["_products"].length !=0){
-                string +=' <button style="background-color:#e685b5 ;  border-color:#e685b5" type="button" class="btn btn-primary"  >'+res[n]["nameSociety"]+'</button>'
+                string +=' <button    type="button" style="margin: 5px;" class="btn-outline-primary btn-lg btn-block"  >'+res[n]["nameSociety"]+'</button></br>'
               }
             }
-
+            string+='</div>'
            document.getElementById("viewDiv").innerHTML = string
         }
     };
