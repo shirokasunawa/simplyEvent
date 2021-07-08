@@ -171,40 +171,77 @@ const xhr = new XMLHttpRequest()
   s+='<div class="row" style="height: 50%;">'
   s+=' <div class="form-group">'
           s+='<div class="form-group row">'
-          s+='  <label for="budgetEvent" class=" col-form-label">Indiquer le prix ou votre budget </label>'
+          s+='  <label for="PrixBudgetChecklist" class=" col-form-label">Indiquer le prix ou votre budget </label>'
           s+='  <div class="">'
-          s+=' <input type="number" class="form-control" id="budgetEvent" name="budgetEvent"min="0" >'
+          s+=' <input type="number" class="form-control" id="PrixBudgetChecklist" name="PrixBudgetChecklist"min="0" >'
           s+=' </div>'
           s+='</div></br>'
           s+='<div class="form-group row">'
-          s+='  <label for="budgetEvent" class=" col-form-label">Indiquer la quantite</label>'
+          s+='  <label for="QuantityChecklist" class=" col-form-label">Indiquer la quantite</label>'
           s+='  <div class="">'
-          s+=' <input type="number" class="form-control" id="budgetEvent" name="budgetEvent"min="0" >'
+          s+=' <input type="number" class="form-control" id="QuantityChecklist" name="QuantityChecklist"min="0" >'
           s+=' </div>'
           s+='</div></br>'
-  
+          var titreButn= ''
         //check non présence d'informations 
-         if(res["prixCheclist"])
+         if(res.hasOwnProperty('prixCheclist'))
          {
-          s += ' <button style="background-color:#e685b5 ;  border-color:#e685b5" type="button" class="btn btn-primary"  >Modifier</button>';
+         
+         titreButn= 'Modifier'
+        
          }
          else{
-          
-          s += ' <button style="background-color:#e685b5 ;  border-color:#e685b5" type="button" class="btn btn-primary"  >Ajouter</button>';
+          titreButn= 'Ajouter'
+       
          
          }
+         s += ' <button style="background-color:#e685b5 ;  border-color:#e685b5" type="button" class="btn btn-primary"  onclick="ajoutInfoCheckist(\''+idChecklist+'\')">'+titreButn+'</button>';
          s+='</div>'
 s+='</div></br>'
 
 s+='<span id="viewDiv"></span>'
 
 document.getElementById("bodyTabBoard").innerHTML = s
+if(res.hasOwnProperty('prixCheclist')){
+  document.getElementById("PrixBudgetChecklist").value = res["prixCheclist"]
+document.getElementById("QuantityChecklist").value = res["quantiteCheclist"]
+}
 
 afficheProduit()
      }
  };
  xhr.send()
 
+}
+function ajoutInfoCheckist(idchecklist){
+ var PrixBudgetChecklist= document.getElementById("PrixBudgetChecklist").value
+ var QuantityChecklist= document.getElementById("QuantityChecklist").value
+
+  var url = 'http://localhost:3030/events/checklist/'+idchecklist;
+  
+  var body = {
+                "prixCheclist": PrixBudgetChecklist,
+                "quantiteCheclist": QuantityChecklist
+              
+                
+            };
+            const data = JSON.stringify(body)
+    const xhr = new XMLHttpRequest()
+    xhr.open('PUT', url, true)
+    xhr.setRequestHeader('content-type', 'application/json')
+    xhr.setRequestHeader('authorization', 'Bearer 123abc456def')
+    xhr.responseType = "json"
+    var res
+    xhr.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+            res = xhr.response;
+                
+           
+            document.location.reload();
+            
+        }
+    };
+    xhr.send(data)
 }
 function afficheProduit(){
   var url = 'http://localhost:3030/events/society/';
