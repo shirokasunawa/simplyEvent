@@ -4,6 +4,7 @@
 <body onload="testConnexion()"  class="text-center">
 <?php  include("./content/header.php");  include("./content/footer.html"); ?>
   <!-- Le reste du contenu -->
+  
 <script>
 
 
@@ -13,9 +14,15 @@
     document.location.href = "index.php"
   }
   </script>
+  </br>
  
-   
-   <div class="container-fluid">
+    
+     
+      <?php  include("./carousel.php");  ?>
+  
+ 
+
+   <div class="container-fluid" style="position : relative!important">
   
       <div class="row">
         <nav class="col-md-2 d-none d-md-block bg-light sidebar">
@@ -87,10 +94,11 @@
 
           <span id="bodyTabBoard"> </span>
          
-        
+      
         </main>
       </div>
     </div>
+    
    <script>
  $('.dropdown-toggle').dropdown()
        var id=  localStorage.getItem("temporaryVarClicke")

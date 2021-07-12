@@ -16,7 +16,7 @@ alert(document.cookie);
   </script>
   
   <main>
-
+<!--
 <div id="myCarousel" class="carousel slide" data-bs-ride="carousel">
   <div class="carousel-indicators">
     <button type="button"  data-bs-target="#myCarousel" data-bs-slide-to="0" class="active" aria-label="Slide 1" aria-current="true"></button>
@@ -67,7 +67,8 @@ alert(document.cookie);
     <span class="visually-hidden">Next</span>
   </button>
 </div>
-
+-->
+<?php  include("./carousel.php");  ?>
 
 <!-- Marketing messaging and featurettes
 ================================================== -->
