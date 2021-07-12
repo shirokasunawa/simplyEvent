@@ -1,6 +1,9 @@
 function hrefConnexion(){
     document.location.href = "connexion.php"
 }
+function pub(){
+    document.location.href = "Pub.php"
+}
 function tolocationprofil(){
     document.location.href = "profil.php"
 }

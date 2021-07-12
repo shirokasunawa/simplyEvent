@@ -264,9 +264,13 @@ function afficheProduit(){
                string +='<div  >'
                 string +=' <button   onclick="affichePush(\''+n+'\')" type="button" style="margin: 5px; width: 100%" class="btn-outline-primary btn-lg btn-block">'+res[n]["nameSociety"]+'</button>'
                 string +=' <div  id="dropPush'+n+'" style=" display: none;" >'
-                string +=' <a class="" href="#">Action</a>'
-                string +='<a class="" href="#">Another action</a>'
-                string +=' <a class="" href="#">Something else here</a>'
+                var productOneSociety=res[n]["_products"];
+                for(var h=0;h<productOneSociety.length;h++)
+                {
+                  string +=' <button type="button" class="btn btn-light btn-lg btn-block" style="width:100%;text-align: left;">'+productOneSociety[h]["typeProduct"]+' Prix unitaire : '+productOneSociety[h]["priceProduct"]+'€</button></br>'
+                }
+               
+                
                 string +='</div>'
                
                 string +='</div></br>'
