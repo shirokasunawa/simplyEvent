@@ -277,9 +277,14 @@ const xhr = new XMLHttpRequest()
      if (this.readyState == 4 && this.status == 200) {
          res = xhr.response;
                    console.log(res)
-                   var s=''
-  s+='<div class="row" style="height: 50%;">'
-  s+=' <div class="form-group">'
+      if((res.hasOwnProperty('productChecklist'))&&(res["productChecklist"] !=''))
+      {
+        afficheProductChoisis(res["productChecklist"],idChecklist)
+      }
+      else{
+                    var s=''
+            s+='<div class="row" style="height: 50%;">'
+            s+=' <div class="form-group">'
           s+='<div class="form-group row">'
           s+='  <label for="PrixBudgetChecklist" class=" col-form-label">Indiquer le prix ou votre budget </label>'
           s+='  <div class="">'
@@ -294,30 +299,32 @@ const xhr = new XMLHttpRequest()
           s+='</div></br>'
           var titreButn= ''
         //check non présence d'informations 
-         if(res.hasOwnProperty('prixCheclist'))
-         {
-         
-         titreButn= 'Modifier'
-        
-         }
-         else{
-          titreButn= 'Ajouter'
-       
-         
-         }
+                  if(res.hasOwnProperty('prixCheclist'))
+                  {
+                  
+                  titreButn= 'Modifier'
+                  
+                  }
+                  else{
+                    titreButn= 'Ajouter'
+                
+                  
+                  }
          s += ' <button style="background-color:#e685b5 ;  border-color:#e685b5" type="button" class="btn btn-primary"  onclick="ajoutInfoCheckist(\''+idChecklist+'\')">'+titreButn+'</button>';
          s+='</div>'
-s+='</div></br>'
+          s+='</div></br>'
 
-s+='<span id="viewDiv"></span>'
+          s+='<span id="viewDiv"></span>'
 
-document.getElementById("bodyTabBoard").innerHTML = s
-if(res.hasOwnProperty('prixCheclist')){
-  document.getElementById("PrixBudgetChecklist").value = res["prixCheclist"]
-document.getElementById("QuantityChecklist").value = res["quantiteCheclist"]
-}
+          document.getElementById("bodyTabBoard").innerHTML = s
+                  if(res.hasOwnProperty('prixCheclist')){
+                    document.getElementById("PrixBudgetChecklist").value = res["prixCheclist"]
+                  document.getElementById("QuantityChecklist").value = res["quantiteCheclist"]
+                      }
+                   afficheProduit(idChecklist)
+          }
 
-afficheProduit()
+
      }
  };
  xhr.send()
@@ -353,7 +360,7 @@ function ajoutInfoCheckist(idchecklist){
     };
     xhr.send(data)
 }
-function afficheProduit(){
+function afficheProduit(idChecklist){
   var url = 'http://'+urlDeploy+':3030/events/society/';
 
            
@@ -377,7 +384,7 @@ function afficheProduit(){
                 var productOneSociety=res[n]["_products"];
                 for(var h=0;h<productOneSociety.length;h++)
                 {
-                  string +=' <button type="button" class="btn btn-light btn-lg btn-block" style="width:100%;text-align: left;">'+productOneSociety[h]["typeProduct"]+' Prix unitaire : '+productOneSociety[h]["priceProduct"]+'€</button></br>'
+                  string +=' <button type="button" class="btn btn-light btn-lg btn-block" style="width:100%;text-align: left;" onclick="choixProduit(\''+productOneSociety[h]["_id"]+'\',\''+idChecklist+'\')">'+productOneSociety[h]["typeProduct"]+' Prix unitaire : '+productOneSociety[h]["priceProduct"]+'€</button></br>'
                 }
                
                 
@@ -392,6 +399,87 @@ function afficheProduit(){
         }
     };
     xhr.send()
+}
+function choixProduit(idProduct,idChecklist){
+//modifie checklist ajoute produit 
+//met a jour l'affichage avec contacter le vendeur
+//vérifier si click checklist a pas deja un produit
+
+  var url = 'http://'+urlDeploy+':3030/events/checklist/'+idChecklist;
+
+var body = {
+              'productChecklist': idProduct
+            
+              
+          };
+          const data = JSON.stringify(body)
+  const xhr = new XMLHttpRequest()
+  xhr.open('PUT', url, true)
+  xhr.setRequestHeader('content-type', 'application/json')
+  xhr.setRequestHeader('authorization', 'Bearer 123abc456def')
+  xhr.responseType = "json"
+  var res
+  xhr.onreadystatechange = function () {
+      if (this.readyState == 4 && this.status == 200) {
+          res = xhr.response;
+                    
+          afficheProductChoisis(idProduct,idChecklist)
+         
+         // document.getElementById("viewDiv").innerHTML = string
+      }
+  };
+  xhr.send(data)
+
+  
+}
+
+function afficheProductChoisis(idProduct,idChecklist){
+  console.log(idChecklist)
+  var url = 'http://'+urlDeploy+':3030/events/product/'+idProduct;
+
+
+  const xhr = new XMLHttpRequest()
+  xhr.open('GET', url, true)
+  xhr.setRequestHeader('content-type', 'application/json')
+  xhr.setRequestHeader('authorization', 'Bearer 123abc456def')
+  xhr.responseType = "json"
+  var res
+  xhr.onreadystatechange = function () {
+      if (this.readyState == 4 && this.status == 200) {
+          res = xhr.response;
+                    
+         string =''
+         string +='<h1>'+res["typeProduct"]+'</h1>'
+         string +='<h1>'+res["priceProduct"]+'</h1>'
+         string +='<button type="button" class="btn btn-primary"onclick="modifProductProduit(\''+idChecklist+'\')">Modifier</button>'
+         string +='<button type="button" class="btn btn-primary">Contacter vendeur</button>'
+         
+         
+         document.getElementById("bodyTabBoard").innerHTML = string
+      }
+  };
+  xhr.send()
+}
+function modifProductProduit(idChecklist){
+  console.log(idChecklist)
+  var url = 'http://'+urlDeploy+':3030/events/checklistproduct/'+idChecklist;
+
+  const xhr = new XMLHttpRequest()
+  xhr.open('PUT', url, true)
+  xhr.setRequestHeader('content-type', 'application/json')
+  xhr.setRequestHeader('authorization', 'Bearer 123abc456def')
+  xhr.responseType = "json"
+  var res
+  xhr.onreadystatechange = function () {
+      if (this.readyState == 4 && this.status == 200) {
+          res = xhr.response;
+                    
+          //afficheProductChoisis(idProduct,idChecklist)
+         document.location.reload();
+         // document.getElementById("viewDiv").innerHTML = string
+      }
+  };
+  xhr.send()
 }
 function affichePush(idElement){
   console.log(idElement)
