@@ -19,7 +19,26 @@
     
      
       <?php  include("./carousel.php");  ?>
-  
+ 
+      <div class="modal fade " id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body  " >
+     
+      <span id="PubModal"></span>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
  
      
    <div class="container-fluid" style="position : relative!important">
@@ -164,8 +183,67 @@
         }
     };
     xhr.send()
+function affichePubModal(){
+  
+  var url = 'http://localhost:3030/events/pubmodal/'
+  
 
+    const xhr = new XMLHttpRequest()
+    xhr.open('GET', url, true)
+    xhr.setRequestHeader('content-type', 'application/json')
+    xhr.setRequestHeader('authorization', 'Bearer 123abc456def')
+    xhr.responseType = "json"
+    var res
+    xhr.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+            res = xhr.response;
+                
+            var data=(res[0]["img"]["img"]).split(',')[1];
+     var binaryBlob = atob(data);
+    
+     var s=' <img src="data:image/jpeg;base64,' + btoa(binaryBlob)+'" style="max-width: 100%" id="myimg" onclick="majClickPub(\''+res[0]["_id"]+'\',\''+res[0]["nbrClickReel"]+'\') " >'
+
+document.getElementById("PubModal").innerHTML = s
+           
+            
+        }
+    };
+    xhr.send()
+}
+function majClickPub(idPub,nbrclickReel)
+{
+ 
+  var nbrclick = nbrclickReel +1;
+  
+  var url = 'http://localhost:3030/events/pub/'+idPub;
+  
+  var body = {
+                "nbrClickReel": nbrclick
+               
+              
+                
+            };
+            const data = JSON.stringify(body)
+    const xhr = new XMLHttpRequest()
+    xhr.open('PUT', url, true)
+    xhr.setRequestHeader('content-type', 'application/json')
+    xhr.setRequestHeader('authorization', 'Bearer 123abc456def')
+    xhr.responseType = "json"
+    var res
+    xhr.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+            res = xhr.response;
+                
+           
+            $('#exampleModal').modal('hide');
+            
+        }
+    };
+    xhr.send(data)
+}
 function afficheDetailChecklist(idChecklist){
+  $("#exampleModal").modal('show'); 
+  affichePubModal()
   console.log(idChecklist)
  
   var url = 'http://localhost:3030/events/checklist/'+idChecklist;
