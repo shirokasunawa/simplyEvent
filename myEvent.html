@@ -1,7 +1,9 @@
 
 <!doctype html>
 <html lang="fr">
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
   <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
 <script src="util.js"></script>
 <script src="./content/header.js"></script>
 <script src="./content/footer.js"></script>
@@ -139,7 +141,7 @@ setCarouselHTML()
    <script>
 // $('.dropdown-toggle').dropdown()
        var id=  localStorage.getItem("temporaryVarClicke")
-    var url = 'http://localhost:3030/events/event/'+id;
+    var url = 'http://'+urlDeploy+':3030/events/event/'+id;
     const xhr = new XMLHttpRequest()
     xhr.open('GET', url, true)
     xhr.setRequestHeader('content-type', 'application/json')
@@ -198,7 +200,7 @@ setCarouselHTML()
     xhr.send()
 function affichePubModal(){
   
-  var url = 'http://localhost:3030/events/pubmodal/'
+  var url = 'http://'+urlDeploy+':3030/events/pubmodal/'
   
 
     const xhr = new XMLHttpRequest()
@@ -228,7 +230,7 @@ function majClickPub(idPub,nbrclickReel)
  
   var nbrclick = nbrclickReel +1;
   
-  var url = 'http://localhost:3030/events/pub/'+idPub;
+  var url = 'http://'+urlDeploy+':3030/events/pub/'+idPub;
   
   var body = {
                 "nbrClickReel": nbrclick
@@ -249,17 +251,21 @@ function majClickPub(idPub,nbrclickReel)
                 
            
             $('#exampleModal').modal('hide');
-            
+        
         }
     };
     xhr.send(data)
 }
 function afficheDetailChecklist(idChecklist){
- // $("#exampleModal").modal('show'); 
+ 
+$("#exampleModal").modal('show');
+
+  
+
   affichePubModal()
   console.log(idChecklist)
  
-  var url = 'http://localhost:3030/events/checklist/'+idChecklist;
+  var url = 'http://'+urlDeploy+':3030/events/checklist/'+idChecklist;
 
 const xhr = new XMLHttpRequest()
  xhr.open('GET', url, true)
@@ -321,7 +327,7 @@ function ajoutInfoCheckist(idchecklist){
  var PrixBudgetChecklist= document.getElementById("PrixBudgetChecklist").value
  var QuantityChecklist= document.getElementById("QuantityChecklist").value
 
-  var url = 'http://localhost:3030/events/checklist/'+idchecklist;
+  var url = 'http://'+urlDeploy+':3030/events/checklist/'+idchecklist;
   
   var body = {
                 "prixCheclist": PrixBudgetChecklist,
@@ -348,7 +354,7 @@ function ajoutInfoCheckist(idchecklist){
     xhr.send(data)
 }
 function afficheProduit(){
-  var url = 'http://localhost:3030/events/society/';
+  var url = 'http://'+urlDeploy+':3030/events/society/';
 
            
     const xhr = new XMLHttpRequest()
@@ -420,7 +426,7 @@ function affichePush(idElement){
 
     function removeChecklist(idChecklist){
       console.log(idChecklist)
-  var url = 'http://localhost:3030/events/checklist/'+idChecklist;
+  var url = 'http://'+urlDeploy+':3030/events/checklist/'+idChecklist;
 
    const xhr = new XMLHttpRequest()
     xhr.open('DELETE', url, true)
@@ -443,7 +449,7 @@ function affichePush(idElement){
     function deleteEvent(){
     
   var id=  localStorage.getItem("temporaryVarClicke")
-  var url = 'http://localhost:3030/events/event/'+id;
+  var url = 'http://'+urlDeploy+':3030/events/event/'+id;
 
     const xhr = new XMLHttpRequest()
     xhr.open('DELETE', url, true)
@@ -466,7 +472,7 @@ function affichePush(idElement){
 function modifTitreBtn(){
   var newDate = document.getElementById("titreEvent").value
   var id=  localStorage.getItem("temporaryVarClicke")
-  var url = 'http://localhost:3030/events/event/'+id;
+  var url = 'http://'+urlDeploy+':3030/events/event/'+id;
 
   var body = {
                 'titreEvent': newDate
@@ -510,7 +516,7 @@ function modifTitreBtn(){
     function modifBudgetBtn(){
       var newDate = document.getElementById("budgetEvent").value
   var id=  localStorage.getItem("temporaryVarClicke")
-  var url = 'http://localhost:3030/events/event/'+id;
+  var url = 'http://'+urlDeploy+':3030/events/event/'+id;
 
   var body = {
                 'budgetEvent': newDate
@@ -537,7 +543,7 @@ function modifTitreBtn(){
     }
 
 function modifType(){
-  var url = 'http://localhost:3030/events/typeEvents/';
+  var url = 'http://'+urlDeploy+':3030/events/typeEvents/';
     const xhr = new XMLHttpRequest()
     xhr.open('GET', url, true)
     xhr.setRequestHeader('content-type', 'application/json')
@@ -577,7 +583,7 @@ function modifTypeBtn(){
   console.log(newType)
   var id=  localStorage.getItem("temporaryVarClicke")
   //console.log(id)
-  var url = 'http://localhost:3030/events/typeEvents/'+newType+'/'+id;
+  var url = 'http://'+urlDeploy+':3030/events/typeEvents/'+newType+'/'+id;
 //console.log(url)
  
           
@@ -619,7 +625,7 @@ function modifDate(){
 function modifEventDate(){
   var newDate = document.getElementById("dateEvent").value
   var id=  localStorage.getItem("temporaryVarClicke")
-  var url = 'http://localhost:3030/events/event/'+id;
+  var url = 'http://'+urlDeploy+':3030/events/event/'+id;
 
   var body = {
                 'dateEvent': newDate
@@ -646,7 +652,7 @@ function modifEventDate(){
 }
 
 function afficheChecklist(){
-  var url = 'http://localhost:3030/events/typeActions/';
+  var url = 'http://'+urlDeploy+':3030/events/typeActions/';
     const xhr = new XMLHttpRequest()
     xhr.open('GET', url, true)
     xhr.setRequestHeader('content-type', 'application/json')
@@ -691,7 +697,7 @@ function addChecklist(titreAction){
      
             };
             const data = JSON.stringify(body)
-  var url = 'http://localhost:3030/events/checklist/';
+  var url = 'http://'+urlDeploy+':3030/events/checklist/';
     const xhr = new XMLHttpRequest()
     xhr.open('POST', url, true)
     xhr.setRequestHeader('content-type', 'application/json')
@@ -713,7 +719,7 @@ function assignChecklist(){
   console.log(idCheclistAAssign)
   var idCheclistAAssign = localStorage.getItem("idChecklist")
   var id=  localStorage.getItem("temporaryVarClicke")
-  var url = 'http://localhost:3030/events/checklist/'+idCheclistAAssign+'/'+id;
+  var url = 'http://'+urlDeploy+':3030/events/checklist/'+idCheclistAAssign+'/'+id;
   const xhr = new XMLHttpRequest()
     xhr.open('POST', url, true)
     xhr.setRequestHeader('content-type', 'application/json')
@@ -730,7 +736,7 @@ function assignChecklist(){
     xhr.send()
 }
 
-var urler = 'http://localhost:3030/events/pubcote';
+var urler = 'http://'+urlDeploy+':3030/events/pubcote';
   const xhrf = new XMLHttpRequest()
   xhrf.open('GET', urler, true)
   xhrf.setRequestHeader('content-type', 'application/json')

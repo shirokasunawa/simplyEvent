@@ -1,7 +1,7 @@
 
 <!doctype html>
 <html lang="fr">
-  
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /> 
 <script src="util.js"></script>
 <script src="./content/header.js"></script>
 <script src="./content/footer.js"></script>
@@ -124,7 +124,7 @@ var img= document.getElementById("myimg")
 img.src = 'data:image/jpeg;base64,' + btoa(binaryBlob);
 
 */
-var url = 'http://localhost:3030/events/photo/'
+var url = 'http://'+urlDeploy+':3030/events/photo/'
 var body = {
                 "img": reader.result
                
@@ -183,7 +183,7 @@ var body = {
     }
   break; 
 }
-var url = 'http://localhost:3030/events/pub/'
+var url = 'http://'+urlDeploy+':3030/events/pub/'
 const xhr = new XMLHttpRequest()
             const data = JSON.stringify(body)
             xhr.open('POST', url, true)
@@ -204,7 +204,7 @@ const xhr = new XMLHttpRequest()
 function assignPub(idphoto,idpub)
 {
   
-var url = 'http://localhost:3030/events/pub/'+idpub+'/'+idphoto
+var url = 'http://'+urlDeploy+':3030/events/pub/'+idpub+'/'+idphoto
 const xhr = new XMLHttpRequest()
             
             xhr.open('POST', url, true)
@@ -225,7 +225,7 @@ const xhr = new XMLHttpRequest()
 
 function assignPubUserSociety(idpub){
   var id= localStorage.getItem("_id");
-var url = 'http://localhost:3030/events/pubSociety/'+idpub+'/'+id
+var url = 'http://'+urlDeploy+':3030/events/pubSociety/'+idpub+'/'+id
 const xhr = new XMLHttpRequest()
             
             xhr.open('POST', url, true)

@@ -1,7 +1,7 @@
 
 <!doctype html>
 <html lang="fr">
- 
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <script src="util.js"></script>
 <script src="./content/header.js"></script>
 <script src="./content/footer.js"></script>
@@ -28,7 +28,7 @@
   </script>
 <script>
 var id= localStorage.getItem("_id");
-var url = 'http://localhost:3030/events/society/'+id
+var url = 'http://'+urlDeploy+':3030/events/society/'+id
 
             const xhr = new XMLHttpRequest()
            
@@ -96,7 +96,7 @@ img.src = 'data:image/jpeg;base64,' + btoa(binaryBlob);*/
 
 function supprimepub(idpub,idphoto)
 {
-    var url = 'http://localhost:3030/events/pub/'+idpub
+    var url = 'http://'+urlDeploy+':3030/events/pub/'+idpub
 const xhr = new XMLHttpRequest()
             
             xhr.open('DELETE', url, true)
@@ -116,7 +116,7 @@ const xhr = new XMLHttpRequest()
 }
 function removePhoto(idphoto)
 {
-    var url = 'http://localhost:3030/events/photo/'+idphoto
+    var url = 'http://'+urlDeploy+':3030/events/photo/'+idphoto
 const xhr = new XMLHttpRequest()
             
             xhr.open('DELETE', url, true)

@@ -1,3 +1,5 @@
+const urlDeploy = '192.168.1.14'
+
 function setCarouselHTML() {
     var s=''
    s+=' <div id="demo" class="carousel slide" data-ride="carousel">'
@@ -36,7 +38,7 @@ function setCarouselHTML() {
 }
 
 function setCarouselPub(){
-    var url = 'http://localhost:3030/events/pubBanner/'
+    var url = 'http://'+urlDeploy+':3030/events/pubBanner/'
 var xhrr = new XMLHttpRequest()
            
             xhrr.open('GET', url, true)
@@ -155,7 +157,7 @@ function majProfil(action){
                 'password': password
                 
             };
-            var url = 'http://localhost:3030/events/client/'+id
+            var url = 'http://'+urlDeploy+':3030/events/client/'+id
             const data = JSON.stringify(body)
             xhr.open('PUT', url, true)
             xhr.setRequestHeader('content-type', 'application/json')
@@ -183,7 +185,7 @@ function majProfil(action){
                 'password': password
                 
             };
-            var url = 'http://localhost:3030/events/society/'+id
+            var url = 'http://'+urlDeploy+':3030/events/society/'+id
             const data = JSON.stringify(body)
             xhr.open('PUT', url, true)
             xhr.setRequestHeader('content-type', 'application/json')
@@ -213,10 +215,10 @@ function majProfil(action){
             var url
             if(localStorage.getItem("role")=='client')
             {
-                url = 'http://localhost:3030/events/client/'+id
+                url = 'http://'+urlDeploy+':3030/events/client/'+id
             }
             else{
-                url = 'http://localhost:3030/events/society/'+id
+                url = 'http://'+urlDeploy+':3030/events/society/'+id
             }
            
            
@@ -254,7 +256,7 @@ function majProduct(action){
                 'priceProduct': prixProduit
                 
             };
-            var url = 'http://localhost:3030/events/product/'+id
+            var url = 'http://'+urlDeploy+':3030/events/product/'+id
             const data = JSON.stringify(body)
            
             xhr.open('PUT', url, true)
@@ -275,7 +277,7 @@ function majProduct(action){
 
         case 'supprimer':
             var id =  localStorage.getItem("temporaryVarClicke")
-            var url = 'http://localhost:3030/events/product/'+id
+            var url = 'http://'+urlDeploy+':3030/events/product/'+id
             var seller =  localStorage.getItem("_id")
             xhr.open('DELETE', url, true)
             xhr.setRequestHeader('content-type', 'application/json')
@@ -307,7 +309,7 @@ function addProduct(){
         'priceProduct': prixProduit
         
     };
-    var url = 'http://localhost:3030/events/product/'+seller
+    var url = 'http://'+urlDeploy+':3030/events/product/'+seller
     const data = JSON.stringify(body)
     const xhr = new XMLHttpRequest()
     xhr.open('POST', url, true)
@@ -328,7 +330,7 @@ function addProduct(){
 }
 function setLocalStorageProduct(seller){
     const xhr = new XMLHttpRequest()
-    var urlget = 'http://localhost:3030/events/society/'+seller
+    var urlget = 'http://'+urlDeploy+':3030/events/society/'+seller
     xhr.open('GET', urlget, true)
     xhr.setRequestHeader('content-type', 'application/json')
     xhr.setRequestHeader('authorization', 'Bearer 123abc456def')
@@ -345,7 +347,7 @@ function setLocalStorageProduct(seller){
     xhr.send()
 }
 function updateSociety(){
-    var url = 'http://localhost:3030/events/society/'+localStorage.getItem("_id");
+    var url = 'http://'+urlDeploy+':3030/events/society/'+localStorage.getItem("_id");
     var nameSociety =  document.getElementById("nomSocietyInput").value;
     var adresseSociety =  document.getElementById("adresseSocietyInput").value;
    var body = {
@@ -374,7 +376,7 @@ function updateSociety(){
 
 }
 function auth() {
-    var url = 'http://localhost:3030/events/client';
+    var url = 'http://'+urlDeploy+':3030/events/client';
     const xhr = new XMLHttpRequest()
     xhr.open('GET', url, true)
     xhr.setRequestHeader('content-type', 'application/json')
@@ -392,7 +394,7 @@ function auth() {
     xhr.send()
 }
 function authSociety(){
-    var url = 'http://localhost:3030/events/society/';
+    var url = 'http://'+urlDeploy+':3030/events/society/';
     const xhr = new XMLHttpRequest()
     xhr.open('GET', url, true)
     xhr.setRequestHeader('content-type', 'application/json')
@@ -506,7 +508,7 @@ function envoie(role) {
         var email = document.getElementById("EmailClient").value;
         var password = document.getElementById("passwordClient").value;
        
-        url = 'http://localhost:3030/events/client';
+        url = 'http://'+urlDeploy+':3030/events/client';
          body = {
             'nom': name,
             'role': 'client',
@@ -522,7 +524,7 @@ function envoie(role) {
             var nameSociety = document.getElementById("NameSociety").value;
             var password = document.getElementById("passwordSociety").value;
 
-            url = 'http://localhost:3030/events/society/';
+            url = 'http://'+urlDeploy+':3030/events/society/';
             body = {
                 'nameUser': name,
                 'roleUser': 'entreprise',

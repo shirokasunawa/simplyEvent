@@ -1,7 +1,7 @@
 
 <!doctype html>
 <html lang="fr">
-  
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <script src="util.js"></script>
 <script src="./content/header.js"></script>
 <script src="./content/footer.js"></script>
@@ -24,7 +24,7 @@
    <span id="typeEvents"></span>
    <script>
      document.getElementById("titre").innerHTML = '<p>Choississez qu\'elle genre d\'évènement vous voulez crééer</p>'
-      var url = 'http://localhost:3030/events/typeEvents/';
+      var url = 'http://'+urlDeploy+':3030/events/typeEvents/';
     const xhr = new XMLHttpRequest()
     xhr.open('GET', url, true)
     xhr.setRequestHeader('content-type', 'application/json')
@@ -99,7 +99,7 @@ function addEvent(idtypeevent){
         
     };
    
-    var url = 'http://localhost:3030/events/event/'
+    var url = 'http://'+urlDeploy+':3030/events/event/'
             const data = JSON.stringify(body)
          console.log(data)
          xhr.onreadystatechange = function () {
@@ -123,7 +123,7 @@ function assignEvent(idEvent){
     var iduser =  localStorage.getItem("_id")
     localStorage.getItem("temporaryVarClicke",idEvent)
    var idevent= idEvent
-   var url = 'http://localhost:3030/events/event/'+idevent+'/'+iduser
+   var url = 'http://'+urlDeploy+':3030/events/event/'+idevent+'/'+iduser
    const xhr = new XMLHttpRequest()
    xhr.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 201 ) {

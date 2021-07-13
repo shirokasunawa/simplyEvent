@@ -1,5 +1,6 @@
 <!doctype html>
 <html lang="fr">
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <script src="util.js"></script>
 <script src="./content/header.js"></script>
 <script src="./content/footer.js"></script>
@@ -22,7 +23,7 @@
    <span id="events"></span>
    <script>
      var id=localStorage.getItem("_id")
-      var url = 'http://localhost:3030/events/client/'+id;
+      var url = 'http://'+urlDeploy+':3030/events/client/'+id;
     const xhr = new XMLHttpRequest()
     xhr.open('GET', url, true)
     xhr.setRequestHeader('content-type', 'application/json')
