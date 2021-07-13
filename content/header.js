@@ -52,7 +52,7 @@ function setHeader() {
             s+='    </ul>'
             s+='    <form>'
             s+='    <div style ="col-12" class="row align-items-center"> '
-            s+='   <div class="col-4"> <i class="bi bi-chat" id="tchat"  style="display : none;font-size: 2rem; color: cornflowerblue;"></i></div>'
+            s+='   <div class="col-4"> <i class="bi bi-chat" id="tchat"  style="display : none;font-size: 2rem; color: cornflowerblue;" onclick="tolocationMessagerie()"></i></div>'
             s+='   <div class="col-4">  <i class="bi bi-person"  id="profil" onclick="tolocationprofil()" style="display:none;font-size: 2rem; color: cornflowerblue;"></i></div>'
             s+='    <div class="col-4"> <input style="background-color:#e685b5 ;  border-color:#e685b5; display:none" class="btn btn-primary" type="button" id="buttunDeco" name="buttunDeco"'
             s+='            value="Deconnexion" onclick="deco()" /></div>'

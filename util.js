@@ -98,7 +98,9 @@ var xhrr = new XMLHttpRequest()
             };
             xhrr.send()
 }
-
+function tolocationMessagerie(){
+    document.location.href = "Messagerie.html"
+}
 function hrefConnexion(){
     document.location.href = "connexion.html"
 }
