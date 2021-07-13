@@ -1,46 +1,17 @@
-<?php
-/*
-header('Access-Control-Allow-Origin: *');
-header('Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept');
-if(isset($_POST['emailInput'])&&isset($_POST['passwordInput'] ))
-{
-  $email =$_POST['emailInput'];
-  $password =$_POST['passwordInput'];
- // var_dump($email);
-  $url = 'http://localhost:3030/events/client';
- 
- /* $response = file_get_contents($url);
-  $response = json_decode($response);
-  var_dump($response[1]);*/
- // $curl = curl_init();
-  // set our url with curl_setopt()
-//curl_setopt($curl, CURLOPT_URL, $url);
-
-// return the transfer as a string, also with setopt()
-//curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
-
-// curl_exec() executes the started curl session
-// $output contains the output string
-
-//$result = json_decode(curl_exec($curl), true);
-
-// close curl resource to free up system resources
-// (deletes the variable made by curl_init)
-//curl_close($curl);
-//var_dump($result);
-
-   // header('Location: ./index.php');
-  
-
-
-//}
-?><!doctype html>
+<!doctype html>
 <html lang="fr">
 
+<script src="util.js"></script>
+<script src="./content/header.js"></script>
+<script src="./content/footer.js"></script>
+<script src="./carousel.js"></script>
 
-
+<div id="header"></div>
+ <script>
+   setHeader()
+  </script>
  
-  <?php include("./content/header.php"); include("./content/footer.html"); ?>
+
 
 
 
@@ -79,5 +50,9 @@ if(isset($_POST['emailInput'])&&isset($_POST['passwordInput'] ))
           
         
       
+<div id="footer"></div>
+<script>
+  setFooter()
+  </script>
 </body>
 </html>

@@ -1,20 +1,31 @@
 
 <!doctype html>
 <html lang="fr">
+ 
+<script src="util.js"></script>
+<script src="./content/header.js"></script>
+<script src="./content/footer.js"></script>
+
 <body onload="testConnexion()">
-<?php  include("./content/header.php");  include("./content/footer.html"); ?>
-  <!-- Le reste du contenu -->
+<div id="header"></div>
+ <script>
+   setHeader()
+     </script>
 <script>
    let cookie= getCookie('nomuser')
   if( cookie=='' )
   {
-    document.location.href = "index.php"
+    document.location.href = "index.html"
   }
   </script>
   </br>
 <span id="essaie"></span>
 
 </body>
+<div id="footer"></div>
+<script>
+  setFooter()
+  </script>
 <script>
 var id= localStorage.getItem("_id");
 var url = 'http://localhost:3030/events/society/'+id
@@ -124,4 +135,5 @@ const xhr = new XMLHttpRequest()
             xhr.send()
 }
     </script>
+
 </html>

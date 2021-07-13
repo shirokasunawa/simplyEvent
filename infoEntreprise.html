@@ -1,14 +1,21 @@
 
 <!doctype html>
 <html lang="fr">
+<script src="util.js"></script>
+<script src="./content/header.js"></script>
+<script src="./content/footer.js"></script>
+
 <body onload="testConnexion()">
-<?php  include("./content/header.php");  include("./content/footer.html"); ?>
+<div id="header"></div>
+ <script>
+   setHeader()
+     </script>
   <!-- Le reste du contenu -->
 <script>
    let cookie= getCookie('nomuser')
   if( cookie=='' )
   {
-    document.location.href = "index.php"
+    document.location.href = "index.html"
   }
   else{
       
@@ -44,5 +51,9 @@
              document.getElementById("adresseSocietyInput").value = localStorage.getItem("adresse")
         </script>
   </div>
+  <div id="footer"></div>
+<script>
+  setFooter()
+  </script>
 </body>
 </html>

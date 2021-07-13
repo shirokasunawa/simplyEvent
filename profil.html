@@ -1,13 +1,19 @@
 <!doctype html>
 <html lang="fr">
+   
+<script src="util.js"></script>
+<script src="./content/header.js"></script>
+<script src="./content/footer.js"></script>
 <body onload="testConnexion()">
-<?php  include("./content/header.php");  include("./content/footer.html"); ?>
-  <!-- Le reste du contenu -->
+<div id="header"></div>
+ <script>
+   setHeader()
+     </script>
 <script>
    let cookie= getCookie('nomuser')
   if( cookie=='' )
   {
-    document.location.href = "index.php"
+    document.location.href = "index.html"
   }
   else{
       
@@ -54,5 +60,9 @@
            
         </script>
   </div>
+  <div id="footer"></div>
+<script>
+  setFooter()
+  </script>
 </body>
 </html>

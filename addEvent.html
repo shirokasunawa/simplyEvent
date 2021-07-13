@@ -1,14 +1,20 @@
 
 <!doctype html>
 <html lang="fr">
+  
+<script src="util.js"></script>
+<script src="./content/header.js"></script>
+<script src="./content/footer.js"></script>
 <body onload="testConnexion()"  class="text-center">
-<?php  include("./content/header.php");  include("./content/footer.html"); ?>
-  <!-- Le reste du contenu -->
+<div id="header"></div>
+ <script>
+   setHeader()
+     </script>
 <script>
    let cookie= getCookie('nomuser')
   if( cookie=='' )
   {
-    document.location.href = "index.php"
+    document.location.href = "index.html"
   }
   </script>
   <span id="titre"></span>
@@ -123,7 +129,7 @@ function assignEvent(idEvent){
         if (this.readyState == 4 && this.status == 201 ) {
             res = xhr.response;
             console.log(res)
-            document.location.href = "espacePrive.php"
+            document.location.href = "espacePrive.html"
         }
     };
    xhr.open('POST', url, true)
@@ -134,5 +140,10 @@ function assignEvent(idEvent){
     xhr.send()
 }
     </script>
+      <div id="footer"></div>
+<script>
+  setFooter()
+  </script>
 </body>
+
 </html>

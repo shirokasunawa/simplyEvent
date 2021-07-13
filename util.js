@@ -1,38 +1,137 @@
+function setCarouselHTML() {
+    var s=''
+   s+=' <div id="demo" class="carousel slide" data-ride="carousel">'
+      
+   s+='    <ul class="carousel-indicators">'
+   s+='     <li data-target="#demo" data-slide-to="0" class="active"></li>'
+   s+='     <li data-target="#demo" data-slide-to="1"></li>'
+   s+='      <li data-target="#demo" data-slide-to="2"></li>'
+   s+='    </ul>'
+    
+   s+='    <div class="carousel-inner">'
+   s+='      <span id="carousel"></span>'
+   s+='      </div>'
+     
+   s+='     <a class="carousel-control-prev" href="#demo" role="button" data-slide="prev">'
+   s+='    <span class="carousel-control-prev-icon" aria-hidden="true"></span>'
+   s+='    <span class="sr-only">Précédent</span>'
+   s+='   </a>'
+   s+='   <a class="carousel-control-next" href="#demo" role="button" data-slide="next">'
+   s+='     <span class="carousel-control-next-icon" aria-hidden="true"></span>'
+   s+='    <span class="sr-only">Suivant</span>'
+   s+='   </a>'
+   s+=' </div>'
+   s+='</br>'
+   s+='<style>'
+   s+='  .demo{'
+    s+='      position: absolute !important;'
+    s+='   }'
+    s+=' .carousel-inner{'
+        s+=' width:100%;'
+        s+='  max-height: 200px !important;'
+        s+='}'
+        s+='  </style>'
+        document.getElementById("Moncarousel").innerHTML = s
+        setCarouselPub()
+}
+
+function setCarouselPub(){
+    var url = 'http://localhost:3030/events/pubBanner/'
+var xhrr = new XMLHttpRequest()
+           
+            xhrr.open('GET', url, true)
+            xhrr.setRequestHeader('content-type', 'application/json')
+            xhrr.setRequestHeader('authorization', 'Bearer 123abc456def')
+            xhrr.responseType = "json"
+            xhrr.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+                    res = xhrr.response;
+                    //console.log(res)
+                // console.log(res)
+                var s=''
+                for(var f=0;f<3;f++)
+                {
+                   switch(f)
+                   {
+                       case 0 :
+                        var data=(res[f]["img"]["img"]).split(',')[1];
+                        var binaryBlob = atob(data);
+                          
+                          
+                           s+='  <div class="carousel-item active">'
+                           s+=' <img src="data:image/jpeg;base64,'+btoa(binaryBlob)+'" alt="Carrousel slide 1" class="d-block w-100">'
+                           s+='  <div class="carousel-caption d-none d-md-block">'
+                           s+='   <h4>Titre de la légende</h4>'
+                           s+='   <p>Légende de la slide n°1.</p>'
+                           s+=' </div>'
+                           s+='  </div>'
+                           break;
+                    case 1: 
+                        var data=(res[f]["img"]["img"]).split(',')[1];
+                        var binaryBlob = atob(data);
+                        s+=' <div class="carousel-item">'
+                        s+='<img src="data:image/jpeg;base64,'+btoa(binaryBlob)+'" alt="Carrousel slide 2" class="d-block w-100">'
+                        s+='<div class="carousel-caption d-none d-md-block text-dark">'
+                        s+='  <h4>Titre de la légende</h4>'
+                        s+='  <p>Légende de la slide n°2.</p>'
+                        s+=' </div>'
+                        s+=' </div>'
+                        break;
+                    case 2:
+                        var data=(res[f]["img"]["img"]).split(',')[1];
+                        var binaryBlob = atob(data);
+                        s+='    <div class="carousel-item">'
+                        s+='<img src="data:image/jpeg;base64,'+btoa(binaryBlob)+'" alt="Carrousel slide 3" class="d-block w-100">'
+                        s+='<div class="carousel-caption d-none d-md-block">'
+                        s+='  <h4>Titre de la légende</h4>'
+                        s+='  <p>Légende de la slide n°3.</p>'
+                        s+=' </div>'
+                        s+=' </div>'
+                        
+                        break;
+                   }
+                }
+                document.getElementById("carousel").innerHTML=s
+                }
+            };
+            xhrr.send()
+}
+
 function hrefConnexion(){
-    document.location.href = "connexion.php"
+    document.location.href = "connexion.html"
 }
 function pub(){
-    document.location.href = "choixPub.php"
+    document.location.href = "choixPub.html"
 }
 function tolocationprofil(){
-    document.location.href = "profil.php"
+    document.location.href = "profil.html"
 }
 function hrefInscription(){
-    document.location.href = "inscription.php"
+    document.location.href = "inscription.html"
 }
 function infoEntreprise(){
-    document.location.href = "infoEntreprise.php"
+    document.location.href = "infoEntreprise.html"
 
 }
 function tolocationproduct(){
-    document.location.href = "addProduct.php"
+    document.location.href = "addProduct.html"
 }
 function product(){
-    document.location.href = "product.php"
+    document.location.href = "product.html"
 }
 function tolocationMyEvent(idmyevent)
 {
     localStorage.setItem("temporaryVarClicke",idmyevent)
-    document.location.href = "myEvent.php"
+    document.location.href = "myEvent.html"
 }
 function tolocationUpdateProduct(idproduct){
     console.log(idproduct)
     localStorage.setItem("temporaryVarClicke",idproduct)
-   document.location.href = "myproduct.php"
+   document.location.href = "myproduct.html"
    
 }
 function tolocationAddEvent(){
-    document.location.href = "addEvent.php"
+    document.location.href = "addEvent.html"
 }
 function typeProduit(){
     var typeProduit = ['vetements', 'salle','fleur','mobilier'];
@@ -71,7 +170,7 @@ function majProfil(action){
                 localStorage.setItem("adresseMail", email);
                 localStorage.setItem("password", password);
                 setCookie('nomuser', res['nom'],Date.now() + (86400 * 7))
-                document.location.href = "espacePrive.php"
+                document.location.href = "espacePrive.html"
                 
                 }
             };
@@ -99,7 +198,7 @@ function majProfil(action){
                 localStorage.setItem("adresseMail", email);
                 localStorage.setItem("password", password);
                 setCookie('nomuser', nom,Date.now() + (86400 * 7))
-                document.location.href = "espace.php"
+                document.location.href = "espace.html"
                 
                 }
             };
@@ -240,7 +339,7 @@ function setLocalStorageProduct(seller){
             console.log(res)
            // console.log(res)
            localStorage.setItem("_products",  JSON.stringify(res['_products']));
-            document.location.href = "espace.php"
+            document.location.href = "espace.html"
         }
     };
     xhr.send()
@@ -267,7 +366,7 @@ function updateSociety(){
             console.log(res)
             localStorage.setItem("nameSociety", nameSociety);
             localStorage.setItem("adresse", adresseSociety);
-            document.location.href = "espace.php"
+            document.location.href = "espace.html"
         }
     };
     xhr.send(data)
@@ -332,10 +431,10 @@ function society(res){
         }
     }
     if(userFind==true){
-        document.location.href = "espace.php"
+        document.location.href = "espace.html"
     }
     else{
-        document.location.href = "connexion.php"
+        document.location.href = "connexion.html"
     }
 }
 function client(res) {
@@ -359,7 +458,7 @@ function client(res) {
         }
     }
     if(userFind==true){
-        document.location.href = "espacePrive.php"
+        document.location.href = "espacePrive.html"
     }
     else{
         authSociety()
@@ -451,7 +550,7 @@ function envoie(role) {
             localStorage.setItem("role",datares['role']);
             localStorage.setItem("adresseMail",datares['adresseMail']);
             localStorage.setItem("password",datares['password']);
-            document.location.href = "index.php"
+            document.location.href = "index.html"
           }
           else{
             setCookie('nomuser', datares['nameUser'], Date.now() + (86400 * 7));
@@ -463,7 +562,7 @@ function envoie(role) {
             localStorage.setItem("nameSociety",datares['nameSociety']);
             localStorage.setItem("password",datares['password']);
             //console.log(localStorage.getItem())
-            document.location.href = "espace.php"
+            document.location.href = "espace.html"
           }
         }
       }
@@ -506,7 +605,7 @@ function deco(){
    document.getElementById("buttunDeco").style.display = 'none';
     document.getElementById("tchat").style.display = 'none';
     document.getElementById("profil").style.display = 'none';
-    document.location.href = "index.php"
+    document.location.href = "index.html"
 }
 function setCookie(cname, cvalue, exdays) {
     const d = new Date();
