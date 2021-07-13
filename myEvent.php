@@ -21,10 +21,11 @@
       <?php  include("./carousel.php");  ?>
   
  
-
+     
    <div class="container-fluid" style="position : relative!important">
-  
+   
       <div class="row">
+    
         <nav class="col-md-2 d-none d-md-block bg-light sidebar">
         
           <div class="sidebar-sticky" >
@@ -91,8 +92,12 @@
               </button>-->
             </div>
           </div>
+          
+  <img src="./imgDefault.PNG" id="myimg" width="500" height="800" class="col-md-2 float-md-end mb-3 ms-md-3" alt="...">
+          <span id="bodyTabBoard"> 
 
-          <span id="bodyTabBoard"> </span>
+       
+          </span>
          
       
         </main>
@@ -633,6 +638,28 @@ function assignChecklist(){
     };
     xhr.send()
 }
+
+var urler = 'http://localhost:3030/events/pubcote';
+  const xhrf = new XMLHttpRequest()
+  xhrf.open('GET', urler, true)
+  xhrf.setRequestHeader('content-type', 'application/json')
+  xhrf.setRequestHeader('authorization', 'Bearer 123abc456def')
+  xhrf.responseType = "json"
+    var res
+    xhrf.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+            res = xhrf.response;
+            console.log(res)
+            var data=(res[0]["img"]["img"]).split(',')[1];
+     var binaryBlob = atob(data);
+    
+
+var myimg= document.getElementById("myimg")
+myimg.src = 'data:image/jpeg;base64,' + btoa(binaryBlob);
+            
+        }
+    };
+    xhrf.send()
     </script>
     <style>
        .btn {
