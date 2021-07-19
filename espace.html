@@ -19,6 +19,14 @@
   {
     document.location.href = "index.html"
   }
+  else{
+    console.log(localStorage.getItem("tokenPayment"))
+    if(localStorage.getItem("tokenPayment") ==null)
+        {
+            document.location.href = "payment.html"
+        }
+       
+  }
   function pubMy(){
     document.location.href = "MonEspacePub.html"
   }
