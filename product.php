@@ -18,7 +18,6 @@
 </br>
    <span id="products"></span>
    <script>
-       
        var jsonProduct = JSON.parse(localStorage.getItem("_products"))
        console.log(jsonProduct)
        if( Object.keys(jsonProduct).length!=0){
