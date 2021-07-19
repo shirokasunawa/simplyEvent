@@ -24,6 +24,7 @@
     }
   </style>
 </head>
+<<<<<<< Updated upstream
 
 <header class="p-3 bg-dark text-white"><div class="container">
  
@@ -55,6 +56,40 @@
         <div class="col-4">  <i class="bi bi-person"  id="profil" onclick="tolocationprofil()" style="display:none;font-size: 2rem; color: cornflowerblue;"></i></div>
         <div class="col-4"> <input style="background-color:#e685b5 ;  border-color:#e685b5; display:none" class="btn btn-primary" type="button" id="buttunDeco" name="buttunDeco"
                 value="Deconnexion" onclick="deco()" /></div>
+=======
+<header onload="test();" class="p-3 bg-dark text-white">
+    <div class="container">
+        <nav class="navbar navbar-expand navbar-dark bg-dark" aria-label="Second navbar example">
+            <div class="container-fluid">
+                <a href="index.php" class="nav-link px-2 text-white">  <img src="myevent.png" style="width:130px;height:auto" class="card-img-top" alt="..."></a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample02" aria-controls="navbarsExample02" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarsExample02">
+                    <ul class="navbar-nav me-auto">
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="index.php">Acceuil</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="pricing.php">Pricing</a>
+                        </li>
+                        <li class="nav-item" id="navEspacePrive" style="display:none">
+                            <a class="nav-link" href="espacePrive.php">Espace Privé</a>
+                        </li>
+                        <li class="nav-item" id="navEspace" style="display:none">
+                            <a class="nav-link" href="espace.php">Espace Privé</a>
+                        </li>
+                    </ul>
+                    <form>
+                        <div style ="col-12" class="row align-items-center"> 
+                        <div class="col-4"> <i class="bi bi-chat" id="tchat"  style="display : none;font-size: 2rem; color: cornflowerblue;"></i></div>
+                        <div class="col-4">  <i class="bi bi-person"  id="profil" onclick="tolocationprofil()" style="display:none;font-size: 2rem; color: cornflowerblue;"></i></div>
+                        <div class="col-4"> <input style="background-color:#e685b5 ;  border-color:#e685b5; display:none" class="btn btn-primary" type="button" id="buttunDeco" name="buttunDeco"value="Deconnexion" onclick="deco()" /></div>
+                        </div>
+                        <button type="button" id="buttunLogin" style="background-color:#e685b5 ;  border-color:#e685b5" class="btn btn-primary" onclick="hrefConnexion()">Login</button>
+                        <button type="button"  id="buttunSignUp" style="background-color:#e685b5 ; border-color:#e685b5" class="btn btn-primary" onclick="hrefInscription()">Sign-up</button>  
+                    </form>
+>>>>>>> Stashed changes
                 </div>
         <button type="button" id="buttunLogin" style="background-color:#e685b5 ;  border-color:#e685b5" class="btn btn-primary" onclick="hrefConnexion()">Login</button>
            <button type="button"  id="buttunSignUp" style="background-color:#e685b5 ; border-color:#e685b5" class="btn btn-primary" onclick="hrefInscription()">Sign-up</button>

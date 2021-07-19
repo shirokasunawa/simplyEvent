@@ -1,9 +1,17 @@
 function hrefConnexion(){
     document.location.href = "connexion.php"
 }
+<<<<<<< Updated upstream
 function tolocationprofil(){
     document.location.href = "profil.php"
 }
+=======
+
+function tolocationprofil(){
+    document.location.href = "profil.php"
+}
+
+>>>>>>> Stashed changes
 function hrefInscription(){
     document.location.href = "inscription.php"
 }
@@ -17,17 +25,29 @@ function tolocationproduct(){
 function product(){
     document.location.href = "product.php"
 }
+<<<<<<< Updated upstream
+=======
+
+>>>>>>> Stashed changes
 function tolocationMyEvent(idmyevent)
 {
     localStorage.setItem("temporaryVarClicke",idmyevent)
     document.location.href = "myEvent.php"
 }
+<<<<<<< Updated upstream
+=======
+
+>>>>>>> Stashed changes
 function tolocationUpdateProduct(idproduct){
     console.log(idproduct)
     localStorage.setItem("temporaryVarClicke",idproduct)
    document.location.href = "myproduct.php"
    
 }
+<<<<<<< Updated upstream
+=======
+
+>>>>>>> Stashed changes
 function tolocationAddEvent(){
     document.location.href = "addEvent.php"
 }
