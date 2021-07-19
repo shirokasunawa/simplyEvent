@@ -1,4 +1,4 @@
-const urlDeploy = '192.168.1.12'
+const urlDeploy = '192.168.1.14'
 
 function setCarouselHTML() {
     var s=''
