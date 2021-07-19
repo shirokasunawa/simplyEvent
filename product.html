@@ -1,14 +1,20 @@
 
 <!doctype html>
 <html lang="fr">
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<script src="util.js"></script>
+<script src="./content/header.js"></script>
+<script src="./content/footer.js"></script>
 <body onload="testConnexion()">
-<?php  include("./content/header.php");  include("./content/footer.html"); ?>
-  <!-- Le reste du contenu -->
+<div id="header"></div>
+ <script>
+   setHeader()
+     </script>
 <script>
    let cookie= getCookie('nomuser')
   if( cookie=='' )
   {
-    document.location.href = "index.php"
+    document.location.href = "index.html"
   }
  
   </script>
@@ -30,5 +36,9 @@
              document.getElementById("products").innerHTML = s
        }
     </script>
+      <div id="footer"></div>
+<script>
+  setFooter()
+  </script>
 </body>
 </html>

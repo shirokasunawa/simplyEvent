@@ -1,55 +1,156 @@
+const urlDeploy = '192.168.1.14'
+
+function setCarouselHTML() {
+    var s=''
+   s+=' <div id="demo" class="carousel slide" data-ride="carousel">'
+      
+   s+='    <ul class="carousel-indicators">'
+   s+='     <li data-target="#demo" data-slide-to="0" class="active"></li>'
+   s+='     <li data-target="#demo" data-slide-to="1"></li>'
+   s+='      <li data-target="#demo" data-slide-to="2"></li>'
+   s+='    </ul>'
+    
+   s+='    <div class="carousel-inner">'
+   s+='      <span id="carousel"></span>'
+   s+='      </div>'
+     
+   s+='     <a class="carousel-control-prev" href="#demo" role="button" data-slide="prev">'
+   s+='    <span class="carousel-control-prev-icon" aria-hidden="true"></span>'
+   s+='    <span class="sr-only">Précédent</span>'
+   s+='   </a>'
+   s+='   <a class="carousel-control-next" href="#demo" role="button" data-slide="next">'
+   s+='     <span class="carousel-control-next-icon" aria-hidden="true"></span>'
+   s+='    <span class="sr-only">Suivant</span>'
+   s+='   </a>'
+   s+=' </div>'
+   s+='</br>'
+   s+='<style>'
+   s+='  .demo{'
+    s+='      position: absolute !important;'
+    s+='   }'
+    s+=' .carousel-inner{'
+        s+=' width:100%;'
+        s+='  max-height: 200px !important;'
+        s+='}'
+        s+='  </style>'
+        document.getElementById("Moncarousel").innerHTML = s
+        setCarouselPub()
+}
+
+function setCarouselPub(){
+    var url = 'http://'+urlDeploy+':3030/events/pubBanner/'
+var xhrr = new XMLHttpRequest()
+           
+            xhrr.open('GET', url, true)
+            xhrr.setRequestHeader('content-type', 'application/json')
+            xhrr.setRequestHeader('authorization', 'Bearer 123abc456def')
+            xhrr.responseType = "json"
+            xhrr.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+                    res = xhrr.response;
+                    //console.log(res)
+                // console.log(res)
+                var s=''
+                for(var f=0;f<3;f++)
+                {
+                   switch(f)
+                   {
+                       case 0 :
+                        var data=(res[f]["img"]["img"]).split(',')[1];
+                        var binaryBlob = atob(data);
+                          
+                          
+                           s+='  <div class="carousel-item active">'
+                           s+=' <img src="data:image/jpeg;base64,'+btoa(binaryBlob)+'" alt="Carrousel slide 1" class="d-block w-100">'
+                           s+='  <div class="carousel-caption d-none d-md-block">'
+                           s+='   <h4>Titre de la légende</h4>'
+                           s+='   <p>Légende de la slide n°1.</p>'
+                           s+=' </div>'
+                           s+='  </div>'
+                           break;
+                    case 1: 
+                        var data=(res[f]["img"]["img"]).split(',')[1];
+                        var binaryBlob = atob(data);
+                        s+=' <div class="carousel-item">'
+                        s+='<img src="data:image/jpeg;base64,'+btoa(binaryBlob)+'" alt="Carrousel slide 2" class="d-block w-100">'
+                        s+='<div class="carousel-caption d-none d-md-block text-dark">'
+                        s+='  <h4>Titre de la légende</h4>'
+                        s+='  <p>Légende de la slide n°2.</p>'
+                        s+=' </div>'
+                        s+=' </div>'
+                        break;
+                    case 2:
+                        var data=(res[f]["img"]["img"]).split(',')[1];
+                        var binaryBlob = atob(data);
+                        s+='    <div class="carousel-item">'
+                        s+='<img src="data:image/jpeg;base64,'+btoa(binaryBlob)+'" alt="Carrousel slide 3" class="d-block w-100">'
+                        s+='<div class="carousel-caption d-none d-md-block">'
+                        s+='  <h4>Titre de la légende</h4>'
+                        s+='  <p>Légende de la slide n°3.</p>'
+                        s+=' </div>'
+                        s+=' </div>'
+                        
+                        break;
+                   }
+                }
+                document.getElementById("carousel").innerHTML=s
+                }
+            };
+            xhrr.send()
+}
+function tolocationMessagerie(){
+    
+    if(localStorage.getItem("role")=='entreprise')
+    {
+        if(localStorage.getItem("tokenPayment") ==null)
+        {
+            document.location.href = "payment.html"
+        }
+        else{
+            document.location.href = "Messagerie.html"
+        }
+    }
+    else{
+         document.location.href = "Messagerie.html"
+    }
+
+   
+}
 function hrefConnexion(){
-    document.location.href = "connexion.php"
+    document.location.href = "connexion.html"
 }
-<<<<<<< Updated upstream
+function pub(){
+    document.location.href = "choixPub.html"
+}
 function tolocationprofil(){
-    document.location.href = "profil.php"
+    document.location.href = "profil.html"
 }
-=======
-
-function tolocationprofil(){
-    document.location.href = "profil.php"
-}
-
->>>>>>> Stashed changes
 function hrefInscription(){
-    document.location.href = "inscription.php"
+    document.location.href = "inscription.html"
 }
 function infoEntreprise(){
-    document.location.href = "infoEntreprise.php"
+    document.location.href = "infoEntreprise.html"
 
 }
 function tolocationproduct(){
-    document.location.href = "addProduct.php"
+    document.location.href = "addProduct.html"
 }
 function product(){
-    document.location.href = "product.php"
+    document.location.href = "product.html"
 }
-<<<<<<< Updated upstream
-=======
-
->>>>>>> Stashed changes
 function tolocationMyEvent(idmyevent)
 {
     localStorage.setItem("temporaryVarClicke",idmyevent)
-    document.location.href = "myEvent.php"
+    document.location.href = "myEvent.html"
 }
-<<<<<<< Updated upstream
-=======
-
->>>>>>> Stashed changes
 function tolocationUpdateProduct(idproduct){
     console.log(idproduct)
     localStorage.setItem("temporaryVarClicke",idproduct)
-   document.location.href = "myproduct.php"
+   document.location.href = "myproduct.html"
    
 }
-<<<<<<< Updated upstream
-=======
-
->>>>>>> Stashed changes
 function tolocationAddEvent(){
-    document.location.href = "addEvent.php"
+    document.location.href = "addEvent.html"
 }
 function typeProduit(){
     var typeProduit = ['vetements', 'salle','fleur','mobilier'];
@@ -73,7 +174,7 @@ function majProfil(action){
                 'password': password
                 
             };
-            var url = 'http://localhost:3030/events/client/'+id
+            var url = 'http://'+urlDeploy+':3030/events/client/'+id
             const data = JSON.stringify(body)
             xhr.open('PUT', url, true)
             xhr.setRequestHeader('content-type', 'application/json')
@@ -88,7 +189,7 @@ function majProfil(action){
                 localStorage.setItem("adresseMail", email);
                 localStorage.setItem("password", password);
                 setCookie('nomuser', res['nom'],Date.now() + (86400 * 7))
-                document.location.href = "espacePrive.php"
+                document.location.href = "espacePrive.html"
                 
                 }
             };
@@ -101,7 +202,7 @@ function majProfil(action){
                 'password': password
                 
             };
-            var url = 'http://localhost:3030/events/society/'+id
+            var url = 'http://'+urlDeploy+':3030/events/society/'+id
             const data = JSON.stringify(body)
             xhr.open('PUT', url, true)
             xhr.setRequestHeader('content-type', 'application/json')
@@ -116,7 +217,13 @@ function majProfil(action){
                 localStorage.setItem("adresseMail", email);
                 localStorage.setItem("password", password);
                 setCookie('nomuser', nom,Date.now() + (86400 * 7))
-                document.location.href = "espace.php"
+                if(localStorage.getItem("tokenPayment") ==null)
+        {
+            document.location.href = "payment.html"
+        }
+        else{
+            document.location.href = "espace.html"
+        }
                 
                 }
             };
@@ -131,10 +238,10 @@ function majProfil(action){
             var url
             if(localStorage.getItem("role")=='client')
             {
-                url = 'http://localhost:3030/events/client/'+id
+                url = 'http://'+urlDeploy+':3030/events/client/'+id
             }
             else{
-                url = 'http://localhost:3030/events/society/'+id
+                url = 'http://'+urlDeploy+':3030/events/society/'+id
             }
            
            
@@ -172,7 +279,7 @@ function majProduct(action){
                 'priceProduct': prixProduit
                 
             };
-            var url = 'http://localhost:3030/events/product/'+id
+            var url = 'http://'+urlDeploy+':3030/events/product/'+id
             const data = JSON.stringify(body)
            
             xhr.open('PUT', url, true)
@@ -193,7 +300,7 @@ function majProduct(action){
 
         case 'supprimer':
             var id =  localStorage.getItem("temporaryVarClicke")
-            var url = 'http://localhost:3030/events/product/'+id
+            var url = 'http://'+urlDeploy+':3030/events/product/'+id
             var seller =  localStorage.getItem("_id")
             xhr.open('DELETE', url, true)
             xhr.setRequestHeader('content-type', 'application/json')
@@ -225,7 +332,7 @@ function addProduct(){
         'priceProduct': prixProduit
         
     };
-    var url = 'http://localhost:3030/events/product/'+seller
+    var url = 'http://'+urlDeploy+':3030/events/product/'+seller
     const data = JSON.stringify(body)
     const xhr = new XMLHttpRequest()
     xhr.open('POST', url, true)
@@ -246,7 +353,7 @@ function addProduct(){
 }
 function setLocalStorageProduct(seller){
     const xhr = new XMLHttpRequest()
-    var urlget = 'http://localhost:3030/events/society/'+seller
+    var urlget = 'http://'+urlDeploy+':3030/events/society/'+seller
     xhr.open('GET', urlget, true)
     xhr.setRequestHeader('content-type', 'application/json')
     xhr.setRequestHeader('authorization', 'Bearer 123abc456def')
@@ -257,13 +364,13 @@ function setLocalStorageProduct(seller){
             console.log(res)
            // console.log(res)
            localStorage.setItem("_products",  JSON.stringify(res['_products']));
-            document.location.href = "espace.php"
+            document.location.href = "espace.html"
         }
     };
     xhr.send()
 }
 function updateSociety(){
-    var url = 'http://localhost:3030/events/society/'+localStorage.getItem("_id");
+    var url = 'http://'+urlDeploy+':3030/events/society/'+localStorage.getItem("_id");
     var nameSociety =  document.getElementById("nomSocietyInput").value;
     var adresseSociety =  document.getElementById("adresseSocietyInput").value;
    var body = {
@@ -284,7 +391,7 @@ function updateSociety(){
             console.log(res)
             localStorage.setItem("nameSociety", nameSociety);
             localStorage.setItem("adresse", adresseSociety);
-            document.location.href = "espace.php"
+            document.location.href = "espace.html"
         }
     };
     xhr.send(data)
@@ -292,7 +399,7 @@ function updateSociety(){
 
 }
 function auth() {
-    var url = 'http://localhost:3030/events/client';
+    var url = 'http://'+urlDeploy+':3030/events/client';
     const xhr = new XMLHttpRequest()
     xhr.open('GET', url, true)
     xhr.setRequestHeader('content-type', 'application/json')
@@ -310,7 +417,7 @@ function auth() {
     xhr.send()
 }
 function authSociety(){
-    var url = 'http://localhost:3030/events/society/';
+    var url = 'http://'+urlDeploy+':3030/events/society/';
     const xhr = new XMLHttpRequest()
     xhr.open('GET', url, true)
     xhr.setRequestHeader('content-type', 'application/json')
@@ -320,7 +427,8 @@ function authSociety(){
     xhr.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
             res = xhr.response;
-            //console.log(res)
+            console.log(res)
+          
             society(res)
             
         }
@@ -344,15 +452,31 @@ function society(res){
             localStorage.setItem("nameSociety", res[i]['nameSociety']);
             localStorage.setItem("password", res[i]['password']);
             localStorage.setItem("_products",  JSON.stringify(res[i]['_products']));
+            console.log(res[i].hasOwnProperty("tokenPayment"))
+           if(res[i].hasOwnProperty("tokenPayment"))
+            {
+                localStorage.setItem("tokenPayment", res[i]['tokenPayment']);
+            }
+            else{
+            
+            }
             setCookie('nomuser', res[i]['nameUser'],Date.now() + (86400 * 7))
             userFind=true;
         }
     }
     if(userFind==true){
-        document.location.href = "espace.php"
+        console.log(localStorage.getItem("tokenPayment"))
+        if(localStorage.getItem("tokenPayment") ==null)
+        {
+            document.location.href = "payment.html"
+        }
+        else{
+            document.location.href = "espace.html"
+        }
+       
     }
     else{
-        document.location.href = "connexion.php"
+        document.location.href = "connexion.html"
     }
 }
 function client(res) {
@@ -376,7 +500,7 @@ function client(res) {
         }
     }
     if(userFind==true){
-        document.location.href = "espacePrive.php"
+        document.location.href = "espacePrive.html"
     }
     else{
         authSociety()
@@ -424,7 +548,7 @@ function envoie(role) {
         var email = document.getElementById("EmailClient").value;
         var password = document.getElementById("passwordClient").value;
        
-        url = 'http://localhost:3030/events/client';
+        url = 'http://'+urlDeploy+':3030/events/client';
          body = {
             'nom': name,
             'role': 'client',
@@ -440,7 +564,7 @@ function envoie(role) {
             var nameSociety = document.getElementById("NameSociety").value;
             var password = document.getElementById("passwordSociety").value;
 
-            url = 'http://localhost:3030/events/society/';
+            url = 'http://'+urlDeploy+':3030/events/society/';
             body = {
                 'nameUser': name,
                 'roleUser': 'entreprise',
@@ -468,7 +592,7 @@ function envoie(role) {
             localStorage.setItem("role",datares['role']);
             localStorage.setItem("adresseMail",datares['adresseMail']);
             localStorage.setItem("password",datares['password']);
-            document.location.href = "index.php"
+            document.location.href = "index.html"
           }
           else{
             setCookie('nomuser', datares['nameUser'], Date.now() + (86400 * 7));
@@ -480,7 +604,7 @@ function envoie(role) {
             localStorage.setItem("nameSociety",datares['nameSociety']);
             localStorage.setItem("password",datares['password']);
             //console.log(localStorage.getItem())
-            document.location.href = "espace.php"
+            document.location.href = "payment.html"
           }
         }
       }
@@ -523,7 +647,7 @@ function deco(){
    document.getElementById("buttunDeco").style.display = 'none';
     document.getElementById("tchat").style.display = 'none';
     document.getElementById("profil").style.display = 'none';
-    document.location.href = "index.php"
+    document.location.href = "index.html"
 }
 function setCookie(cname, cvalue, exdays) {
     const d = new Date();
@@ -610,3 +734,163 @@ function findSelection(field) {
         }
     }
 }
+
+
+///////////////////////// SUB /////////////////////////////////
+
+//////////////////////// PAYMENT /////////////////////////////
+function dopayment(tokenId){
+    console.log(tokenId)
+    const xhr = new XMLHttpRequest()
+    const urldopayment = 'http://'+urlDeploy+':3030/payment/doPayment';
+    // Saisie donné carte
+        body = {
+            'tokenId': tokenId,
+        };
+        const data = JSON.stringify(body)
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState == 4 && xhr.status == 200) {
+                res = xhr.response;
+                console.log(res)
+                document.location.href = "espace.html"
+            }
+           
+        };
+        xhr.open('POST', urldopayment,true)
+        xhr.setRequestHeader('content-type', 'application/json')
+        xhr.responseType = "json"
+        xhr.send(data)
+}
+
+function insertToken(idToken){
+    console.log(idToken)
+    var idUser = localStorage.getItem("_id");
+    const xhr = new XMLHttpRequest()
+    const urlcreateToken = 'http://'+urlDeploy+':3030/events/society/' + idUser;
+    body = {
+        'tokenPayment': idToken,
+    };
+    const data = JSON.stringify(body)
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState == 4 && xhr.status == 200) {
+                res = xhr.response;
+                console.log(res)
+                dopayment(idToken)
+            }
+        };
+        xhr.open('PUT', urlcreateToken,true)
+        xhr.setRequestHeader('content-type', 'application/json')
+        xhr.responseType = "json"
+        xhr.send(data)
+}
+
+function createTokens(){
+    var card = findSelection("card");
+    const xhr = new XMLHttpRequest()
+    const urlcreateToken = 'http://'+urlDeploy+':3030/payment/createTokens';
+    // Saisie donné carte
+    var number = document.getElementById("number").value;
+    var month = document.getElementById("ccmonth").value;
+    var years = document.getElementById("ccyear").value;
+    var cvc = document.getElementById("cvv").value;
+
+        body = {
+            'number': number,
+            'month': month,
+            'years' : years,
+            'cvc' : cvc,
+        };
+        const data = JSON.stringify(body)
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState == 4 && xhr.status == 200) {
+                res = xhr.response;
+                console.log(res)
+                insertToken(res["id"])
+            }
+        };
+        xhr.open('POST', urlcreateToken,true)
+        xhr.setRequestHeader('content-type', 'application/json')
+        xhr.responseType = "json"
+        xhr.send(data)
+}
+
+function attachPaymentMethod(idcard,idCustomers){
+    console.log(idcard)
+    console.log(idCustomers)
+    var card = findSelection("card");
+    const xhr = new XMLHttpRequest()
+    const urlcustomers = 'http://'+urlDeploy+':3030/payment/attachPaymentMethod/'+ idcard;
+    // Saisie donné carte
+        body = {
+            'customer' : idCustomers,
+        };
+        const data = JSON.stringify(body)
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState == 4 && xhr.status == 200) {
+                res = xhr.response;
+                createTokens()
+            }
+        };
+        xhr.open('POST', urlcustomers,true)
+        xhr.setRequestHeader('content-type', 'application/json')
+        xhr.responseType = "json"
+        xhr.send(data)
+}
+
+function createCustomers(id){
+    var card = findSelection("card");
+    const xhr = new XMLHttpRequest()
+    const urlcustomers = 'http://'+urlDeploy+':3030/payment/createCustomers';
+    // Saisie donné carte
+    var name = document.getElementById("name").value;
+    var email = localStorage.getItem("adresseMail");
+        body = {
+            'name': name,
+            'email': email,
+            'payment_method' : id,
+        };
+        const data = JSON.stringify(body)
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState == 4 && xhr.status == 200) {
+                res = xhr.response;
+                attachPaymentMethod(id,res.id)
+            }
+        };
+        xhr.open('POST', urlcustomers,true)
+        xhr.setRequestHeader('content-type', 'application/json')
+        xhr.responseType = "json"
+        xhr.send(data)
+}
+
+function createPaymentMethods(){
+    var card = findSelection("card");
+    const xhr = new XMLHttpRequest()
+    const url = 'http://'+urlDeploy+':3030/payment/createPaymentMethods';
+
+    // Saisie donné carte
+    var number = document.getElementById("number").value;
+    var month = document.getElementById("ccmonth").value;
+    var years = document.getElementById("ccyear").value;
+    var cvc = document.getElementById("cvv").value;
+
+        body = {
+            'number': number,
+            'month': month,
+            'years' : years,
+            'cvc' : cvc,
+        };
+        const data = JSON.stringify(body)
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState == 4 && xhr.status == 200) {
+                res = xhr.response;
+                console.log(res.id)
+                createCustomers(res.id);
+                return res.id
+            }
+        };
+        xhr.open('POST', url,true)
+        xhr.setRequestHeader('content-type', 'application/json')
+        xhr.responseType = "json"
+        xhr.send(data)
+}
+
