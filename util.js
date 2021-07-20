@@ -107,7 +107,7 @@ function tolocationMessagerie(){
             document.location.href = "payment.html"
         }
         else{
-            document.location.href = "Messagerie.html"
+            document.location.href = "MessagerieSociety.html"
         }
     }
     else{

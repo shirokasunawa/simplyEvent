@@ -37,7 +37,7 @@
 
     <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4"><div class="chartjs-size-monitor"><div class="chartjs-size-monitor-expand"><div class=""></div></div><div class="chartjs-size-monitor-shrink"><div class=""></div></div></div>
       <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-        <h1 class="h2">Messagerie</h1>
+        <h1 class="h2">Messagerie Entreprise</h1>
         <div class="btn-toolbar mb-2 mb-md-0">
           <div class="btn-group me-2">
 
@@ -62,7 +62,7 @@
 
     function assignMessageClientConv(idMessageClient,idconv)
     {
-      var  url = 'http://'+urlDeploy+':3030/events/messageclient/'+idMessageClient+'/'+idconv+'';
+      var  url = 'http://'+urlDeploy+':3030/events/messagesociety/'+idMessageClient+'/'+idconv+'';
       const xhr = new XMLHttpRequest()
         xhr.open('POST', url, true)
         xhr.setRequestHeader('content-type', 'application/json')
@@ -85,9 +85,9 @@ function ajoutMessage(idconv){
   	
 var now = new Date();
 now= now.toString();
-var  url = 'http://'+urlDeploy+':3030/events/messageclient/';
+var  url = 'http://'+urlDeploy+':3030/events/messagesociety/';
 var body = {
-  "idUserClient" : localStorage.getItem("_id"),
+  "idUserSociety" : localStorage.getItem("_id"),
   "idConversation": idconv,
   "content" : content,
   "dateTime" : now
@@ -161,12 +161,12 @@ function afficheMessage(idConv){
                   {
                     var heure=''
                     heure =''+date[x]["date"].getHours()+' : '+date[x]["date"].getMinutes()+''
-                    d += template_message_droite(date[x]["value"]["content"],heure)
+                    d += template_message_gauche(date[x]["value"]["content"],heure)
                   }
                   else{
                     var heure=''
                     heure =''+date[x]["date"].getHours()+' : '+date[x]["date"].getMinutes()+''
-                    d += template_message_gauche(date[x]["value"]["content"],heure)
+                    d += template_message_droite(date[x]["value"]["content"],heure)
                   }
                 }
             document.getElementById("lesMessages").innerHTML = d
@@ -204,13 +204,13 @@ function afficheMessage(idConv){
         if (this.readyState == 4 && this.status == 200) {
             res = xhr.response;
             console.log(res)
-           if(res[0]["_conversation"].length!=0)
+           if(res["_conversation"].length!=0)
            {
              var s=''
-             for(var f=0; f<res[0]["_conversation"].length;f++)
+             for(var f=0; f<res["_conversation"].length;f++)
              {
             
-              s+='  <div class="btn " style="width: 100%;margin-top:1em;" onclick="afficheMessage(\''+res[0]["_conversation"][f]["_id"]+'\')"> <div class=" d-inline p-2 justify-content-start"> '+res[0]["_conversation"][f]["_idUserSociety"]["nameSociety"]+' </div><div class="d-inline p-2 justify-content-end">'+res[0]["_conversation"][f]["_product"]["typeProduct"]+' : '+res[0]["_conversation"][f]["_product"]["priceProduct"]+' €</div></div>'
+              s+='  <div class="btn " style="width: 100%;margin-top:1em;" onclick="afficheMessage(\''+res["_conversation"][f]["_id"]+'\')"> <div class=" d-inline p-2 justify-content-start"> '+res["_conversation"][f]["_idUserClient"]["nom"]+' </div><div class="d-inline p-2 justify-content-end">'+res["_conversation"][f]["_product"]["typeProduct"]+' : '+res["_conversation"][f]["_product"]["priceProduct"]+' €</div></div>'
              }
             document.getElementById("mesConversations").innerHTML = s
            }

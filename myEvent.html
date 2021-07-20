@@ -432,7 +432,72 @@ var body = {
 
   
 }
+function assignSocietyConv(idConv,idVendeur)
+{
+  var idclient =localStorage.getItem("_id")
+  var url = 'http://'+urlDeploy+':3030/events/conversationToSociety/'+idVendeur+'/'+idConv+'';
 
+  const xhr = new XMLHttpRequest()
+  xhr.open('POST', url, true)
+  xhr.setRequestHeader('content-type', 'application/json')
+  xhr.setRequestHeader('authorization', 'Bearer 123abc456def')
+  xhr.responseType = "json"
+  var res
+  xhr.onreadystatechange = function () {
+      if (this.readyState == 4 && this.status == 201) {
+          res = xhr.response;
+                    
+       
+          document.location.href="Messagerie.html";
+          
+      }
+  };
+  xhr.send()
+}
+function  assignUserConv(idConv,idVendeur)
+{
+  var idclient =localStorage.getItem("_id")
+  var url = 'http://'+urlDeploy+':3030/events/conversationToClient/'+idclient+'/'+idConv+'';
+
+  const xhr = new XMLHttpRequest()
+  xhr.open('POST', url, true)
+  xhr.setRequestHeader('content-type', 'application/json')
+  xhr.setRequestHeader('authorization', 'Bearer 123abc456def')
+  xhr.responseType = "json"
+  var res
+  xhr.onreadystatechange = function () {
+      if (this.readyState == 4 && this.status == 201) {
+          res = xhr.response;
+                    
+         assignSocietyConv(idConv,idVendeur)
+         // document.location.href="Messagerie.html";
+          
+      }
+  };
+  xhr.send()
+}
+function createConversation(idVendeur,idProduct)
+{
+  var idclient =localStorage.getItem("_id")
+  var url = 'http://'+urlDeploy+':3030/events/conversation/'+idclient+'/'+idVendeur+'/'+idProduct+'';
+
+  const xhr = new XMLHttpRequest()
+  xhr.open('POST', url, true)
+  xhr.setRequestHeader('content-type', 'application/json')
+  xhr.setRequestHeader('authorization', 'Bearer 123abc456def')
+  xhr.responseType = "json"
+  var res
+  xhr.onreadystatechange = function () {
+      if (this.readyState == 4 && this.status == 201) {
+          res = xhr.response;
+                    
+         assignUserConv(res["_id"],idVendeur)
+         // document.location.href="Messagerie.html";
+          
+      }
+  };
+  xhr.send()
+}
 function afficheProductChoisis(idProduct,idChecklist){
   console.log(idChecklist)
   var url = 'http://'+urlDeploy+':3030/events/product/'+idProduct;
@@ -447,12 +512,12 @@ function afficheProductChoisis(idProduct,idChecklist){
   xhr.onreadystatechange = function () {
       if (this.readyState == 4 && this.status == 200) {
           res = xhr.response;
-                    
+                
          string =''
          string +='<h1>'+res["typeProduct"]+'</h1>'
          string +='<h1>'+res["priceProduct"]+'</h1>'
          string +='<button type="button" class="btn btn-primary"onclick="modifProductProduit(\''+idChecklist+'\')">Modifier</button>'
-         string +='<button type="button" class="btn btn-primary">Contacter vendeur</button>'
+         string +='<button type="button" class="btn btn-primary" onclick="createConversation(\''+res["seller"]["_id"]+'\',\''+idProduct+'\')">Contacter vendeur</button>'
          
          
          document.getElementById("bodyTabBoard").innerHTML = string
@@ -460,6 +525,7 @@ function afficheProductChoisis(idProduct,idChecklist){
   };
   xhr.send()
 }
+
 function modifProductProduit(idChecklist){
   console.log(idChecklist)
   var url = 'http://'+urlDeploy+':3030/events/checklistproduct/'+idChecklist;
