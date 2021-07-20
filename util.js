@@ -1,4 +1,6 @@
 const urlDeploy = '192.168.1.14'
+const secretPhrase='5t8ZmLDw8'
+
 
 function setCarouselHTML() {
     var s=''
@@ -99,10 +101,13 @@ var xhrr = new XMLHttpRequest()
             xhrr.send()
 }
 function tolocationMessagerie(){
-    
-    if(localStorage.getItem("role")=='entreprise')
+    var role=CryptoJS.AES.decrypt(localStorage.getItem("role"),secretPhrase).toString(CryptoJS.enc.Utf8);
+
+    if(role=='entreprise')
     {
-        if(localStorage.getItem("tokenPayment") ==null)
+        var token = CryptoJS.AES.decrypt(localStorage.getItem("tokenPayment"),secretPhrase).toString(CryptoJS.enc.Utf8);
+        
+        if( token==null)
         {
             document.location.href = "payment.html"
         }
@@ -140,12 +145,14 @@ function product(){
 }
 function tolocationMyEvent(idmyevent)
 {
-    localStorage.setItem("temporaryVarClicke",idmyevent)
+    var idmyEventCypte = CryptoJS.AES.encrypt(idmyevent,secretPhrase);
+    localStorage.setItem("temporaryVarClicke",idmyEventCypte)
     document.location.href = "myEvent.html"
 }
 function tolocationUpdateProduct(idproduct){
-    console.log(idproduct)
-    localStorage.setItem("temporaryVarClicke",idproduct)
+    //console.log(idproduct)
+    var idproductCypte = CryptoJS.AES.encrypt(idproduct,secretPhrase);
+    localStorage.setItem("temporaryVarClicke",idproductCypte)
    document.location.href = "myproduct.html"
    
 }
@@ -161,12 +168,13 @@ function majProfil(action){
     var nom =  document.getElementById("nameUserInput").value
     var email =  document.getElementById("adresseMailInput").value
     var password =  document.getElementById("passwordInput").value
-    var id =  localStorage.getItem("_id")
+    var id =  CryptoJS.AES.decrypt(localStorage.getItem("_id"),secretPhrase).toString(CryptoJS.enc.Utf8);
+    
     switch(action)
     {
         case 'modifier':
           
-          if(localStorage.getItem("role")=='client')
+          if((CryptoJS.AES.decrypt(localStorage.getItem("role"),secretPhrase).toString(CryptoJS.enc.Utf8))=='client')
           {
             var body = {
                 'nom': nom,
@@ -185,9 +193,11 @@ function majProfil(action){
                     res = xhr.response;
                     //console.log(res)
                 // console.log(res)
-                localStorage.setItem("nom", nom);
-                localStorage.setItem("adresseMail", email);
-                localStorage.setItem("password", password);
+               
+                
+                localStorage.setItem("nom",CryptoJS.AES.encrypt( nom,secretPhrase));
+                localStorage.setItem("adresseMail", CryptoJS.AES.encrypt(email,secretPhrase));
+                localStorage.setItem("password",  CryptoJS.AES.encrypt(password,secretPhrase));
                 setCookie('nomuser', res['nom'],Date.now() + (86400 * 7))
                 document.location.href = "espacePrive.html"
                 
@@ -213,11 +223,12 @@ function majProfil(action){
                     res = xhr.response;
                     //console.log(res)
                 // console.log(res)
-                localStorage.setItem("nom", nom);
-                localStorage.setItem("adresseMail", email);
-                localStorage.setItem("password", password);
+                localStorage.setItem("nom", CryptoJS.AES.encrypt( nom,secretPhrase));
+                localStorage.setItem("adresseMail",CryptoJS.AES.encrypt(email,secretPhrase));
+               // localStorage.setItem("password", password);
                 setCookie('nomuser', nom,Date.now() + (86400 * 7))
-                if(localStorage.getItem("tokenPayment") ==null)
+                var token = CryptoJS.AES.decrypt(localStorage.getItem("tokenPayment"),secretPhrase).toString(CryptoJS.enc.Utf8);
+                if( token==null)
         {
             document.location.href = "payment.html"
         }
@@ -236,7 +247,8 @@ function majProfil(action){
 
         case 'supprimer':
             var url
-            if(localStorage.getItem("role")=='client')
+            var role = CryptoJS.AES.decrypt(localStorage.getItem("role"),secretPhrase).toString(CryptoJS.enc.Utf8);
+            if(role=='client')
             {
                 url = 'http://'+urlDeploy+':3030/events/client/'+id
             }
@@ -271,8 +283,8 @@ function majProduct(action){
             var nomProduit = document.getElementById("nomProduit").value;
             var typeProduit = document.getElementById("typeProduit").value;
             var prixProduit = document.getElementById("prixProduit").value;
-            var id =  localStorage.getItem("temporaryVarClicke")
-            var seller =  localStorage.getItem("_id")
+            var id =  CryptoJS.AES.decrypt(localStorage.getItem("temporaryVarClicke"),secretPhrase).toString(CryptoJS.enc.Utf8);
+            var seller =  CryptoJS.AES.decrypt(localStorage.getItem("_id"),secretPhrase).toString(CryptoJS.enc.Utf8);
             var body = {
                 'typeProduct': typeProduit,
                 'nomProduct': nomProduit,
@@ -299,9 +311,9 @@ function majProduct(action){
         break;
 
         case 'supprimer':
-            var id =  localStorage.getItem("temporaryVarClicke")
+            var id =  CryptoJS.AES.decrypt(localStorage.getItem("temporaryVarClicke"),secretPhrase).toString(CryptoJS.enc.Utf8);
             var url = 'http://'+urlDeploy+':3030/events/product/'+id
-            var seller =  localStorage.getItem("_id")
+            var seller =  CryptoJS.AES.decrypt(localStorage.getItem("_id"),secretPhrase).toString(CryptoJS.enc.Utf8);
             xhr.open('DELETE', url, true)
             xhr.setRequestHeader('content-type', 'application/json')
             xhr.setRequestHeader('authorization', 'Bearer 123abc456def')
@@ -325,7 +337,7 @@ function addProduct(){
     var nomProduct =  document.getElementById("nomProduit").value;
     var typeProduit =  document.getElementById("typeProduit").value;
     var prixProduit =  document.getElementById("prixProduit").value;
-    var seller =  localStorage.getItem("_id")
+    var seller =  CryptoJS.AES.decrypt(localStorage.getItem("_id"),secretPhrase).toString(CryptoJS.enc.Utf8);
     var body = {
         'typeProduct': typeProduit,
         'nomProduct': nomProduct,
@@ -370,7 +382,8 @@ function setLocalStorageProduct(seller){
     xhr.send()
 }
 function updateSociety(){
-    var url = 'http://'+urlDeploy+':3030/events/society/'+localStorage.getItem("_id");
+    var id=CryptoJS.AES.decrypt(localStorage.getItem("_id"),secretPhrase).toString(CryptoJS.enc.Utf8);
+    var url = 'http://'+urlDeploy+':3030/events/society/'+id;
     var nameSociety =  document.getElementById("nomSocietyInput").value;
     var adresseSociety =  document.getElementById("adresseSocietyInput").value;
    var body = {
@@ -389,8 +402,9 @@ function updateSociety(){
             res = xhr.response;
             //console.log(res)
             console.log(res)
-            localStorage.setItem("nameSociety", nameSociety);
-            localStorage.setItem("adresse", adresseSociety);
+            
+            localStorage.setItem("nameSociety",CryptoJS.AES.encrypt( nameSociety,secretPhrase));
+            localStorage.setItem("adresse", CryptoJS.AES.encrypt(adresseSociety,secretPhrase));
             document.location.href = "espace.html"
         }
     };
@@ -444,18 +458,18 @@ function society(res){
     for (var i = 0; i < res.length; i++) {
         if ((res[i]['adresseMail'] == email) || (res[i]['password'] == mdp)) {
 
-            localStorage.setItem("nom", res[i]['nameUser']);
-            localStorage.setItem("_id", res[i]['_id']);
-            localStorage.setItem("role", 'entreprise');
-            localStorage.setItem("adresseMail", res[i]['addressMail']);
-            localStorage.setItem("adresse", res[i]['addressSociety']);
-            localStorage.setItem("nameSociety", res[i]['nameSociety']);
-            localStorage.setItem("password", res[i]['password']);
+            localStorage.setItem("nom", CryptoJS.AES.encrypt(res[i]['nameUser'],secretPhrase));
+            localStorage.setItem("_id",  CryptoJS.AES.encrypt(res[i]['_id'],secretPhrase));
+            localStorage.setItem("role",  CryptoJS.AES.encrypt('entreprise',secretPhrase));
+            localStorage.setItem("adresseMail", CryptoJS.AES.encrypt(res[i]['addressMail'],secretPhrase));
+            localStorage.setItem("adresse",  CryptoJS.AES.encrypt(res[i]['addressSociety'],secretPhrase));
+            localStorage.setItem("nameSociety", CryptoJS.AES.encrypt( res[i]['nameSociety'],secretPhrase));
+            //localStorage.setItem("password", res[i]['password']);
             localStorage.setItem("_products",  JSON.stringify(res[i]['_products']));
             console.log(res[i].hasOwnProperty("tokenPayment"))
            if(res[i].hasOwnProperty("tokenPayment"))
             {
-                localStorage.setItem("tokenPayment", res[i]['tokenPayment']);
+                localStorage.setItem("tokenPayment",CryptoJS.AES.encrypt( res[i]['tokenPayment'],secretPhrase));
             }
             else{
             
@@ -465,8 +479,9 @@ function society(res){
         }
     }
     if(userFind==true){
-        console.log(localStorage.getItem("tokenPayment"))
-        if(localStorage.getItem("tokenPayment") ==null)
+        //console.log(localStorage.getItem("tokenPayment"))
+        var token = CryptoJS.AES.decrypt(localStorage.getItem("tokenPayment"),secretPhrase).toString(CryptoJS.enc.Utf8);
+        if( token==null)
         {
             document.location.href = "payment.html"
         }
@@ -489,12 +504,12 @@ function client(res) {
     for (var i = 0; i < res.length; i++) {
         if ((res[i]['adresseMail'] == email) || (res[i]['password'] == mdp)) {
 
-            localStorage.setItem("nom", res[i]['nom']);
-            localStorage.setItem("_id", res[i]['_id']);
-            localStorage.setItem("role", res[i]['role']);
-            localStorage.setItem("adresseMail", res[i]['adresseMail']);
-            localStorage.setItem("password", res[i]['password']);
-            localStorage.setItem("_events", res[i]['_events']);
+            localStorage.setItem("nom", CryptoJS.AES.encrypt(res[i]['nom'],secretPhrase));
+            localStorage.setItem("_id", CryptoJS.AES.encrypt(res[i]['_id'],secretPhrase));
+            localStorage.setItem("role", CryptoJS.AES.encrypt(res[i]['role'],secretPhrase));
+            localStorage.setItem("adresseMail",  CryptoJS.AES.encrypt(res[i]['adresseMail'],secretPhrase));
+           // localStorage.setItem("password", res[i]['password']);
+            localStorage.setItem("_events",  res[i]['_events']);
             setCookie('nomuser', res[i]['nom'],Date.now() + (86400 * 7))
             userFind=true;
         }
@@ -514,11 +529,12 @@ function testConnexion(){
     var auth ;
 //console.log(localStorage.getItem("_id"))
     if((cookie!='')){
-        if(localStorage.getItem("role")=='client')
+        var role = CryptoJS.AES.decrypt(localStorage.getItem("role"),secretPhrase).toString(CryptoJS.enc.Utf8);
+        if(role=='client')
         {
             document.getElementById("navEspacePrive").style.display = 'block' ;
         }
-        else if(localStorage.getItem("role")=='entreprise'){
+        else if(role=='entreprise'){
             document.getElementById("navEspace").style.display = 'block' ;
         }
         
@@ -585,24 +601,24 @@ function envoie(role) {
        
          // console.log(res.hasOwnProperty('role')); 
           if(role=='client'){
-            console.log('client caase')
+            //console.log('client caase')
             setCookie('nomuser', datares['nom'], Date.now() + (86400 * 7));
-            localStorage.setItem("_id", datares['_id']);
-            localStorage.setItem("nom", datares['nom']);
-            localStorage.setItem("role",datares['role']);
-            localStorage.setItem("adresseMail",datares['adresseMail']);
-            localStorage.setItem("password",datares['password']);
+            localStorage.setItem("_id", CryptoJS.AES.encrypt(datares['_id'],secretPhrase));
+            localStorage.setItem("nom", CryptoJS.AES.encrypt(datares['nom'],secretPhrase));
+            localStorage.setItem("role",CryptoJS.AES.encrypt(datares['role']),secretPhrase);
+            localStorage.setItem("adresseMail",CryptoJS.AES.encrypt(datares['adresseMail'],secretPhrase));
+           // localStorage.setItem("password",datares['password']);
             document.location.href = "index.html"
           }
           else{
             setCookie('nomuser', datares['nameUser'], Date.now() + (86400 * 7));
-            localStorage.setItem("_id", datares['_id']);
-            localStorage.setItem("nom", datares['nameUser']);
-            localStorage.setItem("role",datares['roleUser']);
-            localStorage.setItem("adresseMail",datares['addressMail']);
-            localStorage.setItem("addressSociety",datares['addressSociety']);
-            localStorage.setItem("nameSociety",datares['nameSociety']);
-            localStorage.setItem("password",datares['password']);
+            localStorage.setItem("_id", CryptoJS.AES.encrypt(datares['_id'],secretPhrase));
+            localStorage.setItem("nom", CryptoJS.AES.encrypt(datares['nameUser'],secretPhrase));
+            localStorage.setItem("role",CryptoJS.AES.encrypt(datares['roleUser'],secretPhrase));
+            localStorage.setItem("adresseMail",CryptoJS.AES.encrypt(datares['addressMail'],secretPhrase));
+            localStorage.setItem("addressSociety",CryptoJS.AES.encrypt(datares['addressSociety'],secretPhrase));
+            localStorage.setItem("nameSociety",CryptoJS.AES.encrypt(datares['nameSociety'],secretPhrase));
+            //localStorage.setItem("password",datares['password']);
             //console.log(localStorage.getItem())
             document.location.href = "payment.html"
           }
@@ -636,10 +652,7 @@ function callback(xhr){
 function deco(){
     console.log(document.cookie)
     delete_cookie("nomuser");
-  /*  if(localStorage.getItem("role")=='client')
-    {
-        document.getElementById("titre").innerHTML = '';
-    }*/
+
     localStorage.clear();
    
     document.getElementById("buttunLogin").style.display = 'block';
@@ -764,7 +777,7 @@ function dopayment(tokenId){
 
 function insertToken(idToken){
     console.log(idToken)
-    var idUser = localStorage.getItem("_id");
+    var idUser =CryptoJS.AES.decrypt( localStorage.getItem("_id"),secretPhrase).toString(CryptoJS.enc.Utf8);
     const xhr = new XMLHttpRequest()
     const urlcreateToken = 'http://'+urlDeploy+':3030/events/society/' + idUser;
     body = {
@@ -843,7 +856,7 @@ function createCustomers(id){
     const urlcustomers = 'http://'+urlDeploy+':3030/payment/createCustomers';
     // Saisie donné carte
     var name = document.getElementById("name").value;
-    var email = localStorage.getItem("adresseMail");
+    var email =  CryptoJS.AES.decrypt(localStorage.getItem("adresseMail"),secretPhrase).toString(CryptoJS.enc.Utf8);
         body = {
             'name': name,
             'email': email,

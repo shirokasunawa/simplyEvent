@@ -2,6 +2,7 @@
 <!doctype html>
 <html lang="fr">
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/rollups/aes.js" integrity="sha256-/H4YS+7aYb9kJ5OKhFYPUjSJdrtV6AeyJOtTkw6X72o=" crossorigin="anonymous"></script>
 <script src="util.js"></script>
 <script src="./content/header.js"></script>
 <script src="./content/footer.js"></script>
@@ -86,7 +87,7 @@ function addEvent(idtypeevent){
   if(dateEvent == null) {dateEvent="A définir"}
   //iduser
   console.log("id event "+idtypeevent)
-    var id =  localStorage.getItem("_id")
+    var id =  CryptoJS.AES.decrypt(localStorage.getItem("_id"),secretPhrase).toString(CryptoJS.enc.Utf8);
     
   
  
@@ -120,8 +121,8 @@ function addEvent(idtypeevent){
             xhr.send(data)
 }
 function assignEvent(idEvent){
-    var iduser =  localStorage.getItem("_id")
-    localStorage.getItem("temporaryVarClicke",idEvent)
+    var iduser = CryptoJS.AES.decrypt( localStorage.getItem("_id"),secretPhrase).toString(CryptoJS.enc.Utf8);
+    //localStorage.getItem("temporaryVarClicke",idEvent)
    var idevent= idEvent
    var url = 'http://'+urlDeploy+':3030/events/event/'+idevent+'/'+iduser
    const xhr = new XMLHttpRequest()

@@ -4,12 +4,13 @@
 <script src="util.js"></script>
 <script src="./content/header.js"></script>
 <script src="./content/footer.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/rollups/aes.js" integrity="sha256-/H4YS+7aYb9kJ5OKhFYPUjSJdrtV6AeyJOtTkw6X72o=" crossorigin="anonymous"></script>
 <body onload="testConnexion()"  class="text-center">
 <div id="header"></div>
  <script>
    setHeader()
      </script>
-  <!-- Le reste du contenu -->
+ 
 <script>
    let cookie= getCookie('nomuser')
   if( cookie=='' )
@@ -22,7 +23,10 @@
 </br>
    <span id="events"></span>
    <script>
-     var id=localStorage.getItem("_id")
+  
+
+
+     var id=CryptoJS.AES.decrypt(localStorage.getItem("_id"),secretPhrase).toString(CryptoJS.enc.Utf8)
       var url = 'http://'+urlDeploy+':3030/events/client/'+id;
     const xhr = new XMLHttpRequest()
     xhr.open('GET', url, true)
@@ -47,16 +51,7 @@
     };
     xhr.send()
        
-       /*var jsonEvents = JSON.parse(localStorage.getItem("_events"))
-       console.log(jsonEvents)
-       if( Object.keys(jsonEvents).length!=0){
-           var s =''
-           for(var i =0;i<jsonEvents.length;i++){
-            s += '<button type="button" class="btn btn-outline-dark" style="width: 18rem;margin: 1.5rem 1.5rem;height:10rem;" onclick="tolocationUpdateProduct(\''+jsonProduct[i]["_id"]+'\')">'+jsonProduct[i]["titreEvent"]+'</button>'
-           }
-         
-             document.getElementById("events").innerHTML = s
-       }*/
+      
     </script>
     <div id="footer"></div>
 <script>

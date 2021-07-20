@@ -2,6 +2,7 @@
 <!doctype html>
 <html lang="fr">
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/rollups/aes.js" integrity="sha256-/H4YS+7aYb9kJ5OKhFYPUjSJdrtV6AeyJOtTkw6X72o=" crossorigin="anonymous"></script>
 <script src="util.js"></script>
 <script src="./content/header.js"></script>
 <script src="./content/footer.js"></script>
@@ -144,7 +145,7 @@
   function addPub(typePub){
     
      
-      localStorage.setItem("Pubchoisis",typePub)
+      localStorage.setItem("Pubchoisis",CryptoJS.AES.encrypt(typePub,secretPhrase))
       document.location.href = "Pub.html"
   }
     </script>

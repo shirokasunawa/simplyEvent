@@ -2,6 +2,7 @@
 <!doctype html>
 <html lang="fr">
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /> 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/rollups/aes.js" integrity="sha256-/H4YS+7aYb9kJ5OKhFYPUjSJdrtV6AeyJOtTkw6X72o=" crossorigin="anonymous"></script>
 <script src="util.js"></script>
 <script src="./content/header.js"></script>
 <script src="./content/footer.js"></script>
@@ -53,7 +54,7 @@
   </script>
 </body>
 <script>
-  var typePub =localStorage.getItem("Pubchoisis")
+  var typePub =CryptoJS.AES.decrypt(localStorage.getItem("Pubchoisis"),secretPhrase).toString(CryptoJS.enc.Utf8)
 document.getElementById("pubchoix").innerHTML= ' <h2 class="featurette-heading">Vous avez choisis la pub par : <span  class="text-muted">'+typePub+'</span></h2>'
 var prepaAff=''
 switch(typePub){
@@ -152,7 +153,7 @@ var body = {
     }
   
     function ajoutepub(idphoto){
-      var typePub =localStorage.getItem("Pubchoisis")
+      var typePub =CryptoJS.AES.decrypt(localStorage.getItem("Pubchoisis"),secretPhrase).toString(CryptoJS.enc.Utf8)
       var body 
       var future = new Date(); // get today date
     future.setDate(future.getDate() + 1); // add 7 days
@@ -224,7 +225,7 @@ const xhr = new XMLHttpRequest()
 }
 
 function assignPubUserSociety(idpub){
-  var id= localStorage.getItem("_id");
+  var id= CryptoJS.AES.decrypt(localStorage.getItem("_id"),secretPhrase).toString(CryptoJS.enc.Utf8)
 var url = 'http://'+urlDeploy+':3030/events/pubSociety/'+idpub+'/'+id
 const xhr = new XMLHttpRequest()
             

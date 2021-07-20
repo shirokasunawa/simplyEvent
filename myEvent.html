@@ -4,7 +4,8 @@
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
   <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
-<script src="util.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/rollups/aes.js" integrity="sha256-/H4YS+7aYb9kJ5OKhFYPUjSJdrtV6AeyJOtTkw6X72o=" crossorigin="anonymous"></script>
+  <script src="util.js"></script>
 <script src="./content/header.js"></script>
 <script src="./content/footer.js"></script>
 
@@ -25,15 +26,6 @@
   </script>
   </br>
  
-    
-     
-   <!--
-<div id="Moncarousel"> </div>
-<script>
-setCarouselHTML()
-
-</script>
--->
  
       <div class="modal fade " id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
@@ -140,7 +132,7 @@ setCarouselHTML()
     
    <script>
 // $('.dropdown-toggle').dropdown()
-       var id=  localStorage.getItem("temporaryVarClicke")
+       var id= CryptoJS.AES.decrypt( localStorage.getItem("temporaryVarClicke"),secretPhrase).toString(CryptoJS.enc.Utf8)
     var url = 'http://'+urlDeploy+':3030/events/event/'+id;
     const xhr = new XMLHttpRequest()
     xhr.open('GET', url, true)
@@ -153,10 +145,10 @@ setCarouselHTML()
             res = xhr.response;
             //console.log(res)
             
-            localStorage.setItem("eventTitre",res["titreEvent"])
-            localStorage.setItem("eventDate",res["dateEvent"])
+            localStorage.setItem("eventTitre",CryptoJS.AES.encrypt(res["titreEvent"],secretPhrase))
+            localStorage.setItem("eventDate",CryptoJS.AES.encrypt(res["dateEvent"],secretPhrase))
             localStorage.setItem("eventBudget",res["budgetEvent"])
-            localStorage.setItem("eventType",res["_typeEvent"]["libelle"])
+            localStorage.setItem("eventType",CryptoJS.AES.encrypt(res["_typeEvent"]["libelle"],secretPhrase))
             //localStorage.setItem("eventType",res["_typeEvent"])
             let objLinea = JSON.stringify(res["_checklists"]);
             localStorage.setItem("eventChecklist",res["objLinea"])
@@ -434,7 +426,7 @@ var body = {
 }
 function assignSocietyConv(idConv,idVendeur)
 {
-  var idclient =localStorage.getItem("_id")
+  var idclient =CryptoJS.AES.decrypt(localStorage.getItem("_id"),secretPhrase).toString(CryptoJS.enc.Utf8)
   var url = 'http://'+urlDeploy+':3030/events/conversationToSociety/'+idVendeur+'/'+idConv+'';
 
   const xhr = new XMLHttpRequest()
@@ -456,7 +448,7 @@ function assignSocietyConv(idConv,idVendeur)
 }
 function  assignUserConv(idConv,idVendeur)
 {
-  var idclient =localStorage.getItem("_id")
+  var idclient =CryptoJS.AES.decrypt(localStorage.getItem("_id"),secretPhrase).toString(CryptoJS.enc.Utf8)
   var url = 'http://'+urlDeploy+':3030/events/conversationToClient/'+idclient+'/'+idConv+'';
 
   const xhr = new XMLHttpRequest()
@@ -478,7 +470,7 @@ function  assignUserConv(idConv,idVendeur)
 }
 function createConversation(idVendeur,idProduct)
 {
-  var idclient =localStorage.getItem("_id")
+  var idclient =CryptoJS.AES.decrypt(localStorage.getItem("_id"),secretPhrase).toString(CryptoJS.enc.Utf8)
   var url = 'http://'+urlDeploy+':3030/events/conversation/'+idclient+'/'+idVendeur+'/'+idProduct+'';
 
   const xhr = new XMLHttpRequest()
@@ -574,7 +566,7 @@ function affichePush(idElement){
       setBodyForm+=' </div></br>'
       setBodyForm+=' <button class="btn " onclick="modifTitreBtn()">Modifier</button></div></div>'
       document.getElementById("bodyTabBoard").innerHTML = setBodyForm
-     var titre = localStorage.getItem("eventTitre")
+     var titre = CryptoJS.AES.decrypt(localStorage.getItem("eventTitre"),secretPhrase).toString(CryptoJS.enc.Utf8)
       document.getElementById("titreEvent").value = titre
     }
 
@@ -602,7 +594,7 @@ function affichePush(idElement){
 
     function deleteEvent(){
     
-  var id=  localStorage.getItem("temporaryVarClicke")
+  var id=  CryptoJS.AES.decrypt(localStorage.getItem("temporaryVarClicke"),secretPhrase).toString(CryptoJS.enc.Utf8)
   var url = 'http://'+urlDeploy+':3030/events/event/'+id;
 
     const xhr = new XMLHttpRequest()
@@ -625,7 +617,7 @@ function affichePush(idElement){
 
 function modifTitreBtn(){
   var newDate = document.getElementById("titreEvent").value
-  var id=  localStorage.getItem("temporaryVarClicke")
+  var id=  CryptoJS.AES.decrypt( localStorage.getItem("temporaryVarClicke"),secretPhrase).toString(CryptoJS.enc.Utf8)
   var url = 'http://'+urlDeploy+':3030/events/event/'+id;
 
   var body = {
@@ -644,7 +636,7 @@ function modifTitreBtn(){
         if (this.readyState == 4 && this.status == 200) {
             res = xhr.response;
                       
-            localStorage.setItem("eventTitre",newDate)
+            localStorage.setItem("eventTitre",CryptoJS.AES.encrypt(newDate,secretPhrase))
             document.location.reload();
             
         }
@@ -669,7 +661,7 @@ function modifTitreBtn(){
 
     function modifBudgetBtn(){
       var newDate = document.getElementById("budgetEvent").value
-  var id=  localStorage.getItem("temporaryVarClicke")
+  var id=   CryptoJS.AES.decrypt(localStorage.getItem("temporaryVarClicke"),secretPhrase).toString(CryptoJS.enc.Utf8)
   var url = 'http://'+urlDeploy+':3030/events/event/'+id;
 
   var body = {
@@ -688,7 +680,7 @@ function modifTitreBtn(){
         if (this.readyState == 4 && this.status == 200) {
             res = xhr.response;
                       
-            localStorage.setItem("eventBudget",newDate)
+            localStorage.setItem("eventBudget",CryptoJS.AES.encrypt(newDate,secretPhrase))
             document.location.reload();
             
         }
@@ -735,7 +727,7 @@ function modifType(){
 function modifTypeBtn(){
  var newType = document.getElementById("typeProduit").value
   console.log(newType)
-  var id=  localStorage.getItem("temporaryVarClicke")
+  var id=  CryptoJS.AES.decrypt( localStorage.getItem("temporaryVarClicke"),secretPhrase).toString(CryptoJS.enc.Utf8)
   //console.log(id)
   var url = 'http://'+urlDeploy+':3030/events/typeEvents/'+newType+'/'+id;
 //console.log(url)
@@ -772,13 +764,13 @@ function modifDate(){
           setBodyForm+='</div></br>'
           setBodyForm+=' <button class="btn " onclick="modifEventDate()">Modifier</button></div></div>'
           document.getElementById("bodyTabBoard").innerHTML = setBodyForm
-          var budget = localStorage.getItem("eventDate")
+          var budget = CryptoJS.AES.decrypt(localStorage.getItem("eventDate"),secretPhrase).toString(CryptoJS.enc.Utf8)
       document.getElementById("dateEvent").value = budget
          
 }
 function modifEventDate(){
   var newDate = document.getElementById("dateEvent").value
-  var id=  localStorage.getItem("temporaryVarClicke")
+  var id= CryptoJS.AES.decrypt( localStorage.getItem("temporaryVarClicke"),secretPhrase).toString(CryptoJS.enc.Utf8)
   var url = 'http://'+urlDeploy+':3030/events/event/'+id;
 
   var body = {
@@ -797,7 +789,7 @@ function modifEventDate(){
         if (this.readyState == 4 && this.status == 200) {
             res = xhr.response;
                       
-            localStorage.setItem("eventDate",newDate)
+            localStorage.setItem("eventDate",CryptoJS.AES.encrypt(newDate,secretPhrase))
             document.location.reload();
             
         }
@@ -818,7 +810,7 @@ function afficheChecklist(){
             res = xhr.response;
            
             var setBodyForm=''
-            var typeEvent = localStorage.getItem("eventType")
+            var typeEvent = CryptoJS.AES.decrypt(localStorage.getItem("eventType"),secretPhrase).toString(CryptoJS.enc.Utf8)
             for(var i=0;i<res.length;i++){
  
                 for(var k=0;k<res[i]["_typeEvent"].length;k++){
@@ -845,7 +837,7 @@ function afficheChecklist(){
 function addChecklist(titreAction){
   //Create checklist 
   //assign checklist reload
-  var id=  localStorage.getItem("temporaryVarClicke")
+  var id= CryptoJS.AES.decrypt( localStorage.getItem("temporaryVarClicke"),secretPhrase).toString(CryptoJS.enc.Utf8)
   var body = {
                 "titreCheclist": titreAction
      
@@ -861,7 +853,7 @@ function addChecklist(titreAction){
     xhr.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 201) {
             res = xhr.response;
-            localStorage.setItem("idChecklist",res["_id"])
+            localStorage.setItem("idChecklist",CryptoJS.AES.encrypt(res["_id"],secretPhrase))
           assignChecklist()
             
         }
@@ -871,8 +863,8 @@ function addChecklist(titreAction){
 
 function assignChecklist(){
   console.log(idCheclistAAssign)
-  var idCheclistAAssign = localStorage.getItem("idChecklist")
-  var id=  localStorage.getItem("temporaryVarClicke")
+  var idCheclistAAssign = CryptoJS.AES.decrypt(localStorage.getItem("idChecklist"),secretPhrase).toString(CryptoJS.enc.Utf8)
+  var id=  CryptoJS.AES.decrypt(localStorage.getItem("temporaryVarClicke"),secretPhrase).toString(CryptoJS.enc.Utf8)
   var url = 'http://'+urlDeploy+':3030/events/checklist/'+idCheclistAAssign+'/'+id;
   const xhr = new XMLHttpRequest()
     xhr.open('POST', url, true)
