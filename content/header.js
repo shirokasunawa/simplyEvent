@@ -3,13 +3,13 @@ function setHeader() {
  s+='<head>'
  s+=' <meta charset="utf-8">'
  s+=' <title>My Event</title>'
- s+=' <link rel="icon" type="image/png" sizes="16x16" href="myevent.png">'
+ s+=' <link rel="icon" type="image/png" sizes="16x16" href="../myevent.png">'
 
  s+='<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">'
  s+='<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/rollups/aes.js"></script>'
  s+='<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>'
  s+='<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script> '
- s+='<script src="util.js"></script>'
+ s+='<script src="../util.js"></script>'
  s+='<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/MaterialDesign-Webfont/3.6.95/css/materialdesignicons.css">'
  s+='<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">'
  s+='<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>'
@@ -33,23 +33,24 @@ function setHeader() {
  
     s+=' <nav class="navbar navbar-expand navbar-dark bg-dark" aria-label="Second navbar example">'
     s+='   <div class="container-fluid">'
-    s+='   <a href="index.html" class="nav-link px-2 text-white">  <img src="myevent.png" style="width:130px;height:auto" class="card-img-top" alt="..."></a>'
+  //  s+='   <a onclick="tolocationIndex()" class="nav-link px-2 text-white">  <img src="../myevent.png" style="width:130px;height:auto" class="card-img-top" alt="..."></a>'
+  s+='   <a onclick="tolocationIndex()" class="nav-link px-2 text-white">  </a>'
     s+='     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample02" aria-controls="navbarsExample02" aria-expanded="false" aria-label="Toggle navigation">'
     s+='       <span class="navbar-toggler-icon"></span>'
         s+='    </button>'
         s+='  <div class="collapse navbar-collapse" id="navbarsExample02">'
         s+='    <ul class="navbar-nav me-auto">'
         s+='      <li class="nav-item">'
-        s+='        <a class="nav-link active" aria-current="page" href="index.html">Acceuil</a>'
+        s+='        <a class="nav-link active" aria-current="page" onclick="tolocationIndex()">Acceuil</a>'
             s+='     </li>'
             s+='      <li class="nav-item">'
-            s+='        <a class="nav-link" href="pricing.html">Pricing</a>'
+            s+='        <a class="nav-link" onclick="tolocationPricing()">Pricing</a>'
             s+='      </li>'
             s+='     <li class="nav-item" id="navEspacePrive" style="display:none">'
-            s+='      <a class="nav-link" href="espacePrive.html">Espace Privé</a>'
+            s+='      <a class="nav-link" onclick="navigation(\'client/espacePrive.html\')">Espace Privé</a>'
             s+='      </li>'
             s+='     <li class="nav-item" id="navEspace" style="display:none">'
-            s+='       <a class="nav-link" href="espace.html">Espace Privé</a>'
+            s+='       <a class="nav-link" onclick="navigation(\'entreprise/espace.html\')">Espace Privé</a>'
             s+='      </li>'
             s+='    </ul>'
             s+='    <form>'
@@ -69,4 +70,15 @@ function setHeader() {
 
             s+='   </header>'
          document.getElementById("header").innerHTML = s
+}
+function tolocationIndex()
+{
+  navigation('index.html')
+  
+}
+function tolocationPricing()
+{
+  navigation('commun/pricing.html')
+  
+
 }

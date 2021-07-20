@@ -1,6 +1,15 @@
 const urlDeploy = '192.168.1.14'
 const secretPhrase='5t8ZmLDw8'
+const urlDeployement = window.location.href;
 
+function navigation(page)
+{
+
+   var location=window.location.href;
+  var newlocation =  location.split('myEvent/')[0]+'myEvent/';
+    
+   document.location.href=newlocation+page
+}
 
 function setCarouselHTML() {
     var s=''
@@ -109,55 +118,55 @@ function tolocationMessagerie(){
         
         if( token==null)
         {
-            document.location.href = "payment.html"
+            navigation("entreprise/payment/payment.html")
         }
         else{
-            document.location.href = "MessagerieSociety.html"
+            navigation("entreprise/MessagerieSociety.html")
         }
     }
     else{
-         document.location.href = "Messagerie.html"
+        navigation("client/Messagerie.html")
     }
 
    
 }
 function hrefConnexion(){
-    document.location.href = "connexion.html"
+    navigation("commun/connexion.html")
 }
 function pub(){
-    document.location.href = "choixPub.html"
+    navigation("entreprise/payment/choixPub.html")
 }
 function tolocationprofil(){
-    document.location.href = "profil.html"
+    navigation("commun/profil.html")
 }
 function hrefInscription(){
-    document.location.href = "inscription.html"
+    navigation("commun/inscription.html")
 }
 function infoEntreprise(){
-    document.location.href = "infoEntreprise.html"
+    navigation("entreprise/infoEntreprise.html")
 
 }
 function tolocationproduct(){
-    document.location.href = "addProduct.html"
+    navigation("entreprise/product/addProduct.html")
 }
 function product(){
-    document.location.href = "product.html"
+    navigation("entreprise/product/product.html")
 }
 function tolocationMyEvent(idmyevent)
 {
     var idmyEventCypte = CryptoJS.AES.encrypt(idmyevent,secretPhrase);
     localStorage.setItem("temporaryVarClicke",idmyEventCypte)
-    document.location.href = "myEvent.html"
+    navigation("client/myEvent.html")
 }
 function tolocationUpdateProduct(idproduct){
     //console.log(idproduct)
     var idproductCypte = CryptoJS.AES.encrypt(idproduct,secretPhrase);
     localStorage.setItem("temporaryVarClicke",idproductCypte)
-   document.location.href = "myproduct.html"
+    navigation("entreprise/product/myproduct.html")
    
 }
 function tolocationAddEvent(){
-    document.location.href = "addEvent.html"
+    navigation("client/addEvent.html")
 }
 function typeProduit(){
     var typeProduit = ['vetements', 'salle','fleur','mobilier'];
@@ -199,7 +208,7 @@ function majProfil(action){
                 localStorage.setItem("adresseMail", CryptoJS.AES.encrypt(email,secretPhrase));
                 localStorage.setItem("password",  CryptoJS.AES.encrypt(password,secretPhrase));
                 setCookie('nomuser', res['nom'],Date.now() + (86400 * 7))
-                document.location.href = "espacePrive.html"
+                navigation("client/espacePrive.html")
                 
                 }
             };
@@ -230,10 +239,10 @@ function majProfil(action){
                 var token = CryptoJS.AES.decrypt(localStorage.getItem("tokenPayment"),secretPhrase).toString(CryptoJS.enc.Utf8);
                 if( token==null)
         {
-            document.location.href = "payment.html"
+            navigation("entreprise/payment/payment.html")
         }
         else{
-            document.location.href = "espace.html"
+            navigation("entreprise/espace.html")
         }
                 
                 }
@@ -376,7 +385,7 @@ function setLocalStorageProduct(seller){
             console.log(res)
            // console.log(res)
            localStorage.setItem("_products",  JSON.stringify(res['_products']));
-            document.location.href = "espace.html"
+           navigation("entreprise/espace.html")
         }
     };
     xhr.send()
@@ -405,7 +414,7 @@ function updateSociety(){
             
             localStorage.setItem("nameSociety",CryptoJS.AES.encrypt( nameSociety,secretPhrase));
             localStorage.setItem("adresse", CryptoJS.AES.encrypt(adresseSociety,secretPhrase));
-            document.location.href = "espace.html"
+            navigation("entreprise/espace.html")
         }
     };
     xhr.send(data)
@@ -483,15 +492,15 @@ function society(res){
         var token = CryptoJS.AES.decrypt(localStorage.getItem("tokenPayment"),secretPhrase).toString(CryptoJS.enc.Utf8);
         if( token==null)
         {
-            document.location.href = "payment.html"
+            navigation("payment.html")
         }
         else{
-            document.location.href = "espace.html"
+            navigation("entreprise/espace.html")
         }
        
     }
     else{
-        document.location.href = "connexion.html"
+        navigation("connexion.html")
     }
 }
 function client(res) {
@@ -515,7 +524,7 @@ function client(res) {
         }
     }
     if(userFind==true){
-        document.location.href = "espacePrive.html"
+        navigation("client/espacePrive.html")
     }
     else{
         authSociety()
@@ -608,7 +617,7 @@ function envoie(role) {
             localStorage.setItem("role",CryptoJS.AES.encrypt(datares['role']),secretPhrase);
             localStorage.setItem("adresseMail",CryptoJS.AES.encrypt(datares['adresseMail'],secretPhrase));
            // localStorage.setItem("password",datares['password']);
-            document.location.href = "index.html"
+           navigation("index.html")
           }
           else{
             setCookie('nomuser', datares['nameUser'], Date.now() + (86400 * 7));
@@ -620,7 +629,7 @@ function envoie(role) {
             localStorage.setItem("nameSociety",CryptoJS.AES.encrypt(datares['nameSociety'],secretPhrase));
             //localStorage.setItem("password",datares['password']);
             //console.log(localStorage.getItem())
-            document.location.href = "payment.html"
+            navigation("entreprise/payment/payment.html")
           }
         }
       }
@@ -660,7 +669,7 @@ function deco(){
    document.getElementById("buttunDeco").style.display = 'none';
     document.getElementById("tchat").style.display = 'none';
     document.getElementById("profil").style.display = 'none';
-    document.location.href = "index.html"
+    navigation("index.html")
 }
 function setCookie(cname, cvalue, exdays) {
     const d = new Date();
@@ -765,7 +774,7 @@ function dopayment(tokenId){
             if (xhr.readyState == 4 && xhr.status == 200) {
                 res = xhr.response;
                 console.log(res)
-                document.location.href = "espace.html"
+                navigation("entreprise/espace.html")
             }
            
         };

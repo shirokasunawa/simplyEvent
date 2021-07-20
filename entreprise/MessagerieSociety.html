@@ -5,10 +5,9 @@
   <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/rollups/aes.js" integrity="sha256-/H4YS+7aYb9kJ5OKhFYPUjSJdrtV6AeyJOtTkw6X72o=" crossorigin="anonymous"></script>
-
-  <script src="util.js"></script>
-<script src="./content/header.js"></script>
-<script src="./content/footer.js"></script>
+  <script src="../util.js"></script>
+<script src="../content/header.js"></script>
+<script src="../content/footer.js"></script>
 
 <body onload="testConnexion()">
 <div id="header"></div>
@@ -21,7 +20,7 @@
    let cookie= getCookie('nomuser')
   if( cookie=='' )
   {
-    document.location.href = "index.html"
+    navigation("index.html")
   }
   </script>
   
@@ -39,7 +38,7 @@
 
     <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4"><div class="chartjs-size-monitor"><div class="chartjs-size-monitor-expand"><div class=""></div></div><div class="chartjs-size-monitor-shrink"><div class=""></div></div></div>
       <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-        <h1 class="h2">Messagerie</h1>
+        <h1 class="h2">Messagerie Entreprise</h1>
         <div class="btn-toolbar mb-2 mb-md-0">
           <div class="btn-group me-2">
 
@@ -64,7 +63,7 @@
 
     function assignMessageClientConv(idMessageClient,idconv)
     {
-      var  url = 'http://'+urlDeploy+':3030/events/messageclient/'+idMessageClient+'/'+idconv+'';
+      var  url = 'http://'+urlDeploy+':3030/events/messagesociety/'+idMessageClient+'/'+idconv+'';
       const xhr = new XMLHttpRequest()
         xhr.open('POST', url, true)
         xhr.setRequestHeader('content-type', 'application/json')
@@ -87,9 +86,9 @@ function ajoutMessage(idconv){
   	
 var now = new Date();
 now= now.toString();
-var  url = 'http://'+urlDeploy+':3030/events/messageclient/';
+var  url = 'http://'+urlDeploy+':3030/events/messagesociety/';
 var body = {
-  "idUserClient" : CryptoJS.AES.decrypt(localStorage.getItem("_id"),secretPhrase).toString(CryptoJS.enc.Utf8),
+  "idUserSociety" : CryptoJS.AES.decrypt(localStorage.getItem("_id"),secretPhrase).toString(CryptoJS.enc.Utf8),
   "idConversation": idconv,
   "content" : content,
   "dateTime" : now
@@ -163,12 +162,12 @@ function afficheMessage(idConv){
                   {
                     var heure=''
                     heure =''+date[x]["date"].getHours()+' : '+date[x]["date"].getMinutes()+''
-                    d += template_message_droite(date[x]["value"]["content"],heure)
+                    d += template_message_gauche(date[x]["value"]["content"],heure)
                   }
                   else{
                     var heure=''
                     heure =''+date[x]["date"].getHours()+' : '+date[x]["date"].getMinutes()+''
-                    d += template_message_gauche(date[x]["value"]["content"],heure)
+                    d += template_message_droite(date[x]["value"]["content"],heure)
                   }
                 }
             document.getElementById("lesMessages").innerHTML = d
@@ -206,13 +205,13 @@ function afficheMessage(idConv){
         if (this.readyState == 4 && this.status == 200) {
             res = xhr.response;
             console.log(res)
-           if(res[0]["_conversation"].length!=0)
+           if(res["_conversation"].length!=0)
            {
              var s=''
-             for(var f=0; f<res[0]["_conversation"].length;f++)
+             for(var f=0; f<res["_conversation"].length;f++)
              {
             
-              s+='  <div class="btn " style="width: 100%;margin-top:1em;" onclick="afficheMessage(\''+res[0]["_conversation"][f]["_id"]+'\')"> <div class=" d-inline p-2 justify-content-start"> '+res[0]["_conversation"][f]["_idUserSociety"]["nameSociety"]+' </div><div class="d-inline p-2 justify-content-end">'+res[0]["_conversation"][f]["_product"]["typeProduct"]+' : '+res[0]["_conversation"][f]["_product"]["priceProduct"]+' €</div></div>'
+              s+='  <div class="btn " style="width: 100%;margin-top:1em;" onclick="afficheMessage(\''+res["_conversation"][f]["_id"]+'\')"> <div class=" d-inline p-2 justify-content-start"> '+res["_conversation"][f]["_idUserClient"]["nom"]+' </div><div class="d-inline p-2 justify-content-end">'+res["_conversation"][f]["_product"]["typeProduct"]+' : '+res["_conversation"][f]["_product"]["priceProduct"]+' €</div></div>'
              }
             document.getElementById("mesConversations").innerHTML = s
            }

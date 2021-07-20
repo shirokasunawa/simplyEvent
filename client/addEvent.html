@@ -3,9 +3,9 @@
 <html lang="fr">
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
   <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/rollups/aes.js" integrity="sha256-/H4YS+7aYb9kJ5OKhFYPUjSJdrtV6AeyJOtTkw6X72o=" crossorigin="anonymous"></script>
-<script src="util.js"></script>
-<script src="./content/header.js"></script>
-<script src="./content/footer.js"></script>
+<script src="../util.js"></script>
+<script src="../content/header.js"></script>
+<script src="../content/footer.js"></script>
 <body onload="testConnexion()"  class="text-center">
 <div id="header"></div>
  <script>
@@ -15,7 +15,7 @@
    let cookie= getCookie('nomuser')
   if( cookie=='' )
   {
-    document.location.href = "index.html"
+    navigation("index.html")
   }
   </script>
   <span id="titre"></span>
@@ -130,7 +130,7 @@ function assignEvent(idEvent){
         if (this.readyState == 4 && this.status == 201 ) {
             res = xhr.response;
             console.log(res)
-            document.location.href = "espacePrive.html"
+            navigation("client/espacePrive.html")
         }
     };
    xhr.open('POST', url, true)
