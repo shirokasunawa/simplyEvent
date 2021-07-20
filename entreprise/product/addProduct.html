@@ -1,79 +1,80 @@
-
 <!doctype html>
 <html lang="fr">
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/rollups/aes.js" integrity="sha256-/H4YS+7aYb9kJ5OKhFYPUjSJdrtV6AeyJOtTkw6X72o=" crossorigin="anonymous"></script>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/rollups/aes.js"
+  integrity="sha256-/H4YS+7aYb9kJ5OKhFYPUjSJdrtV6AeyJOtTkw6X72o=" crossorigin="anonymous"></script>
 <script src="../../util.js"></script>
 <script src="../../content/header.js"></script>
 <script src="../../content/footer.js"></script>
-<body onload="testConnexion()">
-<div id="header"></div>
- <script>
-   setHeader()
-     </script>
-<script>
-   let cookie= getCookie('nomuser')
-  if( cookie=='' )
-  {
-    navigation("index.html")
-  }
-  else{
-      
-  }
-  </script>
-    <body class="text-center">
-        
-  <div class="d-flex justify-content-center">
-  <main class="form-signin">
-        
-          
-            <h1 class="h3 mb-3 fw-normal">Ajouter un produit</h1>
-        
-            <div class="form-group row">
-    <label for="nomProduit" class="col-form-label">Nom du produit</label>
-    <div class="">
-      <input type="text"  class="form-control" id="nomProduit" >
-    </div>
-  </div>
-  <span id="optionSelectTypeProduct"></span>
-  
-   
-    
-   
- 
 
-  <div class="form-group row">
-    <label for="prixProduit" class=" col-form-label">Prix du produit ( en € )</label>
-    <div class="">
-    <input type="number" class="form-control" id="prixProduit" name="prixProduit"
-       min="0" >
-    </div>
-  </div>
-</br>
-            <button style="background-color:#e685b5 ;  border-color:#e685b5" class="w-100 btn btn-lg btn-primary"  type="button" onclick="addProduct()">Ajouter</button>
-            <p class="mt-5 mb-3 text-muted">My Event</p>
-         
-        </main>
-        <script>
-           var typeProduct = typeProduit();
-           console.log(typeProduct)
-           var options=""
- options +='<div class="form-group row">'
- options +=' <label for="typeProduit" class=" col-form-label">Choississez le type du produit</label>'
- options +=' <select class="form-select" id="typeProduit">'
-for(var k=0;k<typeProduct.length;k++)
-{
-options += '<option value=\''+typeProduct[k]+'\' >'+typeProduct[k]+'</option>'
-}
-options +=' </select>'
-options +='   </div>'
-console.log(options)
-document.getElementById("optionSelectTypeProduct").innerHTML =options
-        </script>
-  </div>
-  <div id="footer"></div>
-<script>
-  setFooter()
+<body onload="testConnexion()">
+  <div id="header"></div>
+  <script>
+    setHeader()
   </script>
-</body>
+  <script>
+    let cookie = getCookie('nomuser')
+    if (cookie == '') {
+      navigation("index.html")
+    }
+    else {
+
+    }
+  </script>
+
+  <body class="text-center">
+
+    <div class="d-flex justify-content-center">
+      <main class="form-signin">
+
+
+        <h1 class="h3 mb-3 fw-normal">Ajouter un produit</h1>
+
+        <div class="form-group row">
+          <label for="nomProduit" class="col-form-label">Nom du produit</label>
+          <div class="">
+            <input type="text" class="form-control" id="nomProduit">
+          </div>
+        </div>
+        <span id="optionSelectTypeProduct"></span>
+
+
+
+
+
+
+        <div class="form-group row">
+          <label for="prixProduit" class=" col-form-label">Prix du produit ( en € )</label>
+          <div class="">
+            <input type="number" class="form-control" id="prixProduit" name="prixProduit" min="0">
+          </div>
+        </div>
+        </br>
+        <button style="background-color:#e685b5 ;  border-color:#e685b5" class="w-100 btn btn-lg btn-primary"
+          type="button" onclick="addProduct()">Ajouter</button>
+        <p class="mt-5 mb-3 text-muted">My Event</p>
+
+      </main>
+      <script>
+        var typeProduct = typeProduit();
+        console.log(typeProduct)
+        var options = ""
+        options += '<div class="form-group row">'
+        options += ' <label for="typeProduit" class=" col-form-label">Choississez le type du produit</label>'
+        options += ' <select class="form-select" id="typeProduit">'
+        for (var k = 0; k < typeProduct.length; k++) {
+          options += '<option value=\'' + typeProduct[k] + '\' >' + typeProduct[k] + '</option>'
+        }
+        options += ' </select>'
+        options += '   </div>'
+        console.log(options)
+        document.getElementById("optionSelectTypeProduct").innerHTML = options
+      </script>
+    </div>
+    <div id="footer"></div>
+    <script>
+      setFooter()
+    </script>
+  </body>
+
 </html>

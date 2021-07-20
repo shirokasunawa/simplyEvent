@@ -1,33 +1,35 @@
 <!doctype html>
 <html lang="fr">
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <script src="../util.js"></script>
 <script src="../content/header.js"></script>
 <script src="../content/footer.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/rollups/aes.js" integrity="sha256-/H4YS+7aYb9kJ5OKhFYPUjSJdrtV6AeyJOtTkw6X72o=" crossorigin="anonymous"></script>
-<body onload="testConnexion()"  class="text-center">
-<div id="header"></div>
- <script>
-   setHeader()
-     </script>
- 
-<script>
-   let cookie= getCookie('nomuser')
-  if( cookie=='' )
-  {
-    navigation("index.html")
-  }
+<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/rollups/aes.js"
+  integrity="sha256-/H4YS+7aYb9kJ5OKhFYPUjSJdrtV6AeyJOtTkw6X72o=" crossorigin="anonymous"></script>
+
+<body onload="testConnexion()" class="text-center">
+  <div id="header"></div>
+  <script>
+    setHeader()
+  </script>
+
+  <script>
+    let cookie = getCookie('nomuser')
+    if (cookie == '') {
+      navigation("index.html")
+    }
   </script>
   <p>Mon espace personnel</p>
-   <button type="button" class="btn btn-primary" style="background-color:#e685b5 ;  border-color:#e685b5;" onclick="tolocationAddEvent()">Ajouter un event <i class="bi bi-plus"></i></button>
-</br>
-   <span id="events"></span>
-   <script>
-  
+  <button type="button" class="btn btn-primary" style="background-color:#e685b5 ;  border-color:#e685b5;"
+    onclick="tolocationAddEvent()">Ajouter un event <i class="bi bi-plus"></i></button>
+  </br>
+  <span id="events"></span>
+  <script>
 
 
-     var id=CryptoJS.AES.decrypt(localStorage.getItem("_id"),secretPhrase).toString(CryptoJS.enc.Utf8)
-      var url = 'http://'+urlDeploy+':3030/events/client/'+id;
+
+    var id = CryptoJS.AES.decrypt(localStorage.getItem("_id"), secretPhrase).toString(CryptoJS.enc.Utf8)
+    var url = 'http://' + urlDeploy + ':3030/events/client/' + id;
     const xhr = new XMLHttpRequest()
     xhr.open('GET', url, true)
     xhr.setRequestHeader('content-type', 'application/json')
@@ -35,27 +37,28 @@
     xhr.responseType = "json"
     var res
     xhr.onreadystatechange = function () {
-        if (this.readyState == 4 && this.status == 200) {
-            res = xhr.response;
-            console.log(res)
-            if( res[0]["_events"].length!=0){
-           var s =''
-           for(var i =0;i<res[0]["_events"].length;i++){
-            s += '<button type="button" class="btn btn-outline-dark" style="width: 18rem;margin: 1.5rem 1.5rem;height:10rem;" onclick="tolocationMyEvent(\''+res[0]["_events"][i]["_id"]+'\')">'+res[0]["_events"][i]["titreEvent"]+'</button>'
-           }
-         
-             document.getElementById("events").innerHTML = s
-       }
-            
+      if (this.readyState == 4 && this.status == 200) {
+        res = xhr.response;
+        console.log(res)
+        if (res[0]["_events"].length != 0) {
+          var s = ''
+          for (var i = 0; i < res[0]["_events"].length; i++) {
+            s += '<button type="button" class="btn btn-outline-dark" style="width: 18rem;margin: 1.5rem 1.5rem;height:10rem;" onclick="tolocationMyEvent(\'' + res[0]["_events"][i]["_id"] + '\')">' + res[0]["_events"][i]["titreEvent"] + '</button>'
+          }
+
+          document.getElementById("events").innerHTML = s
         }
+
+      }
     };
     xhr.send()
-       
-      
-    </script>
-    <div id="footer"></div>
-<script>
-  setFooter()
+
+
+  </script>
+  <div id="footer"></div>
+  <script>
+    setFooter()
   </script>
 </body>
+
 </html>
