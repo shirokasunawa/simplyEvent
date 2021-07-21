@@ -4,6 +4,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/rollups/aes.js"
   integrity="sha256-/H4YS+7aYb9kJ5OKhFYPUjSJdrtV6AeyJOtTkw6X72o=" crossorigin="anonymous"></script>
 <script src="../../util.js"></script>
+<script src="./addProduct.js"></script>
 <script src="../../content/header.js"></script>
 <script src="../../content/footer.js"></script>
 
@@ -56,19 +57,7 @@
 
       </main>
       <script>
-        var typeProduct = typeProduit();
-        console.log(typeProduct)
-        var options = ""
-        options += '<div class="form-group row">'
-        options += ' <label for="typeProduit" class=" col-form-label">Choississez le type du produit</label>'
-        options += ' <select class="form-select" id="typeProduit">'
-        for (var k = 0; k < typeProduct.length; k++) {
-          options += '<option value=\'' + typeProduct[k] + '\' >' + typeProduct[k] + '</option>'
-        }
-        options += ' </select>'
-        options += '   </div>'
-        console.log(options)
-        document.getElementById("optionSelectTypeProduct").innerHTML = options
+        initPageAddProduct()
       </script>
     </div>
     <div id="footer"></div>

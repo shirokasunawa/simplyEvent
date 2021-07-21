@@ -4,6 +4,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/rollups/aes.js"
   integrity="sha256-/H4YS+7aYb9kJ5OKhFYPUjSJdrtV6AeyJOtTkw6X72o=" crossorigin="anonymous"></script>
 <script src="../../util.js"></script>
+<script src="./product.js"></script>
 <script src="../../content/header.js"></script>
 <script src="../../content/footer.js"></script>
 
@@ -27,17 +28,8 @@
     </br>
     <span id="products"></span>
     <script>
+      initPageProduct()
 
-      var jsonProduct = JSON.parse(localStorage.getItem("_products"))
-      console.log(jsonProduct)
-      if (Object.keys(jsonProduct).length != 0) {
-        var s = ''
-        for (var i = 0; i < jsonProduct.length; i++) {
-          s += '<button type="button" class="btn btn-outline-dark" style="width: 18rem;margin: 1.5rem 1.5rem;height:10rem;" onclick="tolocationUpdateProduct(\'' + jsonProduct[i]["_id"] + '\')">' + jsonProduct[i]["typeProduct"] + '</button>'
-        }
-
-        document.getElementById("products").innerHTML = s
-      }
     </script>
     <div id="footer"></div>
     <script>

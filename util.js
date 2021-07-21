@@ -159,9 +159,7 @@ function tolocationUpdateProduct(idproduct) {
     navigation("entreprise/product/myproduct.html")
 
 }
-function tolocationAddEvent() {
-    navigation("client/addEvent.html")
-}
+
 function typeProduit() {
     var typeProduit = ['vetements', 'salle', 'fleur', 'mobilier'];
     return typeProduit;
