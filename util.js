@@ -2,6 +2,10 @@ const urlDeploy = '192.168.1.14'
 const secretPhrase = '5t8ZmLDw8'
 const urlDeployement = window.location.href;
 
+var i = 0;
+var txt = 'Vos évènements à tout moment'; /* The text */
+var speed = 150;
+
 function navigation(page) {
 
     var location = window.location.href;
@@ -9,7 +13,7 @@ function navigation(page) {
 
     document.location.href = newlocation + page
 }
-
+//BUG : Click sur suivant ou precent marche pas
 function setCarouselHTML() {
     var s = ''
     s += ' <div id="demo" class="carousel slide" data-ride="carousel">'
@@ -47,6 +51,8 @@ function setCarouselHTML() {
     setCarouselPub()
 }
 
+//BUG : S'il y en a aucune
+//Tester la duree
 function setCarouselPub() {
     var url = 'http://' + urlDeploy + ':3030/events/pubBanner/'
     var xhrr = new XMLHttpRequest()
@@ -161,7 +167,7 @@ function tolocationUpdateProduct(idproduct) {
 }
 
 function typeProduit() {
-    var typeProduit = ['vetements', 'salle', 'fleur', 'mobilier'];
+    var typeProduit = ['vetements', 'salle', 'fleur', 'mobilier','prestation','chaussures','appareils électroniques','électroménagers','pharmaceutiques'];
     return typeProduit;
 }
 function majProfil(action) {
@@ -546,6 +552,9 @@ function testConnexion() {
 }
 
 //page inscription 
+//BUG : obliger à remplir le formulaire 
+//BUG: faire les vérif sur les inputs
+//BUG: Vérifier si le mail n'existe pas déjà
 function envoie(role) {
     console.log(role)
     var body
@@ -678,7 +687,8 @@ function getCookie(cname) {
     }
     return "";
 }
-
+//Bug : Vérifier le formulaire
+//BUG: s'il remplis pas tout
 function afficheForm() {
     var chaineResult = '';
     var choix = findSelection("exampleRclientCheckadios");
@@ -899,3 +909,20 @@ function createPaymentMethods() {
     xhr.send(data)
 }
 
+function tolocationIndex() {
+    navigation('index.html')
+  
+  }
+  function tolocationPricing() {
+    navigation('commun/pricing.html')
+  
+  
+  }
+  
+  function typeWriter() {
+    if (i < txt.length) {
+      document.getElementById("TitleMyEvent").innerHTML += txt.charAt(i);
+      i++;
+      setTimeout(typeWriter, speed);
+    }
+  }

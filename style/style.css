@@ -1,21 +1,59 @@
 html {
     height: 100%;
-  }
+}
+
 body {
     height: 100%;
     margin: 0;
     padding: 0;
 }
-.form-signin { 
-    width: 100%; 
-    max-width: 330px; 
-    padding: 15px; 
+
+.form-signin {
+    width: 100%;
+    max-width: 330px;
+    padding: 15px;
     margin: auto;
-    margin-top: 20px 
-} 
+    margin-top: 20px
+}
+
 .form-group {
     width: 100%;
     max-width: 330px;
     padding: 15px;
     margin: auto;
+}
+
+#footer {
+    margin-top: 3rem;
+}
+
+#tchat {
+    font-size: 2rem;
+    color: cornflowerblue;
+    display: none;
+}
+
+#profil {
+    display: none;
+    font-size: 2rem;
+    color: cornflowerblue;
+}
+
+#buttunDeco {
+    background-color: #e685b5;
+    border-color: #e685b5;
+    display: none;
+    font-size: 1.5rem;
+}
+
+#buttunLogin {
+    background-color: #e685b5;
+    border-color: #e685b5;
+    font-size: 1.5rem;
+}
+
+#buttunSignUp {
+    background-color: #e685b5;
+    border-color: #e685b5;
+    font-size: 1.5rem;
 }

@@ -53,7 +53,7 @@ function addInfo(idEvent) {
     document.getElementById("typeEvents").innerHTML = sForm
 }
 
-
+//Bug: Vérifier les entrer du formulaire
 function addEvent(idtypeevent) {
     var titreEvent = document.getElementById("titreEvent").value
     if (titreEvent == null) { titreEvent = "A définir" }
