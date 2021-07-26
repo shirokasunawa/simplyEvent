@@ -40,7 +40,7 @@ function setHeader() {
 
   s += ' <nav class="navbar navbar-expand navbar-dark bg-dark" aria-label="Second navbar example">'
   s += '   <div class="container-fluid">'
-  s += '   <div class="d-flex align-items-center"><img src="./myevent.png" style="width:8rem;"/><div id="TitleMyEvent" style="margin-left: 1rem; width:22rem;"></div></div>'
+  s += '   <div class="d-flex align-items-center"><img id="logoMyEvent" src="./myevent.png" style="width:8rem;"/><div id="TitleMyEvent" style="margin-left: 2rem; width:22rem;"></div></div>'
    // s+='   <a onclick="tolocationIndex()" class="nav-link px-2 text-white">  <img src="./myevent.png" style="width:130px;height:auto" class="card-img-top" alt="..."></a>'
   s += '   <a onclick="tolocationIndex()" class="nav-link px-2 text-white">  </a>'
   s += '     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample02" aria-controls="navbarsExample02" aria-expanded="false" aria-label="Toggle navigation">'
@@ -79,5 +79,5 @@ function setHeader() {
   s += '   </header>'
 
   document.getElementById("header").innerHTML = s
-  typeWriter()
+
 }

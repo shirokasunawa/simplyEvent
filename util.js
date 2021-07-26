@@ -6,6 +6,31 @@ var i = 0;
 var txt = 'Vos évènements à tout moment'; /* The text */
 var speed = 150;
 
+function countFoImagelogo()
+{
+    // 4 slash normal
+    var location = window.location.href;
+    var count = location.split("/").length - 1;
+    count= count-4;
+    console.log(count)
+    var stringLocationImage='';
+   if(count==1)
+   {
+    stringLocationImage= '../myevent.png'
+   }
+   else if(count==2)
+   {
+    stringLocationImage= '../../myevent.png'
+   }
+   else if(count==3)
+   {
+    stringLocationImage= '../../../myevent.png'
+   }
+   var img= document.getElementById("logoMyEvent")
+   img.setAttribute("src", stringLocationImage)
+   typeWriter()
+}
+
 function navigation(page) {
 
     var location = window.location.href;
