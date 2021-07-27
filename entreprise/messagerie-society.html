@@ -1,0 +1,163 @@
+<!doctype html>
+<html lang="fr">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+  integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"
+  integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/rollups/aes.js"
+  integrity="sha256-/H4YS+7aYb9kJ5OKhFYPUjSJdrtV6AeyJOtTkw6X72o=" crossorigin="anonymous"></script>
+<script src="../util.js"></script>
+<script src="./MessagerieSociety.js"></script>
+<script src="../content/header.js"></script>
+<script src="../content/footer.js"></script>
+
+<body onload="testConnexion()">
+  <div id="header"></div>
+  <script>
+    setHeader()
+    countFoImagelogo()
+  </script>
+
+  <script>
+
+    let cookie = getCookie('nomuser')
+    if (cookie == '') {
+      navigation("accueil.html")
+    }
+  </script>
+
+
+  <div class="row">
+    <nav class="col-md-2 d-none d-md-block bg-light sidebar">
+      <div class="sidebar-sticky">
+
+        <div class=" align-content-stretch">
+          <span id="mesConversations"></span>
+        </div>
+      </div>
+
+    </nav>
+
+    <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+      <div class="chartjs-size-monitor">
+        <div class="chartjs-size-monitor-expand">
+          <div class=""></div>
+        </div>
+        <div class="chartjs-size-monitor-shrink">
+          <div class=""></div>
+        </div>
+      </div>
+      <div
+        class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+        <h1 class="h2">Messagerie Entreprise</h1>
+        <div class="btn-toolbar mb-2 mb-md-0">
+          <div class="btn-group me-2">
+
+
+
+          </div>
+
+        </div>
+      </div>
+
+      <div class="overflow-auto" style=" height:600px; overflow-y: scroll;">
+
+        <span id="lesMessages"></span>
+      </div>
+
+      <span id="areaText"></span>
+
+    </main>
+  </div>
+  </br>
+  <script>
+
+    initPageMessagerieSociety()
+
+
+  </script>
+  <style>
+    
+    .containere {
+      border: 2px solid #dedede;
+      background-color: #f1f1f1;
+      border-radius: 5px;
+      padding: 10px;
+      margin: 10px 0;
+    }
+
+  
+    .darker {
+      border-color: #ccc;
+      background-color: #ddd;
+    }
+
+  
+    .containere::after {
+      content: "";
+      clear: both;
+      display: table;
+    }
+
+   
+    .containere img {
+      float: left;
+      max-width: 60px;
+      width: 100%;
+      margin-right: 20px;
+      border-radius: 50%;
+    }
+
+    
+    .containere img.right {
+      float: right;
+      margin-left: 20px;
+      margin-right: 0;
+    }
+
+
+    .time-right {
+      float: right;
+      color: #aaa;
+    }
+
+  
+    .time-left {
+      float: left;
+      color: #999;
+    }
+  </style>
+  <style>
+    .btn {
+      border-width: 2px;
+      border-color: #ffeecc;
+
+    }
+
+    .btn:hover {
+      background-color: #ffeecc;
+
+    }
+
+    .svg:hover {
+      background-color: #ffeecc;
+      cursor: pointer;
+      border-radius: 15px;
+
+    }
+
+    .svgg:hover {
+      background-color: #ffeecc;
+      cursor: pointer;
+      border-radius: 15px;
+      height: 27px
+    }
+  </style>
+  <div id="footer"></div>
+  <script>
+    setFooter()
+  </script>
+</body>
+
+</html>

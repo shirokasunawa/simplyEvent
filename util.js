@@ -1,250 +1,309 @@
-const urlDeploy = '192.168.1.12'
+//const urlDeploy = '192.168.1.14'
+const urlDeploy = '192.168.1.18'
+const secretPhrase = '5t8ZmLDw8'
+const urlDeployement = window.location.href;
 
-function setCarouselHTML() {
-    var s=''
-   s+=' <div id="demo" class="carousel slide" data-ride="carousel">'
-      
-   s+='    <ul class="carousel-indicators">'
-   s+='     <li data-target="#demo" data-slide-to="0" class="active"></li>'
-   s+='     <li data-target="#demo" data-slide-to="1"></li>'
-   s+='      <li data-target="#demo" data-slide-to="2"></li>'
-   s+='    </ul>'
-    
-   s+='    <div class="carousel-inner">'
-   s+='      <span id="carousel"></span>'
-   s+='      </div>'
-     
-   s+='     <a class="carousel-control-prev" href="#demo" role="button" data-slide="prev">'
-   s+='    <span class="carousel-control-prev-icon" aria-hidden="true"></span>'
-   s+='    <span class="sr-only">Précédent</span>'
-   s+='   </a>'
-   s+='   <a class="carousel-control-next" href="#demo" role="button" data-slide="next">'
-   s+='     <span class="carousel-control-next-icon" aria-hidden="true"></span>'
-   s+='    <span class="sr-only">Suivant</span>'
-   s+='   </a>'
-   s+=' </div>'
-   s+='</br>'
-   s+='<style>'
-   s+='  .demo{'
-    s+='      position: absolute !important;'
-    s+='   }'
-    s+=' .carousel-inner{'
-        s+=' width:100%;'
-        s+='  max-height: 200px !important;'
-        s+='}'
-        s+='  </style>'
-        document.getElementById("Moncarousel").innerHTML = s
-        setCarouselPub()
+var i = 0;
+var txt = 'Vos évènements à tout moment';
+var speed = 150;
+
+function countFoImagelogo()
+{
+    // 4 slash normal
+    var location = window.location.href;
+    var count = location.split("/").length - 1;
+    count= count-4;
+    console.log(count)
+    var stringLocationImage='';
+    if(count == 0)
+    {
+        stringLocationImage= 'img/myevent.png'
+    }
+   else if(count==1)
+   {
+    stringLocationImage= '../img/myevent.png'
+   }
+   else if(count==2)
+   {
+    stringLocationImage= '../../img/myevent.png'
+   }
+   else if(count==3)
+   {
+    stringLocationImage= '../../../img/myevent.png'
+   }
+   var img= document.getElementById("logoMyEvent")
+   img.setAttribute("src", stringLocationImage)
+   typeWriter()
 }
 
-function setCarouselPub(){
-    var url = 'http://'+urlDeploy+':3030/events/pubBanner/'
-var xhrr = new XMLHttpRequest()
+function navigation(page) {
+
+    if(page=='entreprise/espace.html')
+    {
+        var role = CryptoJS.AES.decrypt(localStorage.getItem("role"), secretPhrase).toString(CryptoJS.enc.Utf8);
+        if(role=='entreprise')
+        {
+            if(localStorage.getItem("tokenPayment") == null )
+            {
+                page='entreprise/payment/payment.html'
+            }
+        }
+    }
+    var location = window.location.href;
+    var newlocation = location.split('myEvent/')[0] + 'myEvent/';
+
+    document.location.href = newlocation + page
+}
+//BUG : Click sur suivant ou precent marche pas
+function setCarouselHTML() {
+    var s = ''
+    s += ' <div id="demo" class="carousel slide" data-ride="carousel">'
+
+    s += '    <ul class="carousel-indicators">'
+    s += '     <li data-target="#demo" data-slide-to="0" class="active"></li>'
+    s += '     <li data-target="#demo" data-slide-to="1"></li>'
+    s += '      <li data-target="#demo" data-slide-to="2"></li>'
+    s += '    </ul>'
+
+    s += '    <div class="carousel-inner">'
+    s += '      <span id="carousel"></span>'
+    s += '      </div>'
+
+    s += '     <a class="carousel-control-prev" href="#demo" role="button" data-slide="prev">'
+    s += '    <span class="carousel-control-prev-icon" aria-hidden="true"></span>'
+    s += '    <span class="sr-only">Précédent</span>'
+    s += '   </a>'
+    s += '   <a class="carousel-control-next" href="#demo" role="button" data-slide="next">'
+    s += '     <span class="carousel-control-next-icon" aria-hidden="true"></span>'
+    s += '    <span class="sr-only">Suivant</span>'
+    s += '   </a>'
+    s += ' </div>'
+    s += '</br>'
+    s += '<style>'
+    s += '  .demo{'
+    s += '      position: absolute !important;'
+    s += '   }'
+    s += ' .carousel-inner{'
+    s += ' width:100%;'
+    s += '  max-height: 200px !important;'
+    s += '}'
+    s += '  </style>'
+    document.getElementById("Moncarousel").innerHTML = s
+    setCarouselPub()
+}
+
+//BUG : S'il y en a aucune
+//Tester la duree
+function setCarouselPub() {
+    var url = 'http://' + urlDeploy + ':3030/events/pubBanner/'
+    var xhrr = new XMLHttpRequest()
+
+    xhrr.open('GET', url, true)
+    xhrr.setRequestHeader('content-type', 'application/json')
+    xhrr.setRequestHeader('authorization', 'Bearer 123abc456def')
+    xhrr.responseType = "json"
+    xhrr.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+            res = xhrr.response;
            
-            xhrr.open('GET', url, true)
-            xhrr.setRequestHeader('content-type', 'application/json')
-            xhrr.setRequestHeader('authorization', 'Bearer 123abc456def')
-            xhrr.responseType = "json"
-            xhrr.onreadystatechange = function () {
-                if (this.readyState == 4 && this.status == 200) {
-                    res = xhrr.response;
-                    //console.log(res)
-                // console.log(res)
-                var s=''
-                for(var f=0;f<3;f++)
-                {
-                   switch(f)
-                   {
-                       case 0 :
-                        var data=(res[f]["img"]["img"]).split(',')[1];
+            var s = ''
+            for (var f = 0; f < 3; f++) {
+                switch (f) {
+                    case 0:
+                        var data = (res[f]["img"]["img"]).split(',')[1];
                         var binaryBlob = atob(data);
-                          
-                          
-                           s+='  <div class="carousel-item active">'
-                           s+=' <img src="data:image/jpeg;base64,'+btoa(binaryBlob)+'" alt="Carrousel slide 1" class="d-block w-100">'
-                           s+='  <div class="carousel-caption d-none d-md-block">'
-                           s+='   <h4>Titre de la légende</h4>'
-                           s+='   <p>Légende de la slide n°1.</p>'
-                           s+=' </div>'
-                           s+='  </div>'
-                           break;
-                    case 1: 
-                        var data=(res[f]["img"]["img"]).split(',')[1];
+
+
+                        s += '  <div class="carousel-item active">'
+                        s += ' <img src="data:image/jpeg;base64,' + btoa(binaryBlob) + '" alt="Carrousel slide 1" class="d-block w-100">'
+                        s += '  <div class="carousel-caption d-none d-md-block">'
+                        s += '   <h4>Titre de la légende</h4>'
+                        s += '   <p>Légende de la slide n°1.</p>'
+                        s += ' </div>'
+                        s += '  </div>'
+                        break;
+                    case 1:
+                        var data = (res[f]["img"]["img"]).split(',')[1];
                         var binaryBlob = atob(data);
-                        s+=' <div class="carousel-item">'
-                        s+='<img src="data:image/jpeg;base64,'+btoa(binaryBlob)+'" alt="Carrousel slide 2" class="d-block w-100">'
-                        s+='<div class="carousel-caption d-none d-md-block text-dark">'
-                        s+='  <h4>Titre de la légende</h4>'
-                        s+='  <p>Légende de la slide n°2.</p>'
-                        s+=' </div>'
-                        s+=' </div>'
+                        s += ' <div class="carousel-item">'
+                        s += '<img src="data:image/jpeg;base64,' + btoa(binaryBlob) + '" alt="Carrousel slide 2" class="d-block w-100">'
+                        s += '<div class="carousel-caption d-none d-md-block text-dark">'
+                        s += '  <h4>Titre de la légende</h4>'
+                        s += '  <p>Légende de la slide n°2.</p>'
+                        s += ' </div>'
+                        s += ' </div>'
                         break;
                     case 2:
-                        var data=(res[f]["img"]["img"]).split(',')[1];
+                        var data = (res[f]["img"]["img"]).split(',')[1];
                         var binaryBlob = atob(data);
-                        s+='    <div class="carousel-item">'
-                        s+='<img src="data:image/jpeg;base64,'+btoa(binaryBlob)+'" alt="Carrousel slide 3" class="d-block w-100">'
-                        s+='<div class="carousel-caption d-none d-md-block">'
-                        s+='  <h4>Titre de la légende</h4>'
-                        s+='  <p>Légende de la slide n°3.</p>'
-                        s+=' </div>'
-                        s+=' </div>'
-                        
+                        s += '    <div class="carousel-item">'
+                        s += '<img src="data:image/jpeg;base64,' + btoa(binaryBlob) + '" alt="Carrousel slide 3" class="d-block w-100">'
+                        s += '<div class="carousel-caption d-none d-md-block">'
+                        s += '  <h4>Titre de la légende</h4>'
+                        s += '  <p>Légende de la slide n°3.</p>'
+                        s += ' </div>'
+                        s += ' </div>'
+
                         break;
-                   }
                 }
-                document.getElementById("carousel").innerHTML=s
-                }
-            };
-            xhrr.send()
+            }
+            document.getElementById("carousel").innerHTML = s
+        }
+    };
+    xhrr.send()
 }
-function tolocationMessagerie(){
-    
-    if(localStorage.getItem("role")=='entreprise')
-    {
-        if(localStorage.getItem("tokenPayment") ==null)
-        {
-            document.location.href = "payment.html"
+function tolocationMessagerie() {
+    var role = CryptoJS.AES.decrypt(localStorage.getItem("role"), secretPhrase).toString(CryptoJS.enc.Utf8);
+console.log(role)
+var token = null
+    if (role == 'entreprise') {
+        if(localStorage.getItem("tokenPayment") == null )
+        {token =null
+
         }
         else{
-            document.location.href = "Messagerie.html"
+            token = CryptoJS.AES.decrypt(localStorage.getItem("tokenPayment"), secretPhrase).toString(CryptoJS.enc.Utf8);
+        } 
+        
+        console.log(token)
+        if (token == null) {
+            navigation("entreprise/payment/payment.html")
+        }
+        else {
+            navigation("entreprise/messagerie-society.html")
         }
     }
-    else{
-         document.location.href = "Messagerie.html"
+    else {
+        navigation("client/messagerie.html")
     }
 
-   
-}
-function hrefConnexion(){
-    document.location.href = "connexion.html"
-}
-function pub(){
-    document.location.href = "choixPub.html"
-}
-function tolocationprofil(){
-    document.location.href = "profil.html"
-}
-function hrefInscription(){
-    document.location.href = "inscription.html"
-}
-function infoEntreprise(){
-    document.location.href = "infoEntreprise.html"
 
 }
-function tolocationproduct(){
-    document.location.href = "addProduct.html"
+function hrefConnexion() {
+    navigation("commun/connexion.html")
 }
-function product(){
-    document.location.href = "product.html"
+function pub() {
+    navigation("entreprise/payment/choix-pub.html")
 }
-function tolocationMyEvent(idmyevent)
-{
-    localStorage.setItem("temporaryVarClicke",idmyevent)
-    document.location.href = "myEvent.html"
+function tolocationprofil() {
+    navigation("commun/profil.html")
 }
-function tolocationUpdateProduct(idproduct){
-    console.log(idproduct)
-    localStorage.setItem("temporaryVarClicke",idproduct)
-   document.location.href = "myproduct.html"
+function hrefInscription() {
+    navigation("commun/inscription.html")
+}
+function infoEntreprise() {
+    navigation("entreprise/info-entreprise.html")
+
+}
+function tolocationproduct() {
+    navigation("entreprise/product/add-product.html")
+}
+function product() {
+    navigation("entreprise/product/product.html")
+}
+function tolocationMyEvent(idmyevent) {
+    var idmyEventCypte = CryptoJS.AES.encrypt(idmyevent, secretPhrase);
+    localStorage.setItem("temporaryVarClicke", idmyEventCypte)
+    navigation("client/my-event.html")
+}
+function tolocationUpdateProduct(idproduct) {
    
+    var idproductCypte = CryptoJS.AES.encrypt(idproduct, secretPhrase);
+    localStorage.setItem("temporaryVarClicke", idproductCypte)
+    navigation("entreprise/product/my-product.html")
+
 }
-function tolocationAddEvent(){
-    document.location.href = "addEvent.html"
-}
-function typeProduit(){
-    var typeProduit = ['vetements', 'salle','fleur','mobilier'];
+
+function typeProduit() {
+    var typeProduit = ['vetements', 'salle', 'fleur', 'mobilier','prestation','chaussures','appareils électroniques','électroménagers','pharmaceutiques'];
     return typeProduit;
 }
-function majProfil(action){
+function majProfil(action) {
     const xhr = new XMLHttpRequest()
-    var nom =  document.getElementById("nameUserInput").value
-    var email =  document.getElementById("adresseMailInput").value
-    var password =  document.getElementById("passwordInput").value
-    var id =  localStorage.getItem("_id")
-    switch(action)
-    {
+    var nom = document.getElementById("nameUserInput").value
+    var email = document.getElementById("adresseMailInput").value
+    var password = document.getElementById("passwordInput").value
+    var id = CryptoJS.AES.decrypt(localStorage.getItem("_id"), secretPhrase).toString(CryptoJS.enc.Utf8);
+
+    switch (action) {
         case 'modifier':
-          
-          if(localStorage.getItem("role")=='client')
-          {
-            var body = {
-                'nom': nom,
-                'adresseMail': email,
-                'password': password
-                
-            };
-            var url = 'http://'+urlDeploy+':3030/events/client/'+id
-            const data = JSON.stringify(body)
-            xhr.open('PUT', url, true)
-            xhr.setRequestHeader('content-type', 'application/json')
-            xhr.setRequestHeader('authorization', 'Bearer 123abc456def')
-            xhr.responseType = "json"
-            xhr.onreadystatechange = function () {
-                if (this.readyState == 4 && this.status == 200) {
-                    res = xhr.response;
-                    //console.log(res)
-                // console.log(res)
-                localStorage.setItem("nom", nom);
-                localStorage.setItem("adresseMail", email);
-                localStorage.setItem("password", password);
-                setCookie('nomuser', res['nom'],Date.now() + (86400 * 7))
-                document.location.href = "espacePrive.html"
-                
-                }
-            };
-            xhr.send(data)
-          }
-          else{
-            var body = {
-                'nameUser': nom,
-                'addressMail': email,
-                'password': password
-                
-            };
-            var url = 'http://'+urlDeploy+':3030/events/society/'+id
-            const data = JSON.stringify(body)
-            xhr.open('PUT', url, true)
-            xhr.setRequestHeader('content-type', 'application/json')
-            xhr.setRequestHeader('authorization', 'Bearer 123abc456def')
-            xhr.responseType = "json"
-            xhr.onreadystatechange = function () {
-                if (this.readyState == 4 && this.status == 200) {
-                    res = xhr.response;
-                    //console.log(res)
-                // console.log(res)
-                localStorage.setItem("nom", nom);
-                localStorage.setItem("adresseMail", email);
-                localStorage.setItem("password", password);
-                setCookie('nomuser', nom,Date.now() + (86400 * 7))
-                if(localStorage.getItem("tokenPayment") ==null)
-        {
-            document.location.href = "payment.html"
-        }
-        else{
-            document.location.href = "espace.html"
-        }
-                
-                }
-            };
-            xhr.send(data)
-          }
-           
-           
-           
-        break;
+
+            if ((CryptoJS.AES.decrypt(localStorage.getItem("role"), secretPhrase).toString(CryptoJS.enc.Utf8)) == 'client') {
+                var body = {
+                    'nom': nom,
+                    'adresseMail': email,
+                    'password': password
+
+                };
+                var url = 'http://' + urlDeploy + ':3030/events/client/' + id
+                const data = JSON.stringify(body)
+                xhr.open('PUT', url, true)
+                xhr.setRequestHeader('content-type', 'application/json')
+                xhr.setRequestHeader('authorization', 'Bearer 123abc456def')
+                xhr.responseType = "json"
+                xhr.onreadystatechange = function () {
+                    if (this.readyState == 4 && this.status == 200) {
+                        res = xhr.response;
+                        
+                        localStorage.setItem("nom", CryptoJS.AES.encrypt(nom, secretPhrase));
+                        localStorage.setItem("adresseMail", CryptoJS.AES.encrypt(email, secretPhrase));
+                        localStorage.setItem("password", CryptoJS.AES.encrypt(password, secretPhrase));
+                        setCookie('nomuser', res['nom'], Date.now() + (86400 * 7))
+                        navigation("client/espace-prive.html")
+
+                    }
+                };
+                xhr.send(data)
+            }
+            else {
+                var body = {
+                    'nameUser': nom,
+                    'addressMail': email,
+                    'password': password
+
+                };
+                var url = 'http://' + urlDeploy + ':3030/events/society/' + id
+                const data = JSON.stringify(body)
+                xhr.open('PUT', url, true)
+                xhr.setRequestHeader('content-type', 'application/json')
+                xhr.setRequestHeader('authorization', 'Bearer 123abc456def')
+                xhr.responseType = "json"
+                xhr.onreadystatechange = function () {
+                    if (this.readyState == 4 && this.status == 200) {
+                        res = xhr.response;
+                       
+                        localStorage.setItem("nom", CryptoJS.AES.encrypt(nom, secretPhrase));
+                        localStorage.setItem("adresseMail", CryptoJS.AES.encrypt(email, secretPhrase));
+                       
+                        setCookie('nomuser', nom, Date.now() + (86400 * 7))
+                        var token = CryptoJS.AES.decrypt(localStorage.getItem("tokenPayment"), secretPhrase).toString(CryptoJS.enc.Utf8);
+                        if (token == null) {
+                            navigation("entreprise/payment/payment.html")
+                        }
+                        else {
+                            navigation("entreprise/espace.html")
+                        }
+
+                    }
+                };
+                xhr.send(data)
+            }
+
+
+
+            break;
 
         case 'supprimer':
             var url
-            if(localStorage.getItem("role")=='client')
-            {
-                url = 'http://'+urlDeploy+':3030/events/client/'+id
+            var role = CryptoJS.AES.decrypt(localStorage.getItem("role"), secretPhrase).toString(CryptoJS.enc.Utf8);
+            if (role == 'client') {
+                url = 'http://' + urlDeploy + ':3030/events/client/' + id
             }
-            else{
-                url = 'http://'+urlDeploy+':3030/events/society/'+id
+            else {
+                url = 'http://' + urlDeploy + ':3030/events/society/' + id
             }
-           
-           
+
+
             xhr.open('DELETE', url, true)
             xhr.setRequestHeader('content-type', 'application/json')
             xhr.setRequestHeader('authorization', 'Bearer 123abc456def')
@@ -252,36 +311,34 @@ function majProfil(action){
             xhr.onreadystatechange = function () {
                 if (this.readyState == 4 && this.status == 200) {
                     res = xhr.response;
-                    //console.log(res)
-                // console.log(res)
-                
-                deco()
+                   
+
+                    deco()
                 }
             };
             xhr.send()
 
-        break;
+            break;
     }
 }
-function majProduct(action){
+function majProduct(action) {
     const xhr = new XMLHttpRequest()
-    switch(action)
-    {
+    switch (action) {
         case 'modifier':
             var nomProduit = document.getElementById("nomProduit").value;
             var typeProduit = document.getElementById("typeProduit").value;
             var prixProduit = document.getElementById("prixProduit").value;
-            var id =  localStorage.getItem("temporaryVarClicke")
-            var seller =  localStorage.getItem("_id")
+            var id = CryptoJS.AES.decrypt(localStorage.getItem("temporaryVarClicke"), secretPhrase).toString(CryptoJS.enc.Utf8);
+            var seller = CryptoJS.AES.decrypt(localStorage.getItem("_id"), secretPhrase).toString(CryptoJS.enc.Utf8);
             var body = {
                 'typeProduct': typeProduit,
                 'nomProduct': nomProduit,
                 'priceProduct': prixProduit
-                
+
             };
-            var url = 'http://'+urlDeploy+':3030/events/product/'+id
+            var url = 'http://' + urlDeploy + ':3030/events/product/' + id
             const data = JSON.stringify(body)
-           
+
             xhr.open('PUT', url, true)
             xhr.setRequestHeader('content-type', 'application/json')
             xhr.setRequestHeader('authorization', 'Bearer 123abc456def')
@@ -289,19 +346,17 @@ function majProduct(action){
             xhr.onreadystatechange = function () {
                 if (this.readyState == 4 && this.status == 200) {
                     res = xhr.response;
-                    //console.log(res)
-                // console.log(res)
-                
-                setLocalStorageProduct(seller)
+                   
+                    setLocalStorageProduct(seller)
                 }
             };
             xhr.send(data)
-        break;
+            break;
 
         case 'supprimer':
-            var id =  localStorage.getItem("temporaryVarClicke")
-            var url = 'http://'+urlDeploy+':3030/events/product/'+id
-            var seller =  localStorage.getItem("_id")
+            var id = CryptoJS.AES.decrypt(localStorage.getItem("temporaryVarClicke"), secretPhrase).toString(CryptoJS.enc.Utf8);
+            var url = 'http://' + urlDeploy + ':3030/events/product/' + id
+            var seller = CryptoJS.AES.decrypt(localStorage.getItem("_id"), secretPhrase).toString(CryptoJS.enc.Utf8);
             xhr.open('DELETE', url, true)
             xhr.setRequestHeader('content-type', 'application/json')
             xhr.setRequestHeader('authorization', 'Bearer 123abc456def')
@@ -309,30 +364,28 @@ function majProduct(action){
             xhr.onreadystatechange = function () {
                 if (this.readyState == 4 && this.status == 200) {
                     res = xhr.response;
-                    //console.log(res)
-                // console.log(res)
-                
-                setLocalStorageProduct(seller)
+                   
+                    setLocalStorageProduct(seller)
                 }
             };
             xhr.send()
 
-        break;
+            break;
     }
 
 }
-function addProduct(){
-    var nomProduct =  document.getElementById("nomProduit").value;
-    var typeProduit =  document.getElementById("typeProduit").value;
-    var prixProduit =  document.getElementById("prixProduit").value;
-    var seller =  localStorage.getItem("_id")
+function addProduct() {
+    var nomProduct = document.getElementById("nomProduit").value;
+    var typeProduit = document.getElementById("typeProduit").value;
+    var prixProduit = document.getElementById("prixProduit").value;
+    var seller = CryptoJS.AES.decrypt(localStorage.getItem("_id"), secretPhrase).toString(CryptoJS.enc.Utf8);
     var body = {
         'typeProduct': typeProduit,
         'nomProduct': nomProduct,
         'priceProduct': prixProduit
-        
+
     };
-    var url = 'http://'+urlDeploy+':3030/events/product/'+seller
+    var url = 'http://' + urlDeploy + ':3030/events/product/' + seller
     const data = JSON.stringify(body)
     const xhr = new XMLHttpRequest()
     xhr.open('POST', url, true)
@@ -342,18 +395,17 @@ function addProduct(){
     xhr.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
             res = xhr.response;
-            //console.log(res)
-           // console.log(res)
-          
-           setLocalStorageProduct(seller)
+            
+
+            setLocalStorageProduct(seller)
         }
     };
     xhr.send(data)
-    
+
 }
-function setLocalStorageProduct(seller){
+function setLocalStorageProduct(seller) {
     const xhr = new XMLHttpRequest()
-    var urlget = 'http://'+urlDeploy+':3030/events/society/'+seller
+    var urlget = 'http://' + urlDeploy + ':3030/events/society/' + seller
     xhr.open('GET', urlget, true)
     xhr.setRequestHeader('content-type', 'application/json')
     xhr.setRequestHeader('authorization', 'Bearer 123abc456def')
@@ -362,21 +414,22 @@ function setLocalStorageProduct(seller){
         if (this.readyState == 4 && this.status == 200) {
             res = xhr.response;
             console.log(res)
-           // console.log(res)
-           localStorage.setItem("_products",  JSON.stringify(res['_products']));
-            document.location.href = "espace.html"
+           
+            localStorage.setItem("_products", JSON.stringify(res['_products']));
+            navigation("entreprise/espace.html")
         }
     };
     xhr.send()
 }
-function updateSociety(){
-    var url = 'http://'+urlDeploy+':3030/events/society/'+localStorage.getItem("_id");
-    var nameSociety =  document.getElementById("nomSocietyInput").value;
-    var adresseSociety =  document.getElementById("adresseSocietyInput").value;
-   var body = {
+function updateSociety() {
+    var id = CryptoJS.AES.decrypt(localStorage.getItem("_id"), secretPhrase).toString(CryptoJS.enc.Utf8);
+    var url = 'http://' + urlDeploy + ':3030/events/society/' + id;
+    var nameSociety = document.getElementById("nomSocietyInput").value;
+    var adresseSociety = document.getElementById("adresseSocietyInput").value;
+    var body = {
         'nameUser': nameSociety,
         'addressSociety': adresseSociety
-        
+
     };
     const data = JSON.stringify(body)
     const xhr = new XMLHttpRequest()
@@ -389,17 +442,18 @@ function updateSociety(){
             res = xhr.response;
             //console.log(res)
             console.log(res)
-            localStorage.setItem("nameSociety", nameSociety);
-            localStorage.setItem("adresse", adresseSociety);
-            document.location.href = "espace.html"
+
+            localStorage.setItem("nameSociety", CryptoJS.AES.encrypt(nameSociety, secretPhrase));
+            localStorage.setItem("adresse", CryptoJS.AES.encrypt(adresseSociety, secretPhrase));
+            navigation("entreprise/espace.html")
         }
     };
     xhr.send(data)
-    
+
 
 }
 function auth() {
-    var url = 'http://'+urlDeploy+':3030/events/client';
+    var url = 'http://' + urlDeploy + ':3030/events/client';
     const xhr = new XMLHttpRequest()
     xhr.open('GET', url, true)
     xhr.setRequestHeader('content-type', 'application/json')
@@ -409,15 +463,15 @@ function auth() {
     xhr.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
             res = xhr.response;
-            //console.log(res)
+         
             client(res)
-            
+
         }
     };
     xhr.send()
 }
-function authSociety(){
-    var url = 'http://'+urlDeploy+':3030/events/society/';
+function authSociety() {
+    var url = 'http://' + urlDeploy + ':3030/events/society/';
     const xhr = new XMLHttpRequest()
     xhr.open('GET', url, true)
     xhr.setRequestHeader('content-type', 'application/json')
@@ -428,226 +482,221 @@ function authSociety(){
         if (this.readyState == 4 && this.status == 200) {
             res = xhr.response;
             console.log(res)
-          
+
             society(res)
-            
+
         }
     };
     xhr.send()
 }
-function society(res){
+function society(res) {
     var email = document.getElementById("emailInput").value;
     var mdp = document.getElementById("passwordInput").value;
-    //console.log(email)
-    //console.log(res[0]['adresseMail'])
+    
     var userFind;
     for (var i = 0; i < res.length; i++) {
         if ((res[i]['adresseMail'] == email) || (res[i]['password'] == mdp)) {
 
-            localStorage.setItem("nom", res[i]['nameUser']);
-            localStorage.setItem("_id", res[i]['_id']);
-            localStorage.setItem("role", 'entreprise');
-            localStorage.setItem("adresseMail", res[i]['addressMail']);
-            localStorage.setItem("adresse", res[i]['addressSociety']);
-            localStorage.setItem("nameSociety", res[i]['nameSociety']);
-            localStorage.setItem("password", res[i]['password']);
-            localStorage.setItem("_products",  JSON.stringify(res[i]['_products']));
+            localStorage.setItem("nom", CryptoJS.AES.encrypt(res[i]['nameUser'], secretPhrase));
+            localStorage.setItem("_id", CryptoJS.AES.encrypt(res[i]['_id'], secretPhrase));
+            localStorage.setItem("role", CryptoJS.AES.encrypt('entreprise', secretPhrase));
+            localStorage.setItem("adresseMail", CryptoJS.AES.encrypt(res[i]['addressMail'], secretPhrase));
+            localStorage.setItem("adresse", CryptoJS.AES.encrypt(res[i]['addressSociety'], secretPhrase));
+            localStorage.setItem("nameSociety", CryptoJS.AES.encrypt(res[i]['nameSociety'], secretPhrase));
+           
+            localStorage.setItem("_products", JSON.stringify(res[i]['_products']));
             console.log(res[i].hasOwnProperty("tokenPayment"))
-           if(res[i].hasOwnProperty("tokenPayment"))
-            {
-                localStorage.setItem("tokenPayment", res[i]['tokenPayment']);
+            if (res[i].hasOwnProperty("tokenPayment")) {
+                localStorage.setItem("tokenPayment", CryptoJS.AES.encrypt(res[i]['tokenPayment'], secretPhrase));
             }
-            else{
-            
+            else {
+
             }
-            setCookie('nomuser', res[i]['nameUser'],Date.now() + (86400 * 7))
-            userFind=true;
+            setCookie('nomuser', res[i]['nameUser'], Date.now() + (86400 * 7))
+            userFind = true;
         }
     }
-    if(userFind==true){
-        console.log(localStorage.getItem("tokenPayment"))
-        if(localStorage.getItem("tokenPayment") ==null)
-        {
-            document.location.href = "payment.html"
-        }
-        else{
-            document.location.href = "espace.html"
-        }
+    if (userFind == true) {
        
+        var token = CryptoJS.AES.decrypt(localStorage.getItem("tokenPayment"), secretPhrase).toString(CryptoJS.enc.Utf8);
+        if (token == null) {
+            navigation("payment.html")
+        }
+        else {
+            navigation("entreprise/espace.html")
+        }
+
     }
-    else{
-        document.location.href = "connexion.html"
+    else {
+        navigation("connexion.html")
     }
 }
 function client(res) {
-    //console.log('res')
+    
     var email = document.getElementById("emailInput").value;
     var mdp = document.getElementById("passwordInput").value;
-    //console.log(email)
-    //console.log(res[0]['adresseMail'])
+    
     var userFind;
     for (var i = 0; i < res.length; i++) {
         if ((res[i]['adresseMail'] == email) || (res[i]['password'] == mdp)) {
 
-            localStorage.setItem("nom", res[i]['nom']);
-            localStorage.setItem("_id", res[i]['_id']);
-            localStorage.setItem("role", res[i]['role']);
-            localStorage.setItem("adresseMail", res[i]['adresseMail']);
-            localStorage.setItem("password", res[i]['password']);
+            localStorage.setItem("nom", CryptoJS.AES.encrypt(res[i]['nom'], secretPhrase));
+            localStorage.setItem("_id", CryptoJS.AES.encrypt(res[i]['_id'], secretPhrase));
+            localStorage.setItem("role", CryptoJS.AES.encrypt(res[i]['role'], secretPhrase));
+            localStorage.setItem("adresseMail", CryptoJS.AES.encrypt(res[i]['adresseMail'], secretPhrase));
+          
             localStorage.setItem("_events", res[i]['_events']);
-            setCookie('nomuser', res[i]['nom'],Date.now() + (86400 * 7))
-            userFind=true;
+            setCookie('nomuser', res[i]['nom'], Date.now() + (86400 * 7))
+            userFind = true;
         }
     }
-    if(userFind==true){
-        document.location.href = "espacePrive.html"
+    if (userFind == true) {
+        navigation("client/espace-prive.html")
     }
-    else{
+    else {
         authSociety()
     }
-    
-    
+
+
 }
 
-function testConnexion(){
-    let cookie= getCookie('nomuser')
-    var auth ;
-//console.log(localStorage.getItem("_id"))
-    if((cookie!='')){
-        if(localStorage.getItem("role")=='client')
-        {
-            document.getElementById("navEspacePrive").style.display = 'block' ;
+function testConnexion() {
+    let cookie = getCookie('nomuser')
+    var auth;
+  
+    if ((cookie != '')) {
+        var role = CryptoJS.AES.decrypt(localStorage.getItem("role"), secretPhrase).toString(CryptoJS.enc.Utf8);
+        if (role == 'client') {
+            document.getElementById("navEspacePrive").style.display = 'block';
         }
-        else if(localStorage.getItem("role")=='entreprise'){
-            document.getElementById("navEspace").style.display = 'block' ;
+        else if (role == 'entreprise') {
+            document.getElementById("navEspace").style.display = 'block';
         }
-        
+
         document.getElementById("buttunLogin").style.display = 'none';
         document.getElementById("buttunSignUp").style.display = 'none';
-       document.getElementById("buttunDeco").style.display = 'block';
+        document.getElementById("buttunDeco").style.display = 'block';
         document.getElementById("tchat").style.display = 'block';
         document.getElementById("profil").style.display = 'block';
-        auth= 'yes'
+        auth = 'yes'
     }
-    else{
-        auth= 'no'
+    else {
+        auth = 'no'
     }
     return auth
-    
+
 }
 
 //page inscription 
+//BUG : obliger à remplir le formulaire 
+//BUG: faire les vérif sur les inputs
+//BUG: Vérifier si le mail n'existe pas déjà
 function envoie(role) {
     console.log(role)
-    var body 
+    var body
     var url
-    switch(role)
-    {
-        case 'client': 
-        var name = document.getElementById("NameClient").value;
-        var email = document.getElementById("EmailClient").value;
-        var password = document.getElementById("passwordClient").value;
-       
-        url = 'http://'+urlDeploy+':3030/events/client';
-         body = {
-            'nom': name,
-            'role': 'client',
-            'adresseMail': email,
-            'password': password
-        };
-        break;
+    switch (role) {
+        case 'client':
+            var name = document.getElementById("NameClient").value;
+            var email = document.getElementById("EmailClient").value;
+            var password = document.getElementById("passwordClient").value;
 
-        case 'entreprise' :
+            url = 'http://' + urlDeploy + ':3030/events/client';
+            body = {
+                'nom': name,
+                'role': 'client',
+                'adresseMail': email,
+                'password': password
+            };
+            break;
+
+        case 'entreprise':
             var name = document.getElementById("Name").value;
             var adresse = document.getElementById("Adresse").value;
             var email = document.getElementById("EmailSociety").value;
             var nameSociety = document.getElementById("NameSociety").value;
             var password = document.getElementById("passwordSociety").value;
 
-            url = 'http://'+urlDeploy+':3030/events/society/';
+            url = 'http://' + urlDeploy + ':3030/events/society/';
             body = {
                 'nameUser': name,
                 'roleUser': 'entreprise',
                 'addressMail': email,
                 'addressSociety': adresse,
                 'password': password,
-                'nameSociety':nameSociety
+                'nameSociety': nameSociety
             };
             break;
     }
-  
+
 
     const data = JSON.stringify(body)
     const xhr = new XMLHttpRequest()
-    xhr.onreadystatechange = function() {
+    xhr.onreadystatechange = function () {
         if (xhr.readyState === 4) {
             var datares = xhr.response
-       
-         // console.log(res.hasOwnProperty('role')); 
-          if(role=='client'){
-            console.log('client caase')
-            setCookie('nomuser', datares['nom'], Date.now() + (86400 * 7));
-            localStorage.setItem("_id", datares['_id']);
-            localStorage.setItem("nom", datares['nom']);
-            localStorage.setItem("role",datares['role']);
-            localStorage.setItem("adresseMail",datares['adresseMail']);
-            localStorage.setItem("password",datares['password']);
-            document.location.href = "index.html"
-          }
-          else{
-            setCookie('nomuser', datares['nameUser'], Date.now() + (86400 * 7));
-            localStorage.setItem("_id", datares['_id']);
-            localStorage.setItem("nom", datares['nameUser']);
-            localStorage.setItem("role",datares['roleUser']);
-            localStorage.setItem("adresseMail",datares['addressMail']);
-            localStorage.setItem("addressSociety",datares['addressSociety']);
-            localStorage.setItem("nameSociety",datares['nameSociety']);
-            localStorage.setItem("password",datares['password']);
-            //console.log(localStorage.getItem())
-            document.location.href = "payment.html"
-          }
+
+          
+            if (role == 'client') {
+                
+                setCookie('nomuser', datares['nom'], Date.now() + (86400 * 7));
+                localStorage.setItem("_id", CryptoJS.AES.encrypt(datares['_id'], secretPhrase));
+                localStorage.setItem("nom", CryptoJS.AES.encrypt(datares['nom'], secretPhrase));
+                localStorage.setItem("role", CryptoJS.AES.encrypt(datares['role']), secretPhrase);
+                localStorage.setItem("adresseMail", CryptoJS.AES.encrypt(datares['adresseMail'], secretPhrase));
+               
+                navigation("accueil.html")
+            }
+            else {
+                setCookie('nomuser', datares['nameUser'], Date.now() + (86400 * 7));
+                localStorage.setItem("_id", CryptoJS.AES.encrypt(datares['_id'], secretPhrase));
+                localStorage.setItem("nom", CryptoJS.AES.encrypt(datares['nameUser'], secretPhrase));
+                localStorage.setItem("role", CryptoJS.AES.encrypt(datares['roleUser'], secretPhrase));
+                localStorage.setItem("adresseMail", CryptoJS.AES.encrypt(datares['addressMail'], secretPhrase));
+                localStorage.setItem("addressSociety", CryptoJS.AES.encrypt(datares['addressSociety'], secretPhrase));
+                localStorage.setItem("nameSociety", CryptoJS.AES.encrypt(datares['nameSociety'], secretPhrase));
+               
+                navigation("entreprise/payment/payment.html")
+            }
         }
-      }
-    xhr.open('POST', url,true)
+    }
+    xhr.open('POST', url, true)
     xhr.setRequestHeader('content-type', 'application/json')
     xhr.setRequestHeader('authorization', 'Bearer 123abc456def')
     xhr.responseType = "json"
     var datares
 
-   
+
     xhr.send(data)
- //xhr.onreadystatechange = callback(xhr);
+    
 
- 
 
-  
+
+
 }
 
-function callback(xhr){
+function callback(xhr) {
     {
         if (xhr.readyState == 4 && xhr.status == 200) {
-           //xhr.response
-    console.log(xhr.responseText)
-    console.log(xhr.response.hasOwnProperty('role'))
+          
+            console.log(xhr.responseText)
+            console.log(xhr.response.hasOwnProperty('role'))
         }
-  }
+    }
 }
 
-function deco(){
+function deco() {
     console.log(document.cookie)
     delete_cookie("nomuser");
-  /*  if(localStorage.getItem("role")=='client')
-    {
-        document.getElementById("titre").innerHTML = '';
-    }*/
+
     localStorage.clear();
-   
+
     document.getElementById("buttunLogin").style.display = 'block';
     document.getElementById("buttunSignUp").style.display = 'block';
-   document.getElementById("buttunDeco").style.display = 'none';
+    document.getElementById("buttunDeco").style.display = 'none';
     document.getElementById("tchat").style.display = 'none';
     document.getElementById("profil").style.display = 'none';
-    document.location.href = "index.html"
+    navigation("accueil.html")
 }
 function setCookie(cname, cvalue, exdays) {
     const d = new Date();
@@ -656,24 +705,25 @@ function setCookie(cname, cvalue, exdays) {
     document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
 }
 function delete_cookie(name) {
-    document.cookie = name +'=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
-  }
+    document.cookie = name + '=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+}
 function getCookie(cname) {
     let name = cname + "=";
     let decodedCookie = decodeURIComponent(document.cookie);
     let ca = decodedCookie.split(';');
-    for(let i = 0; i <ca.length; i++) {
-      let c = ca[i];
-      while (c.charAt(0) == ' ') {
-        c = c.substring(1);
-      }
-      if (c.indexOf(name) == 0) {
-        return c.substring(name.length, c.length);
-      }
+    for (let i = 0; i < ca.length; i++) {
+        let c = ca[i];
+        while (c.charAt(0) == ' ') {
+            c = c.substring(1);
+        }
+        if (c.indexOf(name) == 0) {
+            return c.substring(name.length, c.length);
+        }
     }
     return "";
-  }
-
+}
+//Bug : Vérifier le formulaire
+//BUG: s'il remplis pas tout
 function afficheForm() {
     var chaineResult = '';
     var choix = findSelection("exampleRclientCheckadios");
@@ -692,11 +742,11 @@ function afficheForm() {
         chaineResult += ' <input type="password" class="form-control" id="passwordClient" placeholder="Password" >';
         chaineResult += '</div>';
         chaineResult += ' <button style="background-color:#e685b5 ;  border-color:#e685b5" type="button" class="btn btn-primary" onclick="envoie(\'client\')" >Submit</button>';
-        //  chaineResult+='</form>';
+       
         document.getElementById("formInscription").innerHTML = chaineResult;
     }
     else {
-       
+
         chaineResult += '<div class="form-group">';
         chaineResult += ' <label for="Name">Nom</label>';
         chaineResult += ' <input type="text" class="form-control"  id="Name" placeholder="Votre nom" >';
@@ -736,11 +786,10 @@ function findSelection(field) {
 }
 
 
-///////////////////////// SUB /////////////////////////////////
+
 
 //////////////////////// PAYMENT /////////////////////////////
-function dopayment(tokenId){
-    console.log(tokenId)
+function dopayment(tokenId) {
     const xhr = new XMLHttpRequest()
     const urldopayment = 'http://'+urlDeploy+':3030/payment/doPayment';
     // Saisie donné carte
@@ -752,7 +801,8 @@ function dopayment(tokenId){
             if (xhr.readyState == 4 && xhr.status == 200) {
                 res = xhr.response;
                 console.log(res)
-                document.location.href = "espace.html"
+                localStorage.setItem("tokenPayment",tokenId)
+                navigation("entreprise/espace.html")
             }
            
         };
@@ -762,13 +812,13 @@ function dopayment(tokenId){
         xhr.send(data)
 }
 
-function insertToken(idToken){
+function insertToken(idToken) {
     console.log(idToken)
-    var idUser = localStorage.getItem("_id");
+    var idUser = CryptoJS.AES.decrypt(localStorage.getItem("_id"), secretPhrase).toString(CryptoJS.enc.Utf8);
     const xhr = new XMLHttpRequest()
     const urlcreateToken = 'http://'+urlDeploy+':3030/events/society/' + idUser;
     body = {
-        'tokenPayment': idToken,
+        'tokenPayment': idToken
     };
     const data = JSON.stringify(body)
         xhr.onreadystatechange = function () {
@@ -784,7 +834,7 @@ function insertToken(idToken){
         xhr.send(data)
 }
 
-function createTokens(){
+function createTokens() {
     var card = findSelection("card");
     const xhr = new XMLHttpRequest()
     const urlcreateToken = 'http://'+urlDeploy+':3030/payment/createTokens';
@@ -793,7 +843,6 @@ function createTokens(){
     var month = document.getElementById("ccmonth").value;
     var years = document.getElementById("ccyear").value;
     var cvc = document.getElementById("cvv").value;
-
         body = {
             'number': number,
             'month': month,
@@ -814,7 +863,32 @@ function createTokens(){
         xhr.send(data)
 }
 
-function attachPaymentMethod(idcard,idCustomers){
+function insertIdStripe(idStripe){
+    console.log(idStripe)
+    var idUser = CryptoJS.AES.decrypt(localStorage.getItem("_id"), secretPhrase).toString(CryptoJS.enc.Utf8);
+  
+    const xhr = new XMLHttpRequest()
+    const urlInsertIdStripe = 'http://'+urlDeploy+':3030/events/society/' + idUser;
+    body = {
+        'idCustomerStripe': idStripe
+    };
+    const data = JSON.stringify(body)
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState == 4 && xhr.status == 200) {
+                res = xhr.response;
+                localStorage.setItem("idCustomerStripe",idStripe)
+                console.log(res)
+                createTokens()
+            }
+        };
+        xhr.open('PUT', urlInsertIdStripe,true)
+        xhr.setRequestHeader('content-type', 'application/json')
+        xhr.responseType = "json"
+        xhr.send(data)
+}
+
+
+function attachPaymentMethod(idcard, idCustomers) {
     console.log(idcard)
     console.log(idCustomers)
     var card = findSelection("card");
@@ -828,7 +902,8 @@ function attachPaymentMethod(idcard,idCustomers){
         xhr.onreadystatechange = function () {
             if (xhr.readyState == 4 && xhr.status == 200) {
                 res = xhr.response;
-                createTokens()
+                console.log(res)
+             insertIdStripe(idCustomers)
             }
         };
         xhr.open('POST', urlcustomers,true)
@@ -837,60 +912,77 @@ function attachPaymentMethod(idcard,idCustomers){
         xhr.send(data)
 }
 
-function createCustomers(id){
+function createCustomers(id) {
     var card = findSelection("card");
     const xhr = new XMLHttpRequest()
-    const urlcustomers = 'http://'+urlDeploy+':3030/payment/createCustomers';
-    // Saisie donné carte
+    const urlcustomers = 'http://' + urlDeploy + ':3030/payment/createCustomers';
+   
     var name = document.getElementById("name").value;
-    var email = localStorage.getItem("adresseMail");
-        body = {
-            'name': name,
-            'email': email,
-            'payment_method' : id,
-        };
-        const data = JSON.stringify(body)
-        xhr.onreadystatechange = function () {
-            if (xhr.readyState == 4 && xhr.status == 200) {
-                res = xhr.response;
-                attachPaymentMethod(id,res.id)
-            }
-        };
-        xhr.open('POST', urlcustomers,true)
-        xhr.setRequestHeader('content-type', 'application/json')
-        xhr.responseType = "json"
-        xhr.send(data)
+    var email = CryptoJS.AES.decrypt(localStorage.getItem("adresseMail"), secretPhrase).toString(CryptoJS.enc.Utf8);
+    body = {
+        'name': name,
+        'email': email,
+        'payment_method': id,
+    };
+    const data = JSON.stringify(body)
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState == 4 && xhr.status == 200) {
+            res = xhr.response;
+            attachPaymentMethod(id, res.id)
+        }
+    };
+    xhr.open('POST', urlcustomers, true)
+    xhr.setRequestHeader('content-type', 'application/json')
+    xhr.responseType = "json"
+    xhr.send(data)
 }
 
-function createPaymentMethods(){
+function createPaymentMethods() {
     var card = findSelection("card");
     const xhr = new XMLHttpRequest()
-    const url = 'http://'+urlDeploy+':3030/payment/createPaymentMethods';
+    const url = 'http://' + urlDeploy + ':3030/payment/createPaymentMethods';
 
-    // Saisie donné carte
+   
     var number = document.getElementById("number").value;
     var month = document.getElementById("ccmonth").value;
     var years = document.getElementById("ccyear").value;
     var cvc = document.getElementById("cvv").value;
 
-        body = {
-            'number': number,
-            'month': month,
-            'years' : years,
-            'cvc' : cvc,
-        };
-        const data = JSON.stringify(body)
-        xhr.onreadystatechange = function () {
-            if (xhr.readyState == 4 && xhr.status == 200) {
-                res = xhr.response;
-                console.log(res.id)
-                createCustomers(res.id);
-                return res.id
-            }
-        };
-        xhr.open('POST', url,true)
-        xhr.setRequestHeader('content-type', 'application/json')
-        xhr.responseType = "json"
-        xhr.send(data)
+    body = {
+        'number': number,
+        'month': month,
+        'years': years,
+        'cvc': cvc,
+    };
+    const data = JSON.stringify(body)
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState == 4 && xhr.status == 200) {
+            res = xhr.response;
+            console.log(res.id)
+            createCustomers(res.id);
+            return res.id
+        }
+    };
+    xhr.open('POST', url, true)
+    xhr.setRequestHeader('content-type', 'application/json')
+    xhr.responseType = "json"
+    xhr.send(data)
 }
 
+function tolocationIndex() {
+    navigation('accueil.html')
+  
+  }
+  function tolocationPricing() {
+    navigation('commun/pricing.html')
+  
+  
+  }
+  
+  function typeWriter() {
+    if (i < txt.length) {
+      document.getElementById("TitleMyEvent").innerHTML += txt.charAt(i);
+      i++;
+      setTimeout(typeWriter, speed);
+    }
+  }

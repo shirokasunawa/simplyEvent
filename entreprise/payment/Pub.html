@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="fr">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/rollups/aes.js"
+  integrity="sha256-/H4YS+7aYb9kJ5OKhFYPUjSJdrtV6AeyJOtTkw6X72o=" crossorigin="anonymous"></script>
+<script src="../../util.js"></script>
+<script src="./Pub.js"></script>
+<script src="./abonnement.js"></script>
+<script src="../../content/header.js"></script>
+<script src="../../content/footer.js"></script>
+
+<body onload="testConnexion()">
+  <div id="header"></div>
+  <script>
+    setHeader()
+    countFoImagelogo()
+  </script>
+  <script>
+    let cookie = getCookie('nomuser')
+    if (cookie == '') {
+      navigation("accueil.html")
+    }
+  </script>
+  <hr class="featurette-divider">
+
+  <div class="row featurette">
+    <div class="col-md-7 order-md-2">
+      <span id="pubchoix"></span>
+
+      <p class="lead">Veuillez ajouter une photo et valider</p>
+      </br>
+      </br>
+      </br>
+      </br>
+      <div class="d-flex justify-content-center">
+        <span id="contentByTypePub"></span>
+      </div>
+    </div>
+    <div class="col-md-5 order-md-1">
+      <form runat="server">
+        <img id="myimg" width="500" height="500" src="../../img/imgDefault.PNG">
+      </form>
+    
+      <div class="custom-file">
+        <input type="file" class="custom-file-input" id="customFile" accept="image/png, image/jpeg">
+        <label class="custom-file-label" for="customFile">Choisir votre image</label>
+      </div>
+    </div>
+  </div>
+  <div class="d-flex justify-content-center">
+
+    <button type="button" class="btn btn-primary " onclick="valid()">Valider</button>
+  </div>
+  <div id="footer"></div>
+  <script>
+    setFooter()
+  </script>
+</body>
+<script>
+  initPagePub()
+
+
+</script>
+
+</html>

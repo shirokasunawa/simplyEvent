@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="fr">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/rollups/aes.js"
+  integrity="sha256-/H4YS+7aYb9kJ5OKhFYPUjSJdrtV6AeyJOtTkw6X72o=" crossorigin="anonymous"></script>
+<script src="../../util.js"></script>
+<script src="./myProduct.js"></script>
+<script src="../../content/header.js"></script>
+<script src="../../content/footer.js"></script>
+
+<body onload="testConnexion()">
+  <div id="header"></div>
+  <script>
+    setHeader()
+    countFoImagelogo()
+  </script>
+  <script>
+    let cookie = getCookie('nomuser')
+    if (cookie == '') {
+      navigation("accueil.html")
+    }
+
+  </script>
+
+  <div class="d-flex justify-content-center">
+
+    <main class="form-signin">
+
+      <h1 class="h3 mb-3 fw-normal">Ajouter un produit</h1>
+
+      <div class="form-group row">
+        <label for="nomProduit" style="display : none" class="col-form-label">Nom du produit</label>
+        <div class="">
+          <input type="text" style="display : none" class="form-control" id="nomProduit">
+        </div>
+      </div>
+      <span id="optionSelectTypeProduct"></span>
+
+
+      <div class="form-group row">
+        <label for="prixProduit" class=" col-form-label">Prix du produit ( en € )</label>
+        <div class="">
+          <input type="number" class="form-control" id="prixProduit" name="prixProduit" min="0">
+        </div>
+      </div>
+      </br>
+      <button style="background-color:#e685b5 ;  border-color:#e685b5" class="w-100 btn btn-lg btn-primary"
+        type="button" onclick="majProduct('modifier')">Modifier</button>
+      </br>
+      <button class="w-100 btn btn-outline-danger" style="margin-top: 1.5rem" type="button"
+        onclick="majProduct('supprimer')">Supprimer <i class="bi bi-trash"></i></button>
+      <p class="mt-5 mb-3 text-muted">My Event</p>
+
+    </main>
+    <script>
+
+    </script>
+  </div>
+  <span id="monproduitInfo"></span>
+  <script>
+
+    initPageMyProduct()
+  </script>
+  <div id="footer"></div>
+  <script>
+    setFooter()
+  </script>
+</body>
+
+</html>

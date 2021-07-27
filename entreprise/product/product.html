@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="fr">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/rollups/aes.js"
+  integrity="sha256-/H4YS+7aYb9kJ5OKhFYPUjSJdrtV6AeyJOtTkw6X72o=" crossorigin="anonymous"></script>
+<script src="../../util.js"></script>
+<script src="./product.js"></script>
+<script src="../../content/header.js"></script>
+<script src="../../content/footer.js"></script>
+
+<body onload="testConnexion()">
+  <div id="header"></div>
+  <script>
+    setHeader()
+    countFoImagelogo()
+  </script>
+  <script>
+    let cookie = getCookie('nomuser')
+    if (cookie == '') {
+      navigation("accueil.html")
+    }
+
+  </script>
+
+  <body class="text-center">
+    <p>Produit</p>
+    <button type="button" class="btn btn-primary" style="background-color:#e685b5 ;  border-color:#e685b5;"
+      onclick="tolocationproduct()">Ajouter un produit <i class="bi bi-plus"></i></button>
+    </br>
+    <span id="products"></span>
+    <script>
+      initPageProduct()
+
+    </script>
+    <div id="footer"></div>
+    <script>
+      setFooter()
+    </script>
+  </body>
+
+</html>
