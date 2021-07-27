@@ -29,7 +29,7 @@ function initPageMyProduct() {
                 }
                 document.getElementById("prixProduit").value = jsonProduct[i]["priceProduct"]
                 document.getElementById("typeProduit").value = jsonProduct[i]["typeProduct"]
-                // document.getElementById("monproduitInfo").innerHTML ='<p>'+jsonProduct[i]["typeProduct"]+' '+jsonProduct[i]["priceProduct"]+'</p>'
+               
             }
         }
 

@@ -5,6 +5,7 @@
   integrity="sha256-/H4YS+7aYb9kJ5OKhFYPUjSJdrtV6AeyJOtTkw6X72o=" crossorigin="anonymous"></script>
 <script src="../../util.js"></script>
 <script src="./Pub.js"></script>
+<script src="./abonnement.js"></script>
 <script src="../../content/header.js"></script>
 <script src="../../content/footer.js"></script>
 
@@ -17,7 +18,7 @@
   <script>
     let cookie = getCookie('nomuser')
     if (cookie == '') {
-      navigation("index.html")
+      navigation("accueil.html")
     }
   </script>
   <hr class="featurette-divider">
@@ -37,9 +38,9 @@
     </div>
     <div class="col-md-5 order-md-1">
       <form runat="server">
-        <img id="myimg" width="500" height="500" src="./imgDefault.PNG">
+        <img id="myimg" width="500" height="500" src="../../img/imgDefault.PNG">
       </form>
-      <!--<svg class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto" width="500" height="500" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 500x500" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#eee"></rect><text x="50%" y="50%" fill="#aaa" dy=".3em">500x500</text></svg>-->
+    
       <div class="custom-file">
         <input type="file" class="custom-file-input" id="customFile" accept="image/png, image/jpeg">
         <label class="custom-file-label" for="customFile">Choisir votre image</label>

@@ -10,13 +10,13 @@ function initAddEvent() {
     xhr.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
             res = xhr.response;
-            //console.log(res)
+           
             if (Object.keys(res).length != 0) {
                 var s = ''
                 for (var i = 0; i < res.length; i++) {
                     s += '<button type="button" class="btn btn-outline-info" style="width: 18rem;margin: 1.5rem 1.5rem;height:10rem;" onclick="addInfo(\'' + res[i]["_id"] + '\')">' + res[i]["libelle"] + '</button>'
                 }
-                //console.log(s)
+                
                 document.getElementById("typeEvents").innerHTML = s
             }
 
@@ -61,7 +61,7 @@ function addEvent(idtypeevent) {
     if (budgetEvent == null) { budgetEvent = 0 }
     var dateEvent = document.getElementById("dateEvent").value
     if (dateEvent == null) { dateEvent = "A définir" }
-    //iduser
+    
     console.log("id event " + idtypeevent)
     var id = CryptoJS.AES.decrypt(localStorage.getItem("_id"), secretPhrase).toString(CryptoJS.enc.Utf8);
 
@@ -99,7 +99,7 @@ function addEvent(idtypeevent) {
 
 function assignEvent(idEvent) {
     var iduser = CryptoJS.AES.decrypt(localStorage.getItem("_id"), secretPhrase).toString(CryptoJS.enc.Utf8);
-    //localStorage.getItem("temporaryVarClicke",idEvent)
+    
     var idevent = idEvent
     var url = 'http://' + urlDeploy + ':3030/events/event/' + idevent + '/' + iduser
     const xhr = new XMLHttpRequest()
@@ -107,7 +107,7 @@ function assignEvent(idEvent) {
         if (this.readyState == 4 && this.status == 201) {
             res = xhr.response;
             console.log(res)
-            navigation("client/espacePrive.html")
+            navigation("client/espace-prive.html")
         }
     };
     xhr.open('POST', url, true)

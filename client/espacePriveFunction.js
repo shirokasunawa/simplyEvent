@@ -28,5 +28,5 @@ function initEvent() {
 }
 
 function tolocationAddEvent() {
-    navigation("client/addEvent.html")
+    navigation("client/add-event.html")
 }

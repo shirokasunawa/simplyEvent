@@ -6,7 +6,11 @@
 <script src="../util.js"></script>
 <script src="../content/header.js"></script>
 <script src="../content/footer.js"></script>
-
+<head>    
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <title>Espace Personnel</title>
+  <meta name="description" content="Pouvoir gérer les informations personnels, Ajouter ou supprimer des produits, Converser avec des clients ou entreprise, Ajouter sa publicité"/>
+</head>
 <body onload="testConnexion()">
   <div id="header"></div>
   <script>
@@ -18,14 +22,14 @@
   <script>
     let cookie = getCookie('nomuser')
     if (cookie == '') {
-      navigation("index.html")
+      navigation("accueil.html")
     }
     else {
 
 
     }
     function pubMy() {
-      navigation("entreprise/payment/MonEspacePub.html")
+      navigation("entreprise/payment/mon-espace-pub.html")
     }
   </script>
   <div class="d-flex justify-content-center">

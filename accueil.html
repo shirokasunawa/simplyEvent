@@ -8,13 +8,31 @@
 <script src="util.js"></script>
 <script src="./content/header.js"></script>
 <script src="./content/footer.js"></script>
-
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title>Page d'acceuil</title>
+	<meta name="description" content="Gérer les mariages, les anniversaires et toute autre évenement en quelque clic. Tout cela Grâce à MyEvent" />
+	<script type="application/ld+json">
+		{
+		  "@context": "https://schema.org/",
+		  "@type": "Recipe",
+		  "name": "Party Coffee Cake",
+		  "author": {
+			"@type": "Person",
+			"name": "Mary Stone"
+		  },
+		  "datePublished": "2018-03-10",
+		  "description": "This coffee cake is awesome and perfect for parties.",
+		  "prepTime": "PT20M"
+		}
+	</script>
+</head>
 <body onload="testConnexion()">
 
   <div id="header"></div>
  <script>
    setHeader()
-
+   countFoImagelogo()
 alert(document.cookie);
 
 
@@ -88,11 +106,11 @@ alert(document.cookie);
 					<h2>Heading</h2>
 					<p>And lastly this, the third column of representative placeholder content.</p>
 					<p></p>
-				</div><!-- /.col-lg-4 -->
-			</div><!-- /.row -->
+				</div>
+			</div>
 
 
-			<!-- START THE FEATURETTES -->
+		
 
 			<hr class="featurette-divider">
 

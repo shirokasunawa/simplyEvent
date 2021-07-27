@@ -1,0 +1,23 @@
+#Image
+	User-agent: Googlebot-Image
+	Disallow : /myevent.png
+	Disallow : /imgDefault.PNG
+
+#js
+	User-agent: *
+	Disallow : /util.js
+	Disallow : /content/footer.js
+	Disallow : /content/header.js
+#css
+	User-agent: * 
+	Disallow : /style/style.css
+#page
+	User-agent *
+	Disallow : /payment-abonnement.html
+	Disallow : /payment.html
+	Disallow : /inscription.html
+	Disallow : /connexion.html
+	Disallow : /messagerie.html
+	Disallow : /abonnement.html
+	
+Sitemap: https://www.myevents.com/sitemaps/sitemap.xml

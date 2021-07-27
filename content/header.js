@@ -7,7 +7,7 @@ function setHeader() {
   s += '<head>'
   s += ' <meta charset="utf-8">'
   s += ' <title>My Event</title>'
-  //s += ' <link rel="icon" type="image/png" sizes="16x16" href="./myevent.png">'
+  
  
   s += '<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">'
   s += '<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/rollups/aes.js"></script>'
@@ -40,8 +40,8 @@ function setHeader() {
 
   s += ' <nav class="navbar navbar-expand navbar-dark bg-dark" aria-label="Second navbar example">'
   s += '   <div class="container-fluid">'
-  s += '   <div class="d-flex align-items-center"><img id="logoMyEvent" src="./myevent.png" style="width:8rem;"/><div id="TitleMyEvent" style="margin-left: 2rem; width:22rem;"></div></div>'
-   // s+='   <a onclick="tolocationIndex()" class="nav-link px-2 text-white">  <img src="./myevent.png" style="width:130px;height:auto" class="card-img-top" alt="..."></a>'
+  s += '   <div class="d-flex align-items-center"><img id="logoMyEvent" src="img/myevent.png" style="width:8rem;"/><div id="TitleMyEvent" style="margin-left: 2rem; width:22rem;"></div></div>'
+ 
   s += '   <a onclick="tolocationIndex()" class="nav-link px-2 text-white">  </a>'
   s += '     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample02" aria-controls="navbarsExample02" aria-expanded="false" aria-label="Toggle navigation">'
   s += '       <span class="navbar-toggler-icon"></span>'
@@ -55,7 +55,7 @@ function setHeader() {
   s += '        <a class="nav-link" onclick="tolocationPricing()">Pricing</a>'
   s += '      </li>'
   s += '     <li class="nav-item" id="navEspacePrive" style="display:none">'
-  s += '      <a class="nav-link" onclick="navigation(\'client/espacePrive.html\')">Espace Privé</a>'
+  s += '      <a class="nav-link" onclick="navigation(\'client/espace-prive.html\')">Espace Privé</a>'
   s += '      </li>'
   s += '     <li class="nav-item" id="navEspace" style="display:none">'
   s += '       <a class="nav-link" onclick="navigation(\'entreprise/espace.html\')">Espace Privé</a>'

@@ -4,13 +4,9 @@ function template(donnee) {
     var s = ''
     s += '<div class="row bg-light">'
     s += ' <div class="col"><img class="d-flex justify-content-start" width="500" height="500" src="data:image/jpeg;base64,' + btoa(binaryBlob) + '"></div>'
-    //s += ' <div class="col-md-5 p-lg-5 mx-auto my-5">'
+    
     s += '  <div class="col"> <h1 class="display-4 fw-normal d-flex ">Type d\'abonnement : ' + donnee["typeAbo"] + '</h1>'
 
-    //console.log('Encoded Binary File String:', binaryBlob);
-
-    /*var img= document.getElementById("myimg")
-    img.src = 'data:image/jpeg;base64,' + btoa(binaryBlob);*/
 
     if (donnee["typeAbo"] == 'emplacement') {
         s += ' <p class="lead fw-normal">L\'eplacement : ' + donnee["endroit"] + '</p>'

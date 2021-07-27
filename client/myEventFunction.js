@@ -221,7 +221,7 @@ function choixProduit(idProduct, idChecklist) {
 
             afficheProductChoisis(idProduct, idChecklist)
 
-            // document.getElementById("viewDiv").innerHTML = string
+           
         }
     };
     xhr.send(data)
@@ -243,7 +243,7 @@ function assignSocietyConv(idConv, idVendeur) {
             res = xhr.response;
 
 
-            navigation("client/Messagerie.html");
+            navigation("client/messagerie.html");
 
         }
     };
@@ -333,9 +333,9 @@ function modifProductProduit(idChecklist) {
         if (this.readyState == 4 && this.status == 200) {
             res = xhr.response;
 
-            //afficheProductChoisis(idProduct,idChecklist)
+           
             document.location.reload();
-            // document.getElementById("viewDiv").innerHTML = string
+           
         }
     };
     xhr.send()
@@ -384,7 +384,7 @@ function removeChecklist(idChecklist) {
         if (this.readyState == 4 && this.status == 200) {
             res = xhr.response;
 
-            //localStorage.setItem("eventTitre",newDate)
+           
             document.location.reload();
 
         }
@@ -407,7 +407,7 @@ function deleteEvent() {
         if (this.readyState == 4 && this.status == 200) {
             res = xhr.response;
 
-            //localStorage.setItem("eventTitre",newDate)
+           
             document.location = "./espacePrive.html";
 
         }
@@ -528,9 +528,9 @@ function modifTypeBtn() {
     var newType = document.getElementById("typeProduit").value
     console.log(newType)
     var id = CryptoJS.AES.decrypt(localStorage.getItem("temporaryVarClicke"), secretPhrase).toString(CryptoJS.enc.Utf8)
-    //console.log(id)
+    
     var url = 'http://' + urlDeploy + ':3030/events/typeEvents/' + newType + '/' + id;
-    //console.log(url)
+ 
 
 
 
@@ -544,7 +544,7 @@ function modifTypeBtn() {
         if (this.readyState == 4 && this.status == 201) {
             res = xhr.response;
 
-            // localStorage.setItem("eventDate",newDate)
+            
             document.location.reload();
 
         }
@@ -681,7 +681,7 @@ function assignChecklist() {
     xhr.send()
 }
 function initEventPage() {
-    // $('.dropdown-toggle').dropdown()
+    
     var id = CryptoJS.AES.decrypt(localStorage.getItem("temporaryVarClicke"), secretPhrase).toString(CryptoJS.enc.Utf8)
     var url = 'http://' + urlDeploy + ':3030/events/event/' + id;
     const xhr = new XMLHttpRequest()
@@ -693,13 +693,13 @@ function initEventPage() {
     xhr.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
             res = xhr.response;
-            //console.log(res)
+           
 
             localStorage.setItem("eventTitre", CryptoJS.AES.encrypt(res["titreEvent"], secretPhrase))
             localStorage.setItem("eventDate", CryptoJS.AES.encrypt(res["dateEvent"], secretPhrase))
             localStorage.setItem("eventBudget", res["budgetEvent"])
             localStorage.setItem("eventType", CryptoJS.AES.encrypt(res["_typeEvent"]["libelle"], secretPhrase))
-            //localStorage.setItem("eventType",res["_typeEvent"])
+          
             let objLinea = JSON.stringify(res["_checklists"]);
             localStorage.setItem("eventChecklist", res["objLinea"])
 
@@ -732,7 +732,7 @@ function initEventPage() {
                 for (var t = 0; t < res['_checklists'].length; t++) {
                     checklist += '<div class="d-flex flex-row"><div class=" btn  p-2 justify-content-start" onclick="afficheDetailChecklist(\'' + res['_checklists'][t]['_id'] + '\')" style="width: 100%; ">' + res['_checklists'][t]['titreCheclist'] + ' </div><div class=" p-2 justify-content-end btn btn-outline-danger"  style="border-color: #dc3545;"><i class="bi bi-trash" onclick="removeChecklist(\'' + res['_checklists'][t]['_id'] + '\')"></i></div></div></br>'
                 }
-                // console.log(res['_checklists'])
+               
                 document.getElementById("mesChecklists").innerHTML = checklist
             }
 

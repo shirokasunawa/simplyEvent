@@ -1,9 +1,10 @@
-const urlDeploy = '192.168.1.14'
+//const urlDeploy = '192.168.1.14'
+const urlDeploy = '192.168.1.18'
 const secretPhrase = '5t8ZmLDw8'
 const urlDeployement = window.location.href;
 
 var i = 0;
-var txt = 'Vos évènements à tout moment'; /* The text */
+var txt = 'Vos évènements à tout moment';
 var speed = 150;
 
 function countFoImagelogo()
@@ -14,17 +15,21 @@ function countFoImagelogo()
     count= count-4;
     console.log(count)
     var stringLocationImage='';
-   if(count==1)
+    if(count == 0)
+    {
+        stringLocationImage= 'img/myevent.png'
+    }
+   else if(count==1)
    {
-    stringLocationImage= '../myevent.png'
+    stringLocationImage= '../img/myevent.png'
    }
    else if(count==2)
    {
-    stringLocationImage= '../../myevent.png'
+    stringLocationImage= '../../img/myevent.png'
    }
    else if(count==3)
    {
-    stringLocationImage= '../../../myevent.png'
+    stringLocationImage= '../../../img/myevent.png'
    }
    var img= document.getElementById("logoMyEvent")
    img.setAttribute("src", stringLocationImage)
@@ -33,6 +38,17 @@ function countFoImagelogo()
 
 function navigation(page) {
 
+    if(page=='entreprise/espace.html')
+    {
+        var role = CryptoJS.AES.decrypt(localStorage.getItem("role"), secretPhrase).toString(CryptoJS.enc.Utf8);
+        if(role=='entreprise')
+        {
+            if(localStorage.getItem("tokenPayment") == null )
+            {
+                page='entreprise/payment/payment.html'
+            }
+        }
+    }
     var location = window.location.href;
     var newlocation = location.split('myEvent/')[0] + 'myEvent/';
 
@@ -89,8 +105,7 @@ function setCarouselPub() {
     xhrr.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
             res = xhrr.response;
-            //console.log(res)
-            // console.log(res)
+           
             var s = ''
             for (var f = 0; f < 3; f++) {
                 switch (f) {
@@ -139,19 +154,27 @@ function setCarouselPub() {
 }
 function tolocationMessagerie() {
     var role = CryptoJS.AES.decrypt(localStorage.getItem("role"), secretPhrase).toString(CryptoJS.enc.Utf8);
-
+console.log(role)
+var token = null
     if (role == 'entreprise') {
-        var token = CryptoJS.AES.decrypt(localStorage.getItem("tokenPayment"), secretPhrase).toString(CryptoJS.enc.Utf8);
+        if(localStorage.getItem("tokenPayment") == null )
+        {token =null
 
+        }
+        else{
+            token = CryptoJS.AES.decrypt(localStorage.getItem("tokenPayment"), secretPhrase).toString(CryptoJS.enc.Utf8);
+        } 
+        
+        console.log(token)
         if (token == null) {
             navigation("entreprise/payment/payment.html")
         }
         else {
-            navigation("entreprise/MessagerieSociety.html")
+            navigation("entreprise/messagerie-society.html")
         }
     }
     else {
-        navigation("client/Messagerie.html")
+        navigation("client/messagerie.html")
     }
 
 
@@ -160,7 +183,7 @@ function hrefConnexion() {
     navigation("commun/connexion.html")
 }
 function pub() {
-    navigation("entreprise/payment/choixPub.html")
+    navigation("entreprise/payment/choix-pub.html")
 }
 function tolocationprofil() {
     navigation("commun/profil.html")
@@ -169,11 +192,11 @@ function hrefInscription() {
     navigation("commun/inscription.html")
 }
 function infoEntreprise() {
-    navigation("entreprise/infoEntreprise.html")
+    navigation("entreprise/info-entreprise.html")
 
 }
 function tolocationproduct() {
-    navigation("entreprise/product/addProduct.html")
+    navigation("entreprise/product/add-product.html")
 }
 function product() {
     navigation("entreprise/product/product.html")
@@ -181,13 +204,13 @@ function product() {
 function tolocationMyEvent(idmyevent) {
     var idmyEventCypte = CryptoJS.AES.encrypt(idmyevent, secretPhrase);
     localStorage.setItem("temporaryVarClicke", idmyEventCypte)
-    navigation("client/myEvent.html")
+    navigation("client/my-event.html")
 }
 function tolocationUpdateProduct(idproduct) {
-    //console.log(idproduct)
+   
     var idproductCypte = CryptoJS.AES.encrypt(idproduct, secretPhrase);
     localStorage.setItem("temporaryVarClicke", idproductCypte)
-    navigation("entreprise/product/myproduct.html")
+    navigation("entreprise/product/my-product.html")
 
 }
 
@@ -221,15 +244,12 @@ function majProfil(action) {
                 xhr.onreadystatechange = function () {
                     if (this.readyState == 4 && this.status == 200) {
                         res = xhr.response;
-                        //console.log(res)
-                        // console.log(res)
-
-
+                        
                         localStorage.setItem("nom", CryptoJS.AES.encrypt(nom, secretPhrase));
                         localStorage.setItem("adresseMail", CryptoJS.AES.encrypt(email, secretPhrase));
                         localStorage.setItem("password", CryptoJS.AES.encrypt(password, secretPhrase));
                         setCookie('nomuser', res['nom'], Date.now() + (86400 * 7))
-                        navigation("client/espacePrive.html")
+                        navigation("client/espace-prive.html")
 
                     }
                 };
@@ -251,11 +271,10 @@ function majProfil(action) {
                 xhr.onreadystatechange = function () {
                     if (this.readyState == 4 && this.status == 200) {
                         res = xhr.response;
-                        //console.log(res)
-                        // console.log(res)
+                       
                         localStorage.setItem("nom", CryptoJS.AES.encrypt(nom, secretPhrase));
                         localStorage.setItem("adresseMail", CryptoJS.AES.encrypt(email, secretPhrase));
-                        // localStorage.setItem("password", password);
+                       
                         setCookie('nomuser', nom, Date.now() + (86400 * 7))
                         var token = CryptoJS.AES.decrypt(localStorage.getItem("tokenPayment"), secretPhrase).toString(CryptoJS.enc.Utf8);
                         if (token == null) {
@@ -292,8 +311,7 @@ function majProfil(action) {
             xhr.onreadystatechange = function () {
                 if (this.readyState == 4 && this.status == 200) {
                     res = xhr.response;
-                    //console.log(res)
-                    // console.log(res)
+                   
 
                     deco()
                 }
@@ -328,9 +346,7 @@ function majProduct(action) {
             xhr.onreadystatechange = function () {
                 if (this.readyState == 4 && this.status == 200) {
                     res = xhr.response;
-                    //console.log(res)
-                    // console.log(res)
-
+                   
                     setLocalStorageProduct(seller)
                 }
             };
@@ -348,9 +364,7 @@ function majProduct(action) {
             xhr.onreadystatechange = function () {
                 if (this.readyState == 4 && this.status == 200) {
                     res = xhr.response;
-                    //console.log(res)
-                    // console.log(res)
-
+                   
                     setLocalStorageProduct(seller)
                 }
             };
@@ -381,8 +395,7 @@ function addProduct() {
     xhr.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
             res = xhr.response;
-            //console.log(res)
-            // console.log(res)
+            
 
             setLocalStorageProduct(seller)
         }
@@ -401,7 +414,7 @@ function setLocalStorageProduct(seller) {
         if (this.readyState == 4 && this.status == 200) {
             res = xhr.response;
             console.log(res)
-            // console.log(res)
+           
             localStorage.setItem("_products", JSON.stringify(res['_products']));
             navigation("entreprise/espace.html")
         }
@@ -450,7 +463,7 @@ function auth() {
     xhr.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
             res = xhr.response;
-            //console.log(res)
+         
             client(res)
 
         }
@@ -479,8 +492,7 @@ function authSociety() {
 function society(res) {
     var email = document.getElementById("emailInput").value;
     var mdp = document.getElementById("passwordInput").value;
-    //console.log(email)
-    //console.log(res[0]['adresseMail'])
+    
     var userFind;
     for (var i = 0; i < res.length; i++) {
         if ((res[i]['adresseMail'] == email) || (res[i]['password'] == mdp)) {
@@ -491,7 +503,7 @@ function society(res) {
             localStorage.setItem("adresseMail", CryptoJS.AES.encrypt(res[i]['addressMail'], secretPhrase));
             localStorage.setItem("adresse", CryptoJS.AES.encrypt(res[i]['addressSociety'], secretPhrase));
             localStorage.setItem("nameSociety", CryptoJS.AES.encrypt(res[i]['nameSociety'], secretPhrase));
-            //localStorage.setItem("password", res[i]['password']);
+           
             localStorage.setItem("_products", JSON.stringify(res[i]['_products']));
             console.log(res[i].hasOwnProperty("tokenPayment"))
             if (res[i].hasOwnProperty("tokenPayment")) {
@@ -505,7 +517,7 @@ function society(res) {
         }
     }
     if (userFind == true) {
-        //console.log(localStorage.getItem("tokenPayment"))
+       
         var token = CryptoJS.AES.decrypt(localStorage.getItem("tokenPayment"), secretPhrase).toString(CryptoJS.enc.Utf8);
         if (token == null) {
             navigation("payment.html")
@@ -520,11 +532,10 @@ function society(res) {
     }
 }
 function client(res) {
-    //console.log('res')
+    
     var email = document.getElementById("emailInput").value;
     var mdp = document.getElementById("passwordInput").value;
-    //console.log(email)
-    //console.log(res[0]['adresseMail'])
+    
     var userFind;
     for (var i = 0; i < res.length; i++) {
         if ((res[i]['adresseMail'] == email) || (res[i]['password'] == mdp)) {
@@ -533,14 +544,14 @@ function client(res) {
             localStorage.setItem("_id", CryptoJS.AES.encrypt(res[i]['_id'], secretPhrase));
             localStorage.setItem("role", CryptoJS.AES.encrypt(res[i]['role'], secretPhrase));
             localStorage.setItem("adresseMail", CryptoJS.AES.encrypt(res[i]['adresseMail'], secretPhrase));
-            // localStorage.setItem("password", res[i]['password']);
+          
             localStorage.setItem("_events", res[i]['_events']);
             setCookie('nomuser', res[i]['nom'], Date.now() + (86400 * 7))
             userFind = true;
         }
     }
     if (userFind == true) {
-        navigation("client/espacePrive.html")
+        navigation("client/espace-prive.html")
     }
     else {
         authSociety()
@@ -552,7 +563,7 @@ function client(res) {
 function testConnexion() {
     let cookie = getCookie('nomuser')
     var auth;
-    //console.log(localStorage.getItem("_id"))
+  
     if ((cookie != '')) {
         var role = CryptoJS.AES.decrypt(localStorage.getItem("role"), secretPhrase).toString(CryptoJS.enc.Utf8);
         if (role == 'client') {
@@ -625,16 +636,16 @@ function envoie(role) {
         if (xhr.readyState === 4) {
             var datares = xhr.response
 
-            // console.log(res.hasOwnProperty('role')); 
+          
             if (role == 'client') {
-                //console.log('client caase')
+                
                 setCookie('nomuser', datares['nom'], Date.now() + (86400 * 7));
                 localStorage.setItem("_id", CryptoJS.AES.encrypt(datares['_id'], secretPhrase));
                 localStorage.setItem("nom", CryptoJS.AES.encrypt(datares['nom'], secretPhrase));
                 localStorage.setItem("role", CryptoJS.AES.encrypt(datares['role']), secretPhrase);
                 localStorage.setItem("adresseMail", CryptoJS.AES.encrypt(datares['adresseMail'], secretPhrase));
-                // localStorage.setItem("password",datares['password']);
-                navigation("index.html")
+               
+                navigation("accueil.html")
             }
             else {
                 setCookie('nomuser', datares['nameUser'], Date.now() + (86400 * 7));
@@ -644,8 +655,7 @@ function envoie(role) {
                 localStorage.setItem("adresseMail", CryptoJS.AES.encrypt(datares['addressMail'], secretPhrase));
                 localStorage.setItem("addressSociety", CryptoJS.AES.encrypt(datares['addressSociety'], secretPhrase));
                 localStorage.setItem("nameSociety", CryptoJS.AES.encrypt(datares['nameSociety'], secretPhrase));
-                //localStorage.setItem("password",datares['password']);
-                //console.log(localStorage.getItem())
+               
                 navigation("entreprise/payment/payment.html")
             }
         }
@@ -658,7 +668,7 @@ function envoie(role) {
 
 
     xhr.send(data)
-    //xhr.onreadystatechange = callback(xhr);
+    
 
 
 
@@ -668,7 +678,7 @@ function envoie(role) {
 function callback(xhr) {
     {
         if (xhr.readyState == 4 && xhr.status == 200) {
-            //xhr.response
+          
             console.log(xhr.responseText)
             console.log(xhr.response.hasOwnProperty('role'))
         }
@@ -686,7 +696,7 @@ function deco() {
     document.getElementById("buttunDeco").style.display = 'none';
     document.getElementById("tchat").style.display = 'none';
     document.getElementById("profil").style.display = 'none';
-    navigation("index.html")
+    navigation("accueil.html")
 }
 function setCookie(cname, cvalue, exdays) {
     const d = new Date();
@@ -732,7 +742,7 @@ function afficheForm() {
         chaineResult += ' <input type="password" class="form-control" id="passwordClient" placeholder="Password" >';
         chaineResult += '</div>';
         chaineResult += ' <button style="background-color:#e685b5 ;  border-color:#e685b5" type="button" class="btn btn-primary" onclick="envoie(\'client\')" >Submit</button>';
-        //  chaineResult+='</form>';
+       
         document.getElementById("formInscription").innerHTML = chaineResult;
     }
     else {
@@ -776,112 +786,137 @@ function findSelection(field) {
 }
 
 
-///////////////////////// SUB /////////////////////////////////
+
 
 //////////////////////// PAYMENT /////////////////////////////
 function dopayment(tokenId) {
-    console.log(tokenId)
     const xhr = new XMLHttpRequest()
-    const urldopayment = 'http://' + urlDeploy + ':3030/payment/doPayment';
+    const urldopayment = 'http://'+urlDeploy+':3030/payment/doPayment';
     // Saisie donné carte
-    body = {
-        'tokenId': tokenId,
-    };
-    const data = JSON.stringify(body)
-    xhr.onreadystatechange = function () {
-        if (xhr.readyState == 4 && xhr.status == 200) {
-            res = xhr.response;
-            console.log(res)
-            navigation("entreprise/espace.html")
-        }
-
-    };
-    xhr.open('POST', urldopayment, true)
-    xhr.setRequestHeader('content-type', 'application/json')
-    xhr.responseType = "json"
-    xhr.send(data)
+        body = {
+            'tokenId': tokenId,
+        };
+        const data = JSON.stringify(body)
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState == 4 && xhr.status == 200) {
+                res = xhr.response;
+                console.log(res)
+                localStorage.setItem("tokenPayment",tokenId)
+                navigation("entreprise/espace.html")
+            }
+           
+        };
+        xhr.open('POST', urldopayment,true)
+        xhr.setRequestHeader('content-type', 'application/json')
+        xhr.responseType = "json"
+        xhr.send(data)
 }
 
 function insertToken(idToken) {
     console.log(idToken)
     var idUser = CryptoJS.AES.decrypt(localStorage.getItem("_id"), secretPhrase).toString(CryptoJS.enc.Utf8);
     const xhr = new XMLHttpRequest()
-    const urlcreateToken = 'http://' + urlDeploy + ':3030/events/society/' + idUser;
+    const urlcreateToken = 'http://'+urlDeploy+':3030/events/society/' + idUser;
     body = {
-        'tokenPayment': idToken,
+        'tokenPayment': idToken
     };
     const data = JSON.stringify(body)
-    xhr.onreadystatechange = function () {
-        if (xhr.readyState == 4 && xhr.status == 200) {
-            res = xhr.response;
-            console.log(res)
-            dopayment(idToken)
-        }
-    };
-    xhr.open('PUT', urlcreateToken, true)
-    xhr.setRequestHeader('content-type', 'application/json')
-    xhr.responseType = "json"
-    xhr.send(data)
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState == 4 && xhr.status == 200) {
+                res = xhr.response;
+                console.log(res)
+                dopayment(idToken)
+            }
+        };
+        xhr.open('PUT', urlcreateToken,true)
+        xhr.setRequestHeader('content-type', 'application/json')
+        xhr.responseType = "json"
+        xhr.send(data)
 }
 
 function createTokens() {
     var card = findSelection("card");
     const xhr = new XMLHttpRequest()
-    const urlcreateToken = 'http://' + urlDeploy + ':3030/payment/createTokens';
+    const urlcreateToken = 'http://'+urlDeploy+':3030/payment/createTokens';
     // Saisie donné carte
     var number = document.getElementById("number").value;
     var month = document.getElementById("ccmonth").value;
     var years = document.getElementById("ccyear").value;
     var cvc = document.getElementById("cvv").value;
+        body = {
+            'number': number,
+            'month': month,
+            'years' : years,
+            'cvc' : cvc,
+        };
+        const data = JSON.stringify(body)
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState == 4 && xhr.status == 200) {
+                res = xhr.response;
+                console.log(res)
+                insertToken(res["id"])
+            }
+        };
+        xhr.open('POST', urlcreateToken,true)
+        xhr.setRequestHeader('content-type', 'application/json')
+        xhr.responseType = "json"
+        xhr.send(data)
+}
 
+function insertIdStripe(idStripe){
+    console.log(idStripe)
+    var idUser = CryptoJS.AES.decrypt(localStorage.getItem("_id"), secretPhrase).toString(CryptoJS.enc.Utf8);
+  
+    const xhr = new XMLHttpRequest()
+    const urlInsertIdStripe = 'http://'+urlDeploy+':3030/events/society/' + idUser;
     body = {
-        'number': number,
-        'month': month,
-        'years': years,
-        'cvc': cvc,
+        'idCustomerStripe': idStripe
     };
     const data = JSON.stringify(body)
-    xhr.onreadystatechange = function () {
-        if (xhr.readyState == 4 && xhr.status == 200) {
-            res = xhr.response;
-            console.log(res)
-            insertToken(res["id"])
-        }
-    };
-    xhr.open('POST', urlcreateToken, true)
-    xhr.setRequestHeader('content-type', 'application/json')
-    xhr.responseType = "json"
-    xhr.send(data)
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState == 4 && xhr.status == 200) {
+                res = xhr.response;
+                localStorage.setItem("idCustomerStripe",idStripe)
+                console.log(res)
+                createTokens()
+            }
+        };
+        xhr.open('PUT', urlInsertIdStripe,true)
+        xhr.setRequestHeader('content-type', 'application/json')
+        xhr.responseType = "json"
+        xhr.send(data)
 }
+
 
 function attachPaymentMethod(idcard, idCustomers) {
     console.log(idcard)
     console.log(idCustomers)
     var card = findSelection("card");
     const xhr = new XMLHttpRequest()
-    const urlcustomers = 'http://' + urlDeploy + ':3030/payment/attachPaymentMethod/' + idcard;
+    const urlcustomers = 'http://'+urlDeploy+':3030/payment/attachPaymentMethod/'+ idcard;
     // Saisie donné carte
-    body = {
-        'customer': idCustomers,
-    };
-    const data = JSON.stringify(body)
-    xhr.onreadystatechange = function () {
-        if (xhr.readyState == 4 && xhr.status == 200) {
-            res = xhr.response;
-            createTokens()
-        }
-    };
-    xhr.open('POST', urlcustomers, true)
-    xhr.setRequestHeader('content-type', 'application/json')
-    xhr.responseType = "json"
-    xhr.send(data)
+        body = {
+            'customer' : idCustomers,
+        };
+        const data = JSON.stringify(body)
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState == 4 && xhr.status == 200) {
+                res = xhr.response;
+                console.log(res)
+             insertIdStripe(idCustomers)
+            }
+        };
+        xhr.open('POST', urlcustomers,true)
+        xhr.setRequestHeader('content-type', 'application/json')
+        xhr.responseType = "json"
+        xhr.send(data)
 }
 
 function createCustomers(id) {
     var card = findSelection("card");
     const xhr = new XMLHttpRequest()
     const urlcustomers = 'http://' + urlDeploy + ':3030/payment/createCustomers';
-    // Saisie donné carte
+   
     var name = document.getElementById("name").value;
     var email = CryptoJS.AES.decrypt(localStorage.getItem("adresseMail"), secretPhrase).toString(CryptoJS.enc.Utf8);
     body = {
@@ -907,7 +942,7 @@ function createPaymentMethods() {
     const xhr = new XMLHttpRequest()
     const url = 'http://' + urlDeploy + ':3030/payment/createPaymentMethods';
 
-    // Saisie donné carte
+   
     var number = document.getElementById("number").value;
     var month = document.getElementById("ccmonth").value;
     var years = document.getElementById("ccyear").value;
@@ -935,7 +970,7 @@ function createPaymentMethods() {
 }
 
 function tolocationIndex() {
-    navigation('index.html')
+    navigation('accueil.html')
   
   }
   function tolocationPricing() {
