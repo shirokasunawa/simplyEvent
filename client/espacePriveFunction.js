@@ -2,7 +2,7 @@
 
 function initEvent() {
     var id = CryptoJS.AES.decrypt(localStorage.getItem("_id"), secretPhrase).toString(CryptoJS.enc.Utf8)
-    var url = 'http://' + urlDeploy + ':3030/events/client/' + id;
+    var url = 'http://' + urlDeploy + ':3032/events/client/' + id;
     const xhr = new XMLHttpRequest()
     xhr.open('GET', url, true)
     xhr.setRequestHeader('content-type', 'application/json')

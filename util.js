@@ -1,5 +1,5 @@
 //const urlDeploy = '192.168.1.14'
-const urlDeploy = '192.168.1.18'
+const urlDeploy = '193.70.112.49'
 const secretPhrase = '5t8ZmLDw8'
 const urlDeployement = window.location.href;
 
@@ -50,7 +50,7 @@ function navigation(page) {
         }
     }
     var location = window.location.href;
-    var newlocation = location.split('myEvent/')[0] + 'myEvent/';
+    var newlocation = location.split('simply-event.com/')[0] + 'simply-event.com/';
 
     document.location.href = newlocation + page
 }
@@ -95,7 +95,7 @@ function setCarouselHTML() {
 //BUG : S'il y en a aucune
 //Tester la duree
 function setCarouselPub() {
-    var url = 'http://' + urlDeploy + ':3030/events/pubBanner/'
+    var url = 'http://' + urlDeploy + ':3032/events/pubBanner/'
     var xhrr = new XMLHttpRequest()
 
     xhrr.open('GET', url, true)
@@ -235,7 +235,7 @@ function majProfil(action) {
                     'password': password
 
                 };
-                var url = 'http://' + urlDeploy + ':3030/events/client/' + id
+                var url = 'http://' + urlDeploy + ':3032/events/client/' + id
                 const data = JSON.stringify(body)
                 xhr.open('PUT', url, true)
                 xhr.setRequestHeader('content-type', 'application/json')
@@ -262,7 +262,7 @@ function majProfil(action) {
                     'password': password
 
                 };
-                var url = 'http://' + urlDeploy + ':3030/events/society/' + id
+                var url = 'http://' + urlDeploy + ':3032/events/society/' + id
                 const data = JSON.stringify(body)
                 xhr.open('PUT', url, true)
                 xhr.setRequestHeader('content-type', 'application/json')
@@ -297,10 +297,10 @@ function majProfil(action) {
             var url
             var role = CryptoJS.AES.decrypt(localStorage.getItem("role"), secretPhrase).toString(CryptoJS.enc.Utf8);
             if (role == 'client') {
-                url = 'http://' + urlDeploy + ':3030/events/client/' + id
+                url = 'http://' + urlDeploy + ':3032/events/client/' + id
             }
             else {
-                url = 'http://' + urlDeploy + ':3030/events/society/' + id
+                url = 'http://' + urlDeploy + ':3032/events/society/' + id
             }
 
 
@@ -336,7 +336,7 @@ function majProduct(action) {
                 'priceProduct': prixProduit
 
             };
-            var url = 'http://' + urlDeploy + ':3030/events/product/' + id
+            var url = 'http://' + urlDeploy + ':3032/events/product/' + id
             const data = JSON.stringify(body)
 
             xhr.open('PUT', url, true)
@@ -355,7 +355,7 @@ function majProduct(action) {
 
         case 'supprimer':
             var id = CryptoJS.AES.decrypt(localStorage.getItem("temporaryVarClicke"), secretPhrase).toString(CryptoJS.enc.Utf8);
-            var url = 'http://' + urlDeploy + ':3030/events/product/' + id
+            var url = 'http://' + urlDeploy + ':3032/events/product/' + id
             var seller = CryptoJS.AES.decrypt(localStorage.getItem("_id"), secretPhrase).toString(CryptoJS.enc.Utf8);
             xhr.open('DELETE', url, true)
             xhr.setRequestHeader('content-type', 'application/json')
@@ -385,7 +385,7 @@ function addProduct() {
         'priceProduct': prixProduit
 
     };
-    var url = 'http://' + urlDeploy + ':3030/events/product/' + seller
+    var url = 'http://' + urlDeploy + ':3032/events/product/' + seller
     const data = JSON.stringify(body)
     const xhr = new XMLHttpRequest()
     xhr.open('POST', url, true)
@@ -405,7 +405,7 @@ function addProduct() {
 }
 function setLocalStorageProduct(seller) {
     const xhr = new XMLHttpRequest()
-    var urlget = 'http://' + urlDeploy + ':3030/events/society/' + seller
+    var urlget = 'http://' + urlDeploy + ':3032/events/society/' + seller
     xhr.open('GET', urlget, true)
     xhr.setRequestHeader('content-type', 'application/json')
     xhr.setRequestHeader('authorization', 'Bearer 123abc456def')
@@ -423,7 +423,7 @@ function setLocalStorageProduct(seller) {
 }
 function updateSociety() {
     var id = CryptoJS.AES.decrypt(localStorage.getItem("_id"), secretPhrase).toString(CryptoJS.enc.Utf8);
-    var url = 'http://' + urlDeploy + ':3030/events/society/' + id;
+    var url = 'http://' + urlDeploy + ':3032/events/society/' + id;
     var nameSociety = document.getElementById("nomSocietyInput").value;
     var adresseSociety = document.getElementById("adresseSocietyInput").value;
     var body = {
@@ -453,7 +453,7 @@ function updateSociety() {
 
 }
 function auth() {
-    var url = 'http://' + urlDeploy + ':3030/events/client';
+    var url = 'http://' + urlDeploy + ':3032/events/client';
     const xhr = new XMLHttpRequest()
     xhr.open('GET', url, true)
     xhr.setRequestHeader('content-type', 'application/json')
@@ -471,7 +471,7 @@ function auth() {
     xhr.send()
 }
 function authSociety() {
-    var url = 'http://' + urlDeploy + ':3030/events/society/';
+    var url = 'http://' + urlDeploy + ':3032/events/society/';
     const xhr = new XMLHttpRequest()
     xhr.open('GET', url, true)
     xhr.setRequestHeader('content-type', 'application/json')
@@ -601,7 +601,7 @@ function envoie(role) {
             var email = document.getElementById("EmailClient").value;
             var password = document.getElementById("passwordClient").value;
 
-            url = 'http://' + urlDeploy + ':3030/events/client';
+            url = 'http://' + urlDeploy + ':3032/events/client';
             body = {
                 'nom': name,
                 'role': 'client',
@@ -617,7 +617,7 @@ function envoie(role) {
             var nameSociety = document.getElementById("NameSociety").value;
             var password = document.getElementById("passwordSociety").value;
 
-            url = 'http://' + urlDeploy + ':3030/events/society/';
+            url = 'http://' + urlDeploy + ':3032/events/society/';
             body = {
                 'nameUser': name,
                 'roleUser': 'entreprise',
@@ -791,7 +791,7 @@ function findSelection(field) {
 //////////////////////// PAYMENT /////////////////////////////
 function dopayment(tokenId) {
     const xhr = new XMLHttpRequest()
-    const urldopayment = 'http://'+urlDeploy+':3030/payment/doPayment';
+    const urldopayment = 'http://'+urlDeploy+':3032/payment/doPayment';
     // Saisie donné carte
         body = {
             'tokenId': tokenId,
@@ -816,7 +816,7 @@ function insertToken(idToken) {
     console.log(idToken)
     var idUser = CryptoJS.AES.decrypt(localStorage.getItem("_id"), secretPhrase).toString(CryptoJS.enc.Utf8);
     const xhr = new XMLHttpRequest()
-    const urlcreateToken = 'http://'+urlDeploy+':3030/events/society/' + idUser;
+    const urlcreateToken = 'http://'+urlDeploy+':3032/events/society/' + idUser;
     body = {
         'tokenPayment': idToken
     };
@@ -837,7 +837,7 @@ function insertToken(idToken) {
 function createTokens() {
     var card = findSelection("card");
     const xhr = new XMLHttpRequest()
-    const urlcreateToken = 'http://'+urlDeploy+':3030/payment/createTokens';
+    const urlcreateToken = 'http://'+urlDeploy+':3032/payment/createTokens';
     // Saisie donné carte
     var number = document.getElementById("number").value;
     var month = document.getElementById("ccmonth").value;
@@ -868,7 +868,7 @@ function insertIdStripe(idStripe){
     var idUser = CryptoJS.AES.decrypt(localStorage.getItem("_id"), secretPhrase).toString(CryptoJS.enc.Utf8);
   
     const xhr = new XMLHttpRequest()
-    const urlInsertIdStripe = 'http://'+urlDeploy+':3030/events/society/' + idUser;
+    const urlInsertIdStripe = 'http://'+urlDeploy+':3032/events/society/' + idUser;
     body = {
         'idCustomerStripe': idStripe
     };
@@ -893,7 +893,7 @@ function attachPaymentMethod(idcard, idCustomers) {
     console.log(idCustomers)
     var card = findSelection("card");
     const xhr = new XMLHttpRequest()
-    const urlcustomers = 'http://'+urlDeploy+':3030/payment/attachPaymentMethod/'+ idcard;
+    const urlcustomers = 'http://'+urlDeploy+':3032/payment/attachPaymentMethod/'+ idcard;
     // Saisie donné carte
         body = {
             'customer' : idCustomers,
@@ -915,7 +915,7 @@ function attachPaymentMethod(idcard, idCustomers) {
 function createCustomers(id) {
     var card = findSelection("card");
     const xhr = new XMLHttpRequest()
-    const urlcustomers = 'http://' + urlDeploy + ':3030/payment/createCustomers';
+    const urlcustomers = 'http://' + urlDeploy + ':3032/payment/createCustomers';
    
     var name = document.getElementById("name").value;
     var email = CryptoJS.AES.decrypt(localStorage.getItem("adresseMail"), secretPhrase).toString(CryptoJS.enc.Utf8);
@@ -940,7 +940,7 @@ function createCustomers(id) {
 function createPaymentMethods() {
     var card = findSelection("card");
     const xhr = new XMLHttpRequest()
-    const url = 'http://' + urlDeploy + ':3030/payment/createPaymentMethods';
+    const url = 'http://' + urlDeploy + ':3032/payment/createPaymentMethods';
 
    
     var number = document.getElementById("number").value;

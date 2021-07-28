@@ -1,5 +1,5 @@
 function assignMessageClientConv(idMessageClient, idconv) {
-    var url = 'http://' + urlDeploy + ':3030/events/messagesociety/' + idMessageClient + '/' + idconv + '';
+    var url = 'http://' + urlDeploy + ':3032/events/messagesociety/' + idMessageClient + '/' + idconv + '';
     const xhr = new XMLHttpRequest()
     xhr.open('POST', url, true)
     xhr.setRequestHeader('content-type', 'application/json')
@@ -22,7 +22,7 @@ function ajoutMessage(idconv) {
 
     var now = new Date();
     now = now.toString();
-    var url = 'http://' + urlDeploy + ':3030/events/messagesociety/';
+    var url = 'http://' + urlDeploy + ':3032/events/messagesociety/';
     var body = {
         "idUserSociety": CryptoJS.AES.decrypt(localStorage.getItem("_id"), secretPhrase).toString(CryptoJS.enc.Utf8),
         "idConversation": idconv,
@@ -49,7 +49,7 @@ function ajoutMessage(idconv) {
     xhr.send(data)
 }
 function afficheMessage(idConv) {
-    var url = 'http://' + urlDeploy + ':3030/events/conversation/' + idConv;
+    var url = 'http://' + urlDeploy + ':3032/events/conversation/' + idConv;
     const xhr = new XMLHttpRequest()
     xhr.open('GET', url, true)
     xhr.setRequestHeader('content-type', 'application/json')
@@ -144,10 +144,10 @@ function initPageMessagerieSociety() {
     var id = CryptoJS.AES.decrypt(localStorage.getItem("_id"), secretPhrase).toString(CryptoJS.enc.Utf8);
     var url = ''
     if (role == 'entreprise') {
-        url = 'http://' + urlDeploy + ':3030/events/society/' + id;
+        url = 'http://' + urlDeploy + ':3032/events/society/' + id;
     }
     else {
-        url = 'http://' + urlDeploy + ':3030/events/client/' + id;
+        url = 'http://' + urlDeploy + ':3032/events/client/' + id;
     }
 
     const xhr = new XMLHttpRequest()

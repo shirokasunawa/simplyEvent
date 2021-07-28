@@ -31,7 +31,7 @@ function ajoutepub(idphoto) {
             }
             break;
     }
-    var url = 'http://' + urlDeploy + ':3030/events/pub/'
+    var url = 'http://' + urlDeploy + ':3032/events/pub/'
     const xhr = new XMLHttpRequest()
     const data = JSON.stringify(body)
     xhr.open('POST', url, true)
@@ -51,7 +51,7 @@ function ajoutepub(idphoto) {
 }
 function assignPub(idphoto, idpub) {
 
-    var url = 'http://' + urlDeploy + ':3030/events/pub/' + idpub + '/' + idphoto
+    var url = 'http://' + urlDeploy + ':3032/events/pub/' + idpub + '/' + idphoto
     const xhr = new XMLHttpRequest()
 
     xhr.open('POST', url, true)
@@ -72,7 +72,7 @@ function assignPub(idphoto, idpub) {
 
 function assignPubUserSociety(idpub) {
     var id = CryptoJS.AES.decrypt(localStorage.getItem("_id"), secretPhrase).toString(CryptoJS.enc.Utf8)
-    var url = 'http://' + urlDeploy + ':3030/events/pubSociety/' + idpub + '/' + id
+    var url = 'http://' + urlDeploy + ':3032/events/pubSociety/' + idpub + '/' + id
     const xhr = new XMLHttpRequest()
 
     xhr.open('POST', url, true)
@@ -137,7 +137,7 @@ bodyPub= {
 break; 
 }
 localStorage.setItem("pubChoisis", JSON.stringify(bodyPub))
-var url = 'http://'+urlDeploy+':3030/events/photo/'
+var url = 'http://'+urlDeploy+':3032/events/photo/'
 var bodyImg = {
                 "img": reader.result
             };

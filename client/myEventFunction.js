@@ -1,6 +1,6 @@
 function affichePubModal() {
 
-    var url = 'http://' + urlDeploy + ':3030/events/pubmodal/'
+    var url = 'http://' + urlDeploy + ':3032/events/pubmodal/'
 
 
     const xhr = new XMLHttpRequest()
@@ -29,7 +29,7 @@ function majClickPub(idPub, nbrclickReel) {
 
     var nbrclick = nbrclickReel + 1;
 
-    var url = 'http://' + urlDeploy + ':3030/events/pub/' + idPub;
+    var url = 'http://' + urlDeploy + ':3032/events/pub/' + idPub;
 
     var body = {
         "nbrClickReel": nbrclick
@@ -64,7 +64,7 @@ function afficheDetailChecklist(idChecklist) {
     affichePubModal()
     console.log(idChecklist)
 
-    var url = 'http://' + urlDeploy + ':3030/events/checklist/' + idChecklist;
+    var url = 'http://' + urlDeploy + ':3032/events/checklist/' + idChecklist;
 
     const xhr = new XMLHttpRequest()
     xhr.open('GET', url, true)
@@ -131,7 +131,7 @@ function ajoutInfoCheckist(idchecklist) {
     var PrixBudgetChecklist = document.getElementById("PrixBudgetChecklist").value
     var QuantityChecklist = document.getElementById("QuantityChecklist").value
 
-    var url = 'http://' + urlDeploy + ':3030/events/checklist/' + idchecklist;
+    var url = 'http://' + urlDeploy + ':3032/events/checklist/' + idchecklist;
 
     var body = {
         "prixCheclist": PrixBudgetChecklist,
@@ -158,7 +158,7 @@ function ajoutInfoCheckist(idchecklist) {
     xhr.send(data)
 }
 function afficheProduit(idChecklist) {
-    var url = 'http://' + urlDeploy + ':3030/events/society/';
+    var url = 'http://' + urlDeploy + ':3032/events/society/';
 
 
     const xhr = new XMLHttpRequest()
@@ -201,7 +201,7 @@ function choixProduit(idProduct, idChecklist) {
     //met a jour l'affichage avec contacter le vendeur
     //vérifier si click checklist a pas deja un produit
 
-    var url = 'http://' + urlDeploy + ':3030/events/checklist/' + idChecklist;
+    var url = 'http://' + urlDeploy + ':3032/events/checklist/' + idChecklist;
 
     var body = {
         'productChecklist': idProduct
@@ -230,7 +230,7 @@ function choixProduit(idProduct, idChecklist) {
 }
 function assignSocietyConv(idConv, idVendeur) {
     var idclient = CryptoJS.AES.decrypt(localStorage.getItem("_id"), secretPhrase).toString(CryptoJS.enc.Utf8)
-    var url = 'http://' + urlDeploy + ':3030/events/conversationToSociety/' + idVendeur + '/' + idConv + '';
+    var url = 'http://' + urlDeploy + ':3032/events/conversationToSociety/' + idVendeur + '/' + idConv + '';
 
     const xhr = new XMLHttpRequest()
     xhr.open('POST', url, true)
@@ -251,7 +251,7 @@ function assignSocietyConv(idConv, idVendeur) {
 }
 function assignUserConv(idConv, idVendeur) {
     var idclient = CryptoJS.AES.decrypt(localStorage.getItem("_id"), secretPhrase).toString(CryptoJS.enc.Utf8)
-    var url = 'http://' + urlDeploy + ':3030/events/conversationToClient/' + idclient + '/' + idConv + '';
+    var url = 'http://' + urlDeploy + ':3032/events/conversationToClient/' + idclient + '/' + idConv + '';
 
     const xhr = new XMLHttpRequest()
     xhr.open('POST', url, true)
@@ -272,7 +272,7 @@ function assignUserConv(idConv, idVendeur) {
 }
 function createConversation(idVendeur, idProduct) {
     var idclient = CryptoJS.AES.decrypt(localStorage.getItem("_id"), secretPhrase).toString(CryptoJS.enc.Utf8)
-    var url = 'http://' + urlDeploy + ':3030/events/conversation/' + idclient + '/' + idVendeur + '/' + idProduct + '';
+    var url = 'http://' + urlDeploy + ':3032/events/conversation/' + idclient + '/' + idVendeur + '/' + idProduct + '';
 
     const xhr = new XMLHttpRequest()
     xhr.open('POST', url, true)
@@ -293,7 +293,7 @@ function createConversation(idVendeur, idProduct) {
 }
 function afficheProductChoisis(idProduct, idChecklist) {
     console.log(idChecklist)
-    var url = 'http://' + urlDeploy + ':3030/events/product/' + idProduct;
+    var url = 'http://' + urlDeploy + ':3032/events/product/' + idProduct;
 
 
     const xhr = new XMLHttpRequest()
@@ -321,7 +321,7 @@ function afficheProductChoisis(idProduct, idChecklist) {
 
 function modifProductProduit(idChecklist) {
     console.log(idChecklist)
-    var url = 'http://' + urlDeploy + ':3030/events/checklistproduct/' + idChecklist;
+    var url = 'http://' + urlDeploy + ':3032/events/checklistproduct/' + idChecklist;
 
     const xhr = new XMLHttpRequest()
     xhr.open('PUT', url, true)
@@ -372,7 +372,7 @@ function modifTitre() {
 
 function removeChecklist(idChecklist) {
     console.log(idChecklist)
-    var url = 'http://' + urlDeploy + ':3030/events/checklist/' + idChecklist;
+    var url = 'http://' + urlDeploy + ':3032/events/checklist/' + idChecklist;
 
     const xhr = new XMLHttpRequest()
     xhr.open('DELETE', url, true)
@@ -395,7 +395,7 @@ function removeChecklist(idChecklist) {
 function deleteEvent() {
 
     var id = CryptoJS.AES.decrypt(localStorage.getItem("temporaryVarClicke"), secretPhrase).toString(CryptoJS.enc.Utf8)
-    var url = 'http://' + urlDeploy + ':3030/events/event/' + id;
+    var url = 'http://' + urlDeploy + ':3032/events/event/' + id;
 
     const xhr = new XMLHttpRequest()
     xhr.open('DELETE', url, true)
@@ -418,7 +418,7 @@ function deleteEvent() {
 function modifTitreBtn() {
     var newDate = document.getElementById("titreEvent").value
     var id = CryptoJS.AES.decrypt(localStorage.getItem("temporaryVarClicke"), secretPhrase).toString(CryptoJS.enc.Utf8)
-    var url = 'http://' + urlDeploy + ':3030/events/event/' + id;
+    var url = 'http://' + urlDeploy + ':3032/events/event/' + id;
 
     var body = {
         'titreEvent': newDate
@@ -462,7 +462,7 @@ function modifBudget() {
 function modifBudgetBtn() {
     var newDate = document.getElementById("budgetEvent").value
     var id = CryptoJS.AES.decrypt(localStorage.getItem("temporaryVarClicke"), secretPhrase).toString(CryptoJS.enc.Utf8)
-    var url = 'http://' + urlDeploy + ':3030/events/event/' + id;
+    var url = 'http://' + urlDeploy + ':3032/events/event/' + id;
 
     var body = {
         'budgetEvent': newDate
@@ -489,7 +489,7 @@ function modifBudgetBtn() {
 }
 
 function modifType() {
-    var url = 'http://' + urlDeploy + ':3030/events/typeEvents/';
+    var url = 'http://' + urlDeploy + ':3032/events/typeEvents/';
     const xhr = new XMLHttpRequest()
     xhr.open('GET', url, true)
     xhr.setRequestHeader('content-type', 'application/json')
@@ -529,7 +529,7 @@ function modifTypeBtn() {
     console.log(newType)
     var id = CryptoJS.AES.decrypt(localStorage.getItem("temporaryVarClicke"), secretPhrase).toString(CryptoJS.enc.Utf8)
     
-    var url = 'http://' + urlDeploy + ':3030/events/typeEvents/' + newType + '/' + id;
+    var url = 'http://' + urlDeploy + ':3032/events/typeEvents/' + newType + '/' + id;
  
 
 
@@ -571,7 +571,7 @@ function modifDate() {
 function modifEventDate() {
     var newDate = document.getElementById("dateEvent").value
     var id = CryptoJS.AES.decrypt(localStorage.getItem("temporaryVarClicke"), secretPhrase).toString(CryptoJS.enc.Utf8)
-    var url = 'http://' + urlDeploy + ':3030/events/event/' + id;
+    var url = 'http://' + urlDeploy + ':3032/events/event/' + id;
 
     var body = {
         'dateEvent': newDate
@@ -598,7 +598,7 @@ function modifEventDate() {
 }
 
 function afficheChecklist() {
-    var url = 'http://' + urlDeploy + ':3030/events/typeActions/';
+    var url = 'http://' + urlDeploy + ':3032/events/typeActions/';
     const xhr = new XMLHttpRequest()
     xhr.open('GET', url, true)
     xhr.setRequestHeader('content-type', 'application/json')
@@ -642,7 +642,7 @@ function addChecklist(titreAction) {
 
     };
     const data = JSON.stringify(body)
-    var url = 'http://' + urlDeploy + ':3030/events/checklist/';
+    var url = 'http://' + urlDeploy + ':3032/events/checklist/';
     const xhr = new XMLHttpRequest()
     xhr.open('POST', url, true)
     xhr.setRequestHeader('content-type', 'application/json')
@@ -664,7 +664,7 @@ function assignChecklist() {
     console.log(idCheclistAAssign)
     var idCheclistAAssign = CryptoJS.AES.decrypt(localStorage.getItem("idChecklist"), secretPhrase).toString(CryptoJS.enc.Utf8)
     var id = CryptoJS.AES.decrypt(localStorage.getItem("temporaryVarClicke"), secretPhrase).toString(CryptoJS.enc.Utf8)
-    var url = 'http://' + urlDeploy + ':3030/events/checklist/' + idCheclistAAssign + '/' + id;
+    var url = 'http://' + urlDeploy + ':3032/events/checklist/' + idCheclistAAssign + '/' + id;
     const xhr = new XMLHttpRequest()
     xhr.open('POST', url, true)
     xhr.setRequestHeader('content-type', 'application/json')
@@ -683,7 +683,7 @@ function assignChecklist() {
 function initEventPage() {
     
     var id = CryptoJS.AES.decrypt(localStorage.getItem("temporaryVarClicke"), secretPhrase).toString(CryptoJS.enc.Utf8)
-    var url = 'http://' + urlDeploy + ':3030/events/event/' + id;
+    var url = 'http://' + urlDeploy + ':3032/events/event/' + id;
     const xhr = new XMLHttpRequest()
     xhr.open('GET', url, true)
     xhr.setRequestHeader('content-type', 'application/json')
@@ -742,7 +742,7 @@ function initEventPage() {
 }
 
 function initPubcoter() {
-    var urler = 'http://' + urlDeploy + ':3030/events/pubcote';
+    var urler = 'http://' + urlDeploy + ':3032/events/pubcote';
     const xhrf = new XMLHttpRequest()
     xhrf.open('GET', urler, true)
     xhrf.setRequestHeader('content-type', 'application/json')

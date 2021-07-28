@@ -13,7 +13,7 @@ function paymentsub(typeAbonnement, idPhoto){
      console.log(typeAbonnement)
      var cardAbonnement = findSelection("cardAbonnement");
      const xhr = new XMLHttpRequest()
-     const urlsubcreatePaymentMethods = 'http://'+urlDeploy+':3030/payment/createPaymentMethods';
+     const urlsubcreatePaymentMethods = 'http://'+urlDeploy+':3032/payment/createPaymentMethods';
      // Saisie donné carte
      var number = document.getElementById("number").value;
      var month = document.getElementById("ccmonth").value;
@@ -43,7 +43,7 @@ function paymentsub(typeAbonnement, idPhoto){
      console.log(typeAbonnement)
      var card = findSelection("card");
      const xhr = new XMLHttpRequest()
-     const urlcustomers = 'http://'+urlDeploy+':3030/payment/attachPaymentMethod/'+ idcard;
+     const urlcustomers = 'http://'+urlDeploy+':3032/payment/attachPaymentMethod/'+ idcard;
      // Saisie donné carte
          body = {
              'customer' : localStorage.getItem("idCustomerStripe"),
@@ -65,7 +65,7 @@ function paymentsub(typeAbonnement, idPhoto){
      console.log(typeAbonnement)
      var card = findSelection("card");
      const xhr = new XMLHttpRequest()
-     const urlcustomers = 'http://'+urlDeploy+':3030/payment/updateCustomers/'+ localStorage.getItem("idCustomerStripe");
+     const urlcustomers = 'http://'+urlDeploy+':3032/payment/updateCustomers/'+ localStorage.getItem("idCustomerStripe");
      // Saisie donné carte
          body = {
              'idPaymentMethode' : idcard,
@@ -89,7 +89,7 @@ function paymentsub(typeAbonnement, idPhoto){
      console.log(default_payment_method)
      console.log(localStorage.getItem("idCustomerStripe"))
      const xhr = new XMLHttpRequest()
-     const urlsub = 'http://'+urlDeploy+':3030/payment/doSubscription';
+     const urlsub = 'http://'+urlDeploy+':3032/payment/doSubscription';
      body = {
          'customer': localStorage.getItem("idCustomerStripe"),
          'default_payment_method': default_payment_method,
@@ -113,7 +113,7 @@ function paymentsub(typeAbonnement, idPhoto){
 function ajoutepubAbo(idphoto){
     console.log("idphoto "+idphoto)
    var body=  localStorage.getItem("pubChoisis")
-var url = 'http://'+urlDeploy+':3030/events/pub/'
+var url = 'http://'+urlDeploy+':3032/events/pub/'
 const xhr = new XMLHttpRequest()
 
 
@@ -137,7 +137,7 @@ function assignPub(idphoto,idpub){
     console.log('rentre fonction')
     console.log(idphoto)
     console.log(idpub)
-  var url = 'http://'+urlDeploy+':3030/events/pub/'+idpub+'/'+idphoto
+  var url = 'http://'+urlDeploy+':3032/events/pub/'+idpub+'/'+idphoto
   console.log(url)
   const xhr = new XMLHttpRequest()
   xhr.open('POST', url, true)
@@ -158,7 +158,7 @@ function assignPub(idphoto,idpub){
 
 function assignPubUserSociety(idpub){
 var id=  CryptoJS.AES.decrypt(localStorage.getItem("_id"), secretPhrase).toString(CryptoJS.enc.Utf8);
-var url = 'http://'+urlDeploy+':3030/events/pubSociety/'+idpub+'/'+id
+var url = 'http://'+urlDeploy+':3032/events/pubSociety/'+idpub+'/'+id
 const xhr = new XMLHttpRequest()
           
           xhr.open('POST', url, true)

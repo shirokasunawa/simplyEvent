@@ -29,7 +29,7 @@ function template(donnee) {
 }
 
 function supprimepub(idpub, idphoto) {
-    var url = 'http://' + urlDeploy + ':3030/events/pub/' + idpub
+    var url = 'http://' + urlDeploy + ':3032/events/pub/' + idpub
     const xhr = new XMLHttpRequest()
 
     xhr.open('DELETE', url, true)
@@ -48,7 +48,7 @@ function supprimepub(idpub, idphoto) {
     xhr.send()
 }
 function removePhoto(idphoto) {
-    var url = 'http://' + urlDeploy + ':3030/events/photo/' + idphoto
+    var url = 'http://' + urlDeploy + ':3032/events/photo/' + idphoto
     const xhr = new XMLHttpRequest()
 
     xhr.open('DELETE', url, true)
@@ -69,7 +69,7 @@ function removePhoto(idphoto) {
 
 function initMonEspacePub() {
     var id = CryptoJS.AES.decrypt(localStorage.getItem("_id"), secretPhrase).toString(CryptoJS.enc.Utf8);
-    var url = 'http://' + urlDeploy + ':3030/events/society/' + id
+    var url = 'http://' + urlDeploy + ':3032/events/society/' + id
 
     const xhr = new XMLHttpRequest()
 

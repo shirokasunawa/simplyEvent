@@ -1,6 +1,6 @@
 function initAddEvent() {
     document.getElementById("titre").innerHTML = '<p>Choississez qu\'elle genre d\'évènement vous voulez crééer</p>'
-    var url = 'http://' + urlDeploy + ':3030/events/typeEvents/';
+    var url = 'http://' + urlDeploy + ':3032/events/typeEvents/';
     const xhr = new XMLHttpRequest()
     xhr.open('GET', url, true)
     xhr.setRequestHeader('content-type', 'application/json')
@@ -76,7 +76,7 @@ function addEvent(idtypeevent) {
 
     };
 
-    var url = 'http://' + urlDeploy + ':3030/events/event/'
+    var url = 'http://' + urlDeploy + ':3032/events/event/'
     const data = JSON.stringify(body)
     console.log(data)
     xhr.onreadystatechange = function () {
@@ -101,7 +101,7 @@ function assignEvent(idEvent) {
     var iduser = CryptoJS.AES.decrypt(localStorage.getItem("_id"), secretPhrase).toString(CryptoJS.enc.Utf8);
     
     var idevent = idEvent
-    var url = 'http://' + urlDeploy + ':3030/events/event/' + idevent + '/' + iduser
+    var url = 'http://' + urlDeploy + ':3032/events/event/' + idevent + '/' + iduser
     const xhr = new XMLHttpRequest()
     xhr.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 201) {
